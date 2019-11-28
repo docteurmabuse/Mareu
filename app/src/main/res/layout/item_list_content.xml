@@ -6,19 +6,30 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <ImageView
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/item_list_meeting_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#4CAF50"
+        app:cardBackgroundColor="#4CAF50"
+        app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+        app:srcCompat="@android:color/holo_green_dark"
+        tools:src="@android:color/holo_green_dark"
+        tools:srcCompat="@android:color/holo_green_dark" />
 
     <LinearLayout
         android:id="@+id/item_list_meeting_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_avatar"
         app:layout_constraintStart_toEndOf="@+id/item_list_meeting_avatar"
