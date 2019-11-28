@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -130,11 +131,13 @@ public class ItemListActivity extends AppCompatActivity {
         class ViewHolder extends RecyclerView.ViewHolder {
             final TextView mIdView;
             final TextView mContentView;
+            final ImageView mDeleteButton;
 
             ViewHolder(View view) {
                 super(view);
                 mIdView = view.findViewById(R.id.id_text);
-                mContentView = view.findViewById(R.id.content);
+                mContentView = view.findViewById(R.id.item_list_meeting_title);
+                mDeleteButton = view.findViewById(R.id.item_list_meeting_delete_button);
             }
         }
     }
