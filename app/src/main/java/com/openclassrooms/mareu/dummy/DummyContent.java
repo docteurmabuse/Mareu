@@ -1,4 +1,4 @@
-package com.example.mareu.dummy;
+package com.openclassrooms.mareu.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
