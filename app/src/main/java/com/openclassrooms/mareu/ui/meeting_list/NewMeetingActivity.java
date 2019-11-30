@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mareu.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 
@@ -23,6 +25,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mDate;
     TimePickerDialog timePicker;
     EditText mTime;
+    Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,45 @@ public class NewMeetingActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        initDate();
+        initTime();
+        initBtn();
 
+    }
+
+    private void initBtn() {
+        mButton = findViewById(R.id.form_btn);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    private void initTime() {
+        mTime = findViewById(R.id.time_input);
+        mTime.setInputType(InputType.TYPE_NULL);
+        mTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar clr = Calendar.getInstance();
+                int hours = clr.get(Calendar.HOUR_OF_DAY);
+                final int minutes = clr.get(Calendar.MINUTE);
+                //time picker dialog
+                timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker tp, int mHour, int mMinutes) {
+                        mTime.setText(mHour + ":" + mMinutes);
+                    }
+                }, hours, minutes, true);
+                timePicker.show();
+            }
+        });
+    }
+
+    public void initDate() {
         mDate = findViewById(R.id.date_input);
         mDate.setInputType(InputType.TYPE_NULL);
         mDate.setOnClickListener(new View.OnClickListener() {
@@ -55,25 +96,6 @@ public class NewMeetingActivity extends AppCompatActivity {
                 }, year, month, day);
                 datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
                 datePicker.show();
-            }
-        });
-
-        mTime = findViewById(R.id.time_input);
-        mTime.setInputType(InputType.TYPE_NULL);
-        mTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar clr = Calendar.getInstance();
-                int hours = clr.get(Calendar.HOUR_OF_DAY);
-                final int minutes = clr.get(Calendar.MINUTE);
-                //time picker dialog
-                timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker tp, int mHour, int mMinutes) {
-                        mTime.setText(mHour + ":" + mMinutes);
-                    }
-                }, hours, minutes, true);
-                timePicker.show();
             }
         });
     }
