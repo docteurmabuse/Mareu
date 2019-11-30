@@ -53,6 +53,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                         mDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + '/' + year);
                     }
                 }, year, month, day);
+                datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
                 datePicker.show();
             }
         });
