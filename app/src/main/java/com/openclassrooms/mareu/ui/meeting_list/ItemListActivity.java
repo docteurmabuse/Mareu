@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
@@ -127,6 +128,7 @@ public class ItemListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Meeting meeting = mMeetings.get(position);
+            holder.mAvatarView.setBackgroundColor(meeting.getmAvatar());
             holder.mIdView.setText(meeting.getmSubject());
             holder.mContentView.setText(mMeetings.get(position).getmSubject());
             holder.itemView.setTag(mMeetings.get(position));
@@ -139,12 +141,14 @@ public class ItemListActivity extends AppCompatActivity {
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
+            final CardView mAvatarView;
             final TextView mIdView;
             final TextView mContentView;
             final ImageView mDeleteButton;
 
             ViewHolder(View view) {
                 super(view);
+                mAvatarView = view.findViewById(R.id.item_list_meeting_avatar);
                 mIdView = view.findViewById(R.id.item_list_meeting_subtitle);
                 mContentView = view.findViewById(R.id.item_list_meeting_title);
                 mDeleteButton = view.findViewById(R.id.item_list_meeting_delete_button);

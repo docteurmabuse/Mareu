@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FakeMeetingGenerator {
     public static List<Meeting> FAKE_MEETING = Arrays.asList(
-            new Meeting(1, 545121, "05/12/2019", "12:30", "salle Icare", "RéunionA", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
+            new Meeting(1, 0xFF5E855F, "05/12/2019", "12:30", "salle Icare", "RéunionA", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
     );
 
     static List<Meeting> generateMeetings() {
