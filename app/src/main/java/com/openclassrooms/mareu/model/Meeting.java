@@ -1,9 +1,5 @@
 package com.openclassrooms.mareu.model;
 
-import android.text.format.Time;
-
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
 public class Meeting {
@@ -16,17 +12,17 @@ public class Meeting {
     /**
      * Meeting Place
      */
-    private String mAvatar;
+    private Integer mAvatar;
 
     /**
      * Meeting Date
      */
-    private Date mDate;
+    private String mDate;
 
     /**
      * Meeting Time
      */
-    private Time mTime;
+    private String mTime;
 
     /**
      * Meeting Place
@@ -41,10 +37,10 @@ public class Meeting {
     /**
      * Meeting Partcipants List
      */
-    private ArrayList<String> mParticipants;
+    private String mParticipants;
 
 
-    public Meeting(Integer mId, String mAvatar, Date mDate, Time mTime, String mPlace, String mSubject, ArrayList<String> mParticipants) {
+    public Meeting(Integer mId, Integer mAvatar, String mDate, String mTime, String mPlace, String mSubject, String mParticipants) {
         this.mId = mId;
         this.mAvatar = mAvatar;
         this.mDate = mDate;
@@ -62,27 +58,27 @@ public class Meeting {
         this.mId = mId;
     }
 
-    public String getmAvatar() {
+    public Integer getmAvatar() {
         return mAvatar;
     }
 
-    public void setmAvatar(String mAvatar) {
+    public void setmAvatar(Integer mAvatar) {
         this.mAvatar = mAvatar;
     }
 
-    public Date getmDate() {
+    public String getmDate() {
         return mDate;
     }
 
-    public void setmDate(Date mDate) {
+    public void setmDate(String mDate) {
         this.mDate = mDate;
     }
 
-    public Time getmTime() {
+    public String getmTime() {
         return mTime;
     }
 
-    public void setmTime(Time mTime) {
+    public void setmTime(String mTime) {
         this.mTime = mTime;
     }
 
@@ -102,11 +98,11 @@ public class Meeting {
         this.mSubject = mSubject;
     }
 
-    public ArrayList<String> getmParticipants() {
+    public String getmParticipants() {
         return mParticipants;
     }
 
-    public void setmParticipants(ArrayList<String> mParticipants) {
+    public void setmParticipants(String mParticipants) {
         this.mParticipants = mParticipants;
     }
 
