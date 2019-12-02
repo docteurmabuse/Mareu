@@ -17,10 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mareu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.dummy.DummyContent;
-import com.openclassrooms.mareu.model.Meeting;
-import com.openclassrooms.mareu.service.MeetingApiService;
 
 import java.util.List;
 
@@ -39,16 +36,10 @@ public class ItemListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
-    private List<Meeting> meetings;
-    private MeetingApiService mApiService;
-    private RecyclerView mRecyclerView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mApiService = DI.getMeetingApiService();
         setContentView(R.layout.activity_item_list);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -78,23 +69,17 @@ public class ItemListActivity extends AppCompatActivity {
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
-        initList();
-    }
-
-    private void initList() {
-        meetings = mApiService.getMeetings();
-        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(this, meetings, mTwoPane));
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MeetingRecyclerViewAdapter(this, meetings, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
     }
 
-    public static class MeetingRecyclerViewAdapter
-            extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
+    public static class SimpleItemRecyclerViewAdapter
+            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<Meeting> mValues;
+        private final List<DummyContent.DummyItem> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
@@ -118,9 +103,9 @@ public class ItemListActivity extends AppCompatActivity {
             }
         };
 
-        MeetingRecyclerViewAdapter(ItemListActivity parent,
-                                   List<Meeting> items,
-                                   boolean twoPane) {
+        SimpleItemRecyclerViewAdapter(ItemListActivity parent,
+                                      List<DummyContent.DummyItem> items,
+                                      boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
@@ -135,8 +120,8 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mIdView.setText(mValues.get(position).getmId());
-            holder.mContentView.setText(mValues.get(position).getmSubject());
+            holder.mIdView.setText(mValues.get(position).id);
+            holder.mContentView.setText(mValues.get(position).content);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
