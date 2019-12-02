@@ -17,6 +17,7 @@
         android:background="#5E855F"
         app:cardBackgroundColor="#4CAF50"
         app:cardCornerRadius="25dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

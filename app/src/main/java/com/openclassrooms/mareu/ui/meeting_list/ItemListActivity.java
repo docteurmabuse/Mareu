@@ -128,7 +128,7 @@ public class ItemListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Meeting meeting = mMeetings.get(position);
-            holder.mAvatarView.setBackgroundColor(meeting.getmAvatar());
+            holder.mAvatarView.setCardBackgroundColor(meeting.getmAvatar());
             holder.mIdView.setText(meeting.getmSubject());
             holder.mContentView.setText(mMeetings.get(position).getmSubject());
             holder.itemView.setTag(mMeetings.get(position));
