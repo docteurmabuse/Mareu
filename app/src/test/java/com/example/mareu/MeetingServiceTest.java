@@ -41,7 +41,7 @@ public class MeetingServiceTest {
 
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting(1, "#545121", "05/12/2019", "12:30", "salle Icare", "RéunionA", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
+        Meeting meeting = new Meeting(1, 545121, "05/12/2019", "12:30", "salle Icare", "RéunionA", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
         service.addMeeting(meeting);
         assertEquals(1, service.getMeetings().size());
     }
