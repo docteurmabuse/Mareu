@@ -2,11 +2,12 @@ package com.openclassrooms.mareu.service;
 
 import com.openclassrooms.mareu.model.Meeting;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.openclassrooms.mareu.service.FakeMeetingGenerator.generateMeetings;
+
 public class DummyMeetingApiService implements MeetingApiService {
-    public static final List<Meeting> meetings = new ArrayList<Meeting>();
+    public List<Meeting> meetings = generateMeetings();
 
 
     @Override
@@ -15,7 +16,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     /**
-     * add a {@Link Meeting} to the meting list
+     * add a {@Link Meeting} to the meeting list
      *
      * @param meeting
      */

@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.mareu.R;
 import com.google.android.material.snackbar.Snackbar;
+import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
@@ -78,6 +79,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private void addNewMeeting() {
+        mApiService = DI.getMeetingApiService();
         int mSize = mApiService.getMeetings().size();
         int id = mSize + 1;
         int avatar = getRandomColor();
