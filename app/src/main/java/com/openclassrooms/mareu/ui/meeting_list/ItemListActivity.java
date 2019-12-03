@@ -19,8 +19,12 @@ import com.example.mareu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.di.DI;
+import com.openclassrooms.mareu.events.DeleteMeetingEvent;
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
 
@@ -77,8 +81,33 @@ public class ItemListActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) recyclerView);
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    private void initList() {
+        View recyclerView = findViewById(R.id.item_list);
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+
+    public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new MeetingRecyclerViewAdapter(this, mApiService.getMeetings(), mTwoPane));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void DeleteMeetingEvent(DeleteMeetingEvent event) {
+        mApiService.deleteMeeting(event.meeting);
+        initList();
     }
 
     public static class MeetingRecyclerViewAdapter
@@ -127,15 +156,22 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            Meeting meeting = mMeetings.get(position);
-            String Title= mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
+            final Meeting meeting = mMeetings.get(position);
+            String Title = mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
             String Subtitle = meeting.getmParticipants();
             holder.mAvatarView.setCardBackgroundColor(meeting.getmAvatar());
             holder.mSubtitleView.setText(Subtitle);
             holder.mTitleView.setText(Title);
             holder.itemView.setTag(mMeetings.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
+            holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
+                }
+            });
         }
+
 
         @Override
         public int getItemCount() {
