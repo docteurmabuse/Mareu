@@ -1,8 +1,9 @@
 package com.openclassrooms.mareu.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Meeting {
+public class Meeting implements Serializable {
 
     /**
      * Meeting Identifier

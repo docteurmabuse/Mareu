@@ -91,10 +91,12 @@ public class ItemListActivity extends AppCompatActivity {
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                Meeting meeting = (Meeting) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID,meeting);
+                    //mIntent.putExtras(arguments);
+                    //arguments.putString(ItemDetailFragment.ARG_ITEM_ID, meeting.getmPlace());
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -102,9 +104,10 @@ public class ItemListActivity extends AppCompatActivity {
                             .commit();
                 } else {
                     Context context = view.getContext();
+                    Bundle arguments = new Bundle();
+                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID,meeting);
                     Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
-
+                    intent.putExtras(arguments);
                     context.startActivity(intent);
                 }
             }
