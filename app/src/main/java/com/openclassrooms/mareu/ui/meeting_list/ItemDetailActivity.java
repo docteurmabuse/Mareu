@@ -1,6 +1,7 @@
 package com.openclassrooms.mareu.ui.meeting_list;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,14 +31,14 @@ public class ItemDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -59,7 +60,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             // using a fragment transaction.
             Bundle arguments = new Bundle();
             meeting = (Meeting) getIntent().getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID);
-
+            actionBar.setBackgroundDrawable(new ColorDrawable(meeting.getmAvatar()));
             arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
             ItemDetailFragment fragment = new ItemDetailFragment();
             fragment.setArguments(arguments);
