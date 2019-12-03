@@ -19,7 +19,6 @@ import com.example.mareu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.di.DI;
-import com.openclassrooms.mareu.dummy.DummyContent;
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 

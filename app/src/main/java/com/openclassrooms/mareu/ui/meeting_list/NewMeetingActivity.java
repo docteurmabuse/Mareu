@@ -60,6 +60,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         mSubject = findViewById(R.id.name_input);
         mParticipants = findViewById(R.id.participants_input);
     }
+
     private void initBtn() {
         mButton = findViewById(R.id.form_btn);
 

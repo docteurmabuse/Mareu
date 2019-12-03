@@ -94,7 +94,6 @@ public class ItemDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.participants_detail)).setText(mParticipants);
 
 
-
         }
 
         return rootView;
