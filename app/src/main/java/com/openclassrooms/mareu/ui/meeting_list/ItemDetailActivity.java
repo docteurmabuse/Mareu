@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.mareu.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.openclassrooms.mareu.model.Meeting;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -20,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
  * in a {@link ItemListActivity}.
  */
 public class ItemDetailActivity extends AppCompatActivity {
+    private Meeting meeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,9 @@ public class ItemDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
+            meeting = (Meeting) getIntent().getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID);
+
+            arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
             ItemDetailFragment fragment = new ItemDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

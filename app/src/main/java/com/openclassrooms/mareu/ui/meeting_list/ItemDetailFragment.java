@@ -30,6 +30,14 @@ public class ItemDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private Meeting meeting;
+    private Integer mId;
+    private Integer mAvatar;
+    private String mDate;
+    private String mTime;
+    private String mPlace;
+    private String mSubject;
+    private String mParticipants;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -41,19 +49,35 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (meeting != null) {
+            getMeeting();
+        }
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-           // meeting = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-            Meeting meeting = getActivity().getIntent().getParcelableExtra(ARG_ITEM_ID);
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(meeting.getmPlace());
-            }
+            meeting = (Meeting) this.getArguments().getSerializable(ARG_ITEM_ID);
+            getMeeting();
+            setMeetingTitle();
         }
+    }
+
+    private void setMeetingTitle() {
+        Activity activity = this.getActivity();
+        CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(mPlace);
+        }
+    }
+
+    private void getMeeting() {
+        mId = meeting.getmId();
+        mAvatar = meeting.getmAvatar();
+        mDate = meeting.getmDate();
+        mTime = meeting.getmTime();
+        mPlace = meeting.getmPlace();
+        mSubject = meeting.getmSubject();
+        mParticipants = meeting.getmParticipants();
     }
 
     @Override
@@ -63,7 +87,7 @@ public class ItemDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (meeting != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(meeting.getmPlace());
+            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mSubject);
         }
 
         return rootView;
