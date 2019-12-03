@@ -67,7 +67,7 @@ public class ItemDetailFragment extends Fragment {
         CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
             appBarLayout.setBackgroundColor(meeting.getmAvatar());
-            appBarLayout.setTitle(mPlace);
+            appBarLayout.setTitle(mSubject);
         }
     }
 
@@ -88,7 +88,7 @@ public class ItemDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (meeting != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mSubject);
+            ((TextView) rootView.findViewById(R.id.place_detail)).setText(mPlace);
         }
 
         return rootView;

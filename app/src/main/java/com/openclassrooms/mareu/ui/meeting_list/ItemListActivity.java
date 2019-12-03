@@ -94,9 +94,7 @@ public class ItemListActivity extends AppCompatActivity {
                 Meeting meeting = (Meeting) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
-                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID,meeting);
-                    //mIntent.putExtras(arguments);
-                    //arguments.putString(ItemDetailFragment.ARG_ITEM_ID, meeting.getmPlace());
+                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -105,7 +103,7 @@ public class ItemListActivity extends AppCompatActivity {
                 } else {
                     Context context = view.getContext();
                     Bundle arguments = new Bundle();
-                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID,meeting);
+                    arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtras(arguments);
                     context.startActivity(intent);
@@ -131,9 +129,11 @@ public class ItemListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             Meeting meeting = mMeetings.get(position);
+            String Title= mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
+            String Subtitle = meeting.getmParticipants();
             holder.mAvatarView.setCardBackgroundColor(meeting.getmAvatar());
-            holder.mIdView.setText(meeting.getmSubject());
-            holder.mContentView.setText(mMeetings.get(position).getmSubject());
+            holder.mSubtitleView.setText(Subtitle);
+            holder.mTitleView.setText(Title);
             holder.itemView.setTag(mMeetings.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
@@ -145,15 +145,15 @@ public class ItemListActivity extends AppCompatActivity {
 
         class ViewHolder extends RecyclerView.ViewHolder {
             final CardView mAvatarView;
-            final TextView mIdView;
-            final TextView mContentView;
+            final TextView mSubtitleView;
+            final TextView mTitleView;
             final ImageView mDeleteButton;
 
             ViewHolder(View view) {
                 super(view);
                 mAvatarView = view.findViewById(R.id.item_list_meeting_avatar);
-                mIdView = view.findViewById(R.id.item_list_meeting_subtitle);
-                mContentView = view.findViewById(R.id.item_list_meeting_title);
+                mSubtitleView = view.findViewById(R.id.item_list_meeting_subtitle);
+                mTitleView = view.findViewById(R.id.item_list_meeting_title);
                 mDeleteButton = view.findViewById(R.id.item_list_meeting_delete_button);
             }
         }
