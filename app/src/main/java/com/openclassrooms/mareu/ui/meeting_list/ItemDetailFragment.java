@@ -89,6 +89,12 @@ public class ItemDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         if (meeting != null) {
             ((TextView) rootView.findViewById(R.id.place_detail)).setText(mPlace);
+            ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate);
+            ((TextView) rootView.findViewById(R.id.time_detail)).setText(mTime);
+            ((TextView) rootView.findViewById(R.id.participants_detail)).setText(mParticipants);
+
+
+
         }
 
         return rootView;
