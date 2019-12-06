@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.mareu.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.model.Meeting;
 
 /**
@@ -30,15 +27,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -60,6 +48,8 @@ public class ItemDetailActivity extends AppCompatActivity {
             // using a fragment transaction.
             Bundle arguments = new Bundle();
             meeting = (Meeting) getIntent().getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID);
+            assert meeting != null;
+            assert actionBar != null;
             actionBar.setBackgroundDrawable(new ColorDrawable(meeting.getmAvatar()));
             arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
             ItemDetailFragment fragment = new ItemDetailFragment();

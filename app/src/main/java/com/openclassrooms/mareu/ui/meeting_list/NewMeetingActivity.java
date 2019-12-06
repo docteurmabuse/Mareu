@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.ActionBar;
@@ -30,11 +31,10 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mDate;
     TimePickerDialog timePicker;
     EditText mTime;
-    EditText mPlace;
+    Spinner mPlaceList;
     EditText mParticipants;
     EditText mSubject;
     Button mButton;
-    private MeetingApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        mPlace = findViewById(R.id.place_input);
+        mPlaceList = findViewById(R.id.place_spinner);
         mSubject = findViewById(R.id.name_input);
         mParticipants = findViewById(R.id.participants_input);
     }
@@ -80,17 +80,18 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private void addNewMeeting() {
-        mApiService = DI.getMeetingApiService();
+        MeetingApiService mApiService = DI.getMeetingApiService();
         int mSize = mApiService.getMeetings().size();
         int id = mSize + 1;
         int avatar = getRandomColor();
         String date = mDate.getText().toString();
         String time = mTime.getText().toString();
-        String place = mPlace.getText().toString();
+        String place = mPlaceList.getSelectedItem().toString();
         String subject = mSubject.getText().toString();
         String participants = mParticipants.getText().toString();
         Meeting meeting = new Meeting(id, avatar, date, time, place, subject, participants);
         mApiService.addMeeting(meeting);
+        finish();
     }
 
     private void initTime() {
@@ -106,7 +107,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                 timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int mHour, int mMinutes) {
-                        mTime.setText(mHour + ":" + mMinutes);
+                        mTime.setText(mHour + "h" + mMinutes);
                     }
                 }, hours, minutes, true);
                 timePicker.show();

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -81,6 +83,18 @@ public class ItemListActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) recyclerView);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_bar_menu_filter, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.icon_filter_menu) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initList() {
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
@@ -96,6 +110,7 @@ public class ItemListActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        initList();
     }
 
     @Override
