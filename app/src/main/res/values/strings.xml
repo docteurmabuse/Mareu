@@ -8,4 +8,16 @@
     <string name="place_input">Lieu</string>
     <string name="participants_input">Liste des participants</string>
     <string name="create_btn">Créer la réunion</string>
+    <string-array name="labels_place_array">
+        <item>Mario</item>
+        <item>Luigi</item>
+        <item>Peach</item>
+        <item>Toad</item>
+        <item>Yoshi</item>
+        <item>Daisy</item>
+        <item>Harmonie</item>
+        <item>Donkey Kong</item>
+        <item>Wario</item>
+        <item>Birdo</item>
+    </string-array>
 </resources>
