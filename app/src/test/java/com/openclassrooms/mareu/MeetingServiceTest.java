@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.openclassrooms.mareu;
 
 
 import com.openclassrooms.mareu.di.DI;

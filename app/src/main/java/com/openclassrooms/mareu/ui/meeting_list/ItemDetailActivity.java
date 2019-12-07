@@ -9,7 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.mareu.R;
+import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.model.Meeting;
 
 /**

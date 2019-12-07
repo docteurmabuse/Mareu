@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.mareu.R;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.model.Meeting;
 
 /**

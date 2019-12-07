@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.openclassrooms.mareu;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.mareu", appContext.getPackageName());
+        assertEquals("com.openclassrooms.mareu", appContext.getPackageName());
     }
 }
