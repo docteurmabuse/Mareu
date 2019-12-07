@@ -13,11 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.service.MeetingApiService;
 
 public class MeetingsActivity extends AppCompatActivity {
-
-    private MeetingApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +39,7 @@ public class MeetingsActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.app_bar_menu_filter, menu);
+
         return true;
     }
 
