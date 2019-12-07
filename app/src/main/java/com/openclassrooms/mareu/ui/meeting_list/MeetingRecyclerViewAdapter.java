@@ -21,7 +21,7 @@ import java.util.List;
 public class MeetingRecyclerViewAdapter
         extends RecyclerView.Adapter<MeetingListViewHolder> {
 
-    private final ItemListActivity mParentActivity;
+    private final MeetingsActivity mParentActivity;
     private final List<Meeting> mMeetings;
     private final boolean mTwoPane;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -47,7 +47,7 @@ public class MeetingRecyclerViewAdapter
         }
     };
 
-    MeetingRecyclerViewAdapter(ItemListActivity parent,
+    MeetingRecyclerViewAdapter(MeetingsActivity parent,
                                List<Meeting> meetings,
                                boolean twoPane) {
         mMeetings = meetings;

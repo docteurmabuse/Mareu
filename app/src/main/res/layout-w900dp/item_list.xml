@@ -9,8 +9,7 @@
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
-    android:showDividers="middle"
-    tools:context="com.openclassrooms.mareu.ui.meeting_list.ItemListActivity">
+    android:showDividers="middle">
 
     <!--
     This layout is a two-pane layout for the Items
@@ -18,8 +17,7 @@
     
     -->
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:name="com.example.mareu.ItemListFragment"
         android:layout_width="@dimen/item_width"
@@ -27,7 +25,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.openclassrooms.mareu.com.openclassrooms.mareu.ItemListActivity"
+        tools:context="com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity"
         tools:listitem="@layout/item_list_content" />
 
     <FrameLayout

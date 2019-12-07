@@ -10,16 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.openclassrooms.mareu.ui.meeting_list.NewMeetingActivity"
+            android:name=".ui.meeting_list.MeetingsActivity"
+            android:label="@string/title_activity_meetings"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.meeting_list.NewMeetingActivity"
             android:label="@string/title_activity_add_meeting"
-            android:parentActivityName="com.openclassrooms.mareu.ui.meeting_list.ItemListActivity"
+            android:parentActivityName=".ui.meeting_list.ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.openclassrooms.mareu.ui.meeting_list.ItemListActivity" />
         </activity>
         <activity
-            android:name="com.openclassrooms.mareu.ui.meeting_list.ItemListActivity"
+            android:name=".ui.meeting_list.ItemListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -29,13 +39,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.openclassrooms.mareu.ui.meeting_list.ItemDetailActivity"
+            android:name=".ui.meeting_list.ItemDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName="com.openclassrooms.mareu.ui.meeting_list.ItemListActivity"
+            android:parentActivityName=".ui.meeting_list.ItemListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.openclassrooms.mareu.ui.meeting_list.ItemListActivity" />
+                android:value="com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity" />
         </activity>
     </application>
 
