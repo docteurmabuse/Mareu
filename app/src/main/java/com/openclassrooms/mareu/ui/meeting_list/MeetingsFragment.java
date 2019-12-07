@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,8 @@ import java.util.Objects;
 public class MeetingsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
+    private NestedScrollView mScroll;
+
     private MeetingApiService mApiService;
     private boolean mTwoPane;
 
@@ -83,11 +86,11 @@ public class MeetingsFragment extends Fragment {
     private void initList() {
         mApiService = DI.getMeetingApiService();
         assert mRecyclerView != null;
-        ((MeetingsActivity) Objects.requireNonNull(getActivity())).setupRecyclerView(mRecyclerView);
+        setupRecyclerView(mRecyclerView);
     }
 
     public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MeetingRecyclerViewAdapter(this, mApiService.getMeetings(), mTwoPane));
+        recyclerView.setAdapter(new MeetingRecyclerViewAdapter((MeetingsActivity) getActivity(), mApiService.getMeetings(), mTwoPane));
     }
 
 }
