@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,15 +28,13 @@ import java.util.Objects;
 public class MeetingsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private NestedScrollView mScroll;
 
     private MeetingApiService mApiService;
     private boolean mTwoPane;
 
 
     protected MeetingsFragment newInstance() {
-        MeetingsFragment fragment = new MeetingsFragment();
-        return fragment;
+        return new MeetingsFragment();
     }
 
     @Override
