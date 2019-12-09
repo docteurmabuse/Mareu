@@ -3,9 +3,12 @@ package com.openclassrooms.mareu.ui.meeting_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,17 +20,23 @@ import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterFragment.OnListFragmentInteractionListener {
-    private FilterFragment.OnListFragmentInteractionListener mListener;
+public class MeetingsActivity extends AppCompatActivity implements FilterFragment.DialogListener, FilterFragment.OnListFragmentInteractionListener {
+    TextView textView;
+    Button btnEmbedDialogFragment, btnDialogFragment, btnDialogFragmentFullScreen, btnAlertDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_meetings);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+        initMeetingsView();
 
+    }
+
+    private void initMeetingsView() {
         Fragment newFragment = new MeetingsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -57,35 +66,35 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.icon_filter_menu) {
-            // Create new fragment and transaction
-            Fragment newFragment = new FilterFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack
-            transaction.add(R.id.content_meeting, newFragment);
-            transaction.addToBackStack(null);
-
-// Commit the transaction
-            transaction.commit();
-
+            initFiltersView();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private void initFiltersView() {
+        FilterFragment filterFragment = new FilterFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null) {
+            transaction.remove(prev);
+        }
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.content_meeting, filterFragment);
+        transaction.commit();
+    }
+
+
     @Override
+    public void onFinishEditDialog(String inputText) {
+
+        if (TextUtils.isEmpty(inputText)) {
+            textView.setText("Email was not entered");
+        } else
+            textView.setText("Email entered: " + inputText);
+    }
+
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyContent.DummyItem item);
     }
 }
