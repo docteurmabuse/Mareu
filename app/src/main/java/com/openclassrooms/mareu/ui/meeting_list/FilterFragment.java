@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent;
-import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent.DummyItem;
 
 /**
  * A fragment representing a list of Items.
@@ -105,7 +104,7 @@ public class FilterFragment extends DialogFragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(DummyContent.FiltersItem item);
     }
 
     public interface DialogListener {

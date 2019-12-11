@@ -3,12 +3,9 @@ package com.openclassrooms.mareu.ui.meeting_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,15 +18,16 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterFragment.DialogListener, FilterFragment.OnListFragmentInteractionListener {
-    TextView textView;
-    Button btnEmbedDialogFragment, btnDialogFragment, btnDialogFragmentFullScreen, btnAlertDialogFragment;
+
+    private FloatingActionButton fab;
+    private Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_meetings);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
         initMeetingsView();
@@ -46,7 +44,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
         transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
-        FloatingActionButton fab = findViewById(R.id.fab_add_meeting);
+        fab = findViewById(R.id.fab_add_meeting);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,14 +85,14 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
 
     @Override
     public void onFinishEditDialog(String inputText) {
-
+/*
         if (TextUtils.isEmpty(inputText)) {
             textView.setText("Email was not entered");
         } else
-            textView.setText("Email entered: " + inputText);
+            textView.setText("Email entered: " + inputText);*/
     }
 
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(DummyContent.FiltersItem item) {
         // TODO: Update argument type and name
     }
 }

@@ -21,6 +21,10 @@
         <item>Wario</item>
         <item>Birdo</item>
     </string-array>
+    <string-array name="filters_name">
+        <item>Lieu</item>
+        <item>Date</item>
+    </string-array>
     <string name="title_activity_meetings">Maréu</string>
     <string name="action_settings">Settings</string>
 </resources>

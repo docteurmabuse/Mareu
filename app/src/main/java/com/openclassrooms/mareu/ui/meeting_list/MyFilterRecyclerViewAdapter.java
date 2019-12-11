@@ -9,21 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.FilterFragment.OnListFragmentInteractionListener;
-import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent.DummyItem;
+import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent.FiltersItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link FiltersItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyFilterRecyclerViewAdapter extends RecyclerView.Adapter<MyFilterRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<FiltersItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyFilterRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyFilterRecyclerViewAdapter(List<FiltersItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -37,9 +37,10 @@ public class MyFilterRecyclerViewAdapter extends RecyclerView.Adapter<MyFilterRe
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        final FiltersItem filters = mValues.get(position);
+
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).toString());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,18 +63,14 @@ public class MyFilterRecyclerViewAdapter extends RecyclerView.Adapter<MyFilterRe
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public FiltersItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
+            mIdView = view.findViewById(R.id.filter_name);
             mContentView = view.findViewById(R.id.content);
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
-        }
     }
 }
