@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent;
+import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterFragment.DialogListener, FilterFragment.OnListFragmentInteractionListener {
 
@@ -92,7 +92,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
             textView.setText("Email entered: " + inputText);*/
     }
 
-    public void onListFragmentInteraction(DummyContent.FiltersItem item) {
+    public void onListFragmentInteraction(FilterContent.FiltersItem item) {
         // TODO: Update argument type and name
     }
 }

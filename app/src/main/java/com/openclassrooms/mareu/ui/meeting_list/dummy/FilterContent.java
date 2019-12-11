@@ -12,7 +12,7 @@ import java.util.Map;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class FilterContent {
 
     /**
      * An array of sample (dummy) items.

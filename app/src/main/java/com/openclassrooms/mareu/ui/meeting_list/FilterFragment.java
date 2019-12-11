@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.dummy.DummyContent;
+import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent;
 
 /**
  * A fragment representing a list of Items.
@@ -69,7 +69,7 @@ public class FilterFragment extends DialogFragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyFilterRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyFilterRecyclerViewAdapter(FilterContent.ITEMS, mListener));
         }
         return view;
     }
@@ -104,7 +104,7 @@ public class FilterFragment extends DialogFragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyContent.FiltersItem item);
+        void onListFragmentInteraction(FilterContent.FiltersItem item);
     }
 
     public interface DialogListener {
