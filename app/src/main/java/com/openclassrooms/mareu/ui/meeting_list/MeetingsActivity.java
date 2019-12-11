@@ -31,7 +31,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
         initMeetingsView();
-
     }
 
     private void initMeetingsView() {
@@ -71,6 +70,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
     }
 
     private void initFiltersView() {
+        fab.hide();
         FilterFragment filterFragment = new FilterFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
