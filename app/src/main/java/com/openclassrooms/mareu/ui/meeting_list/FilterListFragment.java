@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterRecyclerViewAdapter;
+import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 /**
@@ -57,7 +57,7 @@ public class FilterListFragment extends DialogFragment {
             Context context = view.getContext();
             RecyclerView recyclerView = view.findViewById(R.id.filter_list);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyFilterRecyclerViewAdapter(FilterContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyFilterAdapter(FilterContent.ITEMS, mListener));
         }
         return view;
     }

@@ -17,12 +17,12 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link FiltersItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyFilterRecyclerViewAdapter extends RecyclerView.Adapter<MyFilterRecyclerViewAdapter.ViewHolder> {
+public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHolder> {
 
     private final List<FiltersItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyFilterRecyclerViewAdapter(List<FiltersItem> items, OnListFragmentInteractionListener listener) {
+    public MyFilterAdapter(List<FiltersItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

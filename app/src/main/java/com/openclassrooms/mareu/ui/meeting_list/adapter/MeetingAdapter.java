@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-public class MeetingRecyclerViewAdapter
+public class MeetingAdapter
         extends RecyclerView.Adapter<MeetingListViewHolder> {
 
     private final MeetingsActivity mParentActivity;
@@ -50,9 +50,9 @@ public class MeetingRecyclerViewAdapter
         }
     };
 
-    public MeetingRecyclerViewAdapter(MeetingsActivity parent,
-                                      List<Meeting> meetings,
-                                      boolean twoPane) {
+    public MeetingAdapter(MeetingsActivity parent,
+                          List<Meeting> meetings,
+                          boolean twoPane) {
         mMeetings = meetings;
         mParentActivity = parent;
         mTwoPane = twoPane;

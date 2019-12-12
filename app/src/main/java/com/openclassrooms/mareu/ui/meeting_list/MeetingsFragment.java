@@ -16,7 +16,7 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
 import com.openclassrooms.mareu.service.MeetingApiService;
-import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingRecyclerViewAdapter;
+import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,7 +88,7 @@ public class MeetingsFragment extends Fragment {
     }
 
     public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MeetingRecyclerViewAdapter((MeetingsActivity) getActivity(), mApiService.getMeetings(), mTwoPane));
+        recyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), mApiService.getMeetings(), mTwoPane));
     }
 
 }
