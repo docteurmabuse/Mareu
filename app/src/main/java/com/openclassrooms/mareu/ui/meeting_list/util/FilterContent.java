@@ -15,13 +15,20 @@ import java.util.Map;
 public class FilterContent {
 
     /**
-     * An array of sample (dummy) items.
+     * An array of Filters List items.
      */
     public static final List<FiltersItem> ITEMS = Arrays.asList(
             new FiltersItem(1, "Lieu"),
             new FiltersItem(1, "Date")
     );
 
+    /**
+     * An array of Meetings Place List items.
+     */
+    public static final List<Places> PLACE_ITEMS = Arrays.asList(
+            new Places(1, "Lieu"),
+            new Places(1, "Date")
+    );
     /**
      * A map of sample (dummy) items, by ID.
      */
@@ -30,6 +37,10 @@ public class FilterContent {
 
     public static List<FiltersItem> createDummyItem() {
         return new ArrayList<>(ITEMS);
+    }
+
+    public static List<Places> createPlaces() {
+        return new ArrayList<>(PLACE_ITEMS);
     }
 
 
@@ -45,6 +56,24 @@ public class FilterContent {
         @Override
         public String toString() {
             return fName;
+        }
+    }
+
+    public static class Places {
+        public final Integer id;
+        final String fPlaces;
+
+        public Places(Integer id, String fPlaces) {
+            this.id = id;
+            this.fPlaces = fPlaces;
+        }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public String getfPlaces() {
+            return fPlaces;
         }
     }
 }

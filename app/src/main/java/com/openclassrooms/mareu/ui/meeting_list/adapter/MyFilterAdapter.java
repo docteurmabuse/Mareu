@@ -37,10 +37,8 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final FiltersItem filters = mValues.get(position);
-
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).toString());
-
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
