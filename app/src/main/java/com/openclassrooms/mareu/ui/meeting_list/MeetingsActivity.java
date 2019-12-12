@@ -2,7 +2,6 @@ package com.openclassrooms.mareu.ui.meeting_list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterPlaceFragment.OnFragmentInteractionListener {
+public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterPlaceFragment.OnPlaceFragmentInteractionListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
@@ -106,8 +105,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         transaction.commit();
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onPlaceFragmentInteraction(FilterContent.Places places) {
         //TODO
     }
 }
