@@ -16,7 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent;
+import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterPlaceFragment.OnFragmentInteractionListener {
 

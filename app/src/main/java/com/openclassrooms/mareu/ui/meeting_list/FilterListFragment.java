@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterRecyclerViewAdapter;
-import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent;
+import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 /**
  * A fragment representing a list of Items.

@@ -1,4 +1,4 @@
-package com.openclassrooms.mareu.ui.meeting_list.dummy;
+package com.openclassrooms.mareu.ui.meeting_list.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
