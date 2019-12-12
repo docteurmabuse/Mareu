@@ -26,8 +26,15 @@ public class FilterContent {
      * An array of Meetings Place List items.
      */
     public static final List<Places> PLACE_ITEMS = Arrays.asList(
-            new Places(1, "Lieu"),
-            new Places(1, "Date")
+            new Places(1, "Mario", true),
+            new Places(2, "Luigi", true),
+            new Places(3, "Peach", true),
+            new Places(4, "Toad", true),
+            new Places(5, "Daisy", true),
+            new Places(6, "Harmonie", true),
+            new Places(7, "Donkey Kong", true),
+            new Places(8, "Wario", true),
+            new Places(9, "Birdogi", true)
     );
     /**
      * A map of sample (dummy) items, by ID.
@@ -62,10 +69,13 @@ public class FilterContent {
     public static class Places {
         public final Integer id;
         final String fPlaces;
+        final Boolean isSelected;
 
-        public Places(Integer id, String fPlaces) {
+        public Places(Integer id, String fPlaces, Boolean isSelected) {
             this.id = id;
             this.fPlaces = fPlaces;
+            this.isSelected = isSelected;
+
         }
 
         public Integer getId() {
