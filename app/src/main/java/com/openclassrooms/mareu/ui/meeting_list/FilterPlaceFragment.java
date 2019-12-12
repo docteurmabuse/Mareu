@@ -1,21 +1,25 @@
 package com.openclassrooms.mareu.ui.meeting_list;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
+import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FilterPlaceFragment.OnFragmentInteractionListener} interface
+ * {@link FilterPlaceFragment.OnPlaceFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link FilterPlaceFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -30,7 +34,7 @@ public class FilterPlaceFragment extends DialogFragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnPlaceFragmentInteractionListener mListener;
 
     public FilterPlaceFragment() {
         // Required empty public constructor
@@ -67,21 +71,29 @@ public class FilterPlaceFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_filter_place, container, false);
+        View view = inflater.inflate(R.layout.fragment_filter_place, container, false);
+        // Set the adapter
+        if (view instanceof ConstraintLayout) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = view.findViewById(R.id.filter_list);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener));
+        }
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(FilterContent.Places places) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onPlaceFragmentInteraction(places);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnPlaceFragmentInteractionListener) {
+            mListener = (OnPlaceFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -104,8 +116,8 @@ public class FilterPlaceFragment extends DialogFragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnPlaceFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onPlaceFragmentInteraction(FilterContent.Places places);
     }
 }

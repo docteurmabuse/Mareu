@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.FilterListFragment;
+import com.openclassrooms.mareu.ui.meeting_list.FilterPlaceFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
 public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.ViewHolder> {
 
     private final List<FilterContent.Places> mValues;
-    private final FilterListFragment.OnListFragmentInteractionListener mListener;
+    private final FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener;
 
-    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterListFragment.OnListFragmentInteractionListener mListener) {
+    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
         this.mListener = mListener;
     }

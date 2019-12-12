@@ -95,6 +95,10 @@ public class FilterListFragment extends DialogFragment {
         void onListFragmentInteraction(FilterContent.FiltersItem item);
     }
 
+    public interface OnPlaceFragmentInteractionListener {
+
+        void onPlaceFragmentInteraction(FilterContent.FiltersItem item);
+    }
     public interface DialogListener {
         void onFinishEditDialog(String inputText);
     }
