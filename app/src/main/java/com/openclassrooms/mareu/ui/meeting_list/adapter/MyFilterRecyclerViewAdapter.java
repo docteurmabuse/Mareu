@@ -61,14 +61,12 @@ public class MyFilterRecyclerViewAdapter extends RecyclerView.Adapter<MyFilterRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
         public FiltersItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mIdView = view.findViewById(R.id.filter_name);
-            mContentView = view.findViewById(R.id.content);
         }
 
     }
