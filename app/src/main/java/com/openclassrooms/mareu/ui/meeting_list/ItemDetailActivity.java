@@ -16,7 +16,7 @@ import com.openclassrooms.mareu.model.Meeting;
  * An activity representing a single Item detail screen. This
  * activity is only used on narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link ItemListActivity}.
+ * in a {@link MeetingsActivity}.
  */
 public class ItemDetailActivity extends AppCompatActivity {
     private Meeting meeting;
@@ -70,7 +70,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, ItemListActivity.class));
+            navigateUpTo(new Intent(this, MeetingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

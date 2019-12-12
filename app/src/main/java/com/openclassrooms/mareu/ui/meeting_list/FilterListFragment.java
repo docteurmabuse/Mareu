@@ -91,7 +91,7 @@ public class FilterListFragment extends DialogFragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onListFragmentInteraction(FilterContent.FiltersItem item);
     }
 

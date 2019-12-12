@@ -15,8 +15,8 @@ import com.openclassrooms.mareu.model.Meeting;
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ItemListActivity}
- * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
+ * This fragment is either contained in a {@link MeetingsActivity}
+ * in two-pane mode (on tablets) or a {@link MeetingsActivity}
  * on handsets.
  */
 public class ItemDetailFragment extends Fragment {

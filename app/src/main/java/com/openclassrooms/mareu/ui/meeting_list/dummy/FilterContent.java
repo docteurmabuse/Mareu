@@ -25,7 +25,7 @@ public class FilterContent {
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, FiltersItem> ITEM_MAP = new HashMap<String, FiltersItem>();
+    public static final Map<Integer, FiltersItem> ITEM_MAP = new HashMap<Integer, FiltersItem>();
 
 
     public static List<FiltersItem> createDummyItem() {

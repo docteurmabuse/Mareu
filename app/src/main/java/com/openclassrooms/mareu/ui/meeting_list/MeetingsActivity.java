@@ -2,6 +2,7 @@ package com.openclassrooms.mareu.ui.meeting_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener {
+public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterPlaceFragment.OnFragmentInteractionListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
@@ -36,7 +37,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private void initMeetingsView() {
         Fragment newFragment = new MeetingsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
         transaction.add(R.id.content_meeting, newFragment);
@@ -70,7 +70,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     private void initFiltersView() {
-        fab.hide();
         FilterListFragment filterListFragment = new FilterListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
@@ -93,6 +92,22 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onListFragmentInteraction(FilterContent.FiltersItem item) {
-        // TODO: Update argument type and name
+        FilterPlaceFragment filterPlaceFragment = new FilterPlaceFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Bundle arguments = new Bundle();
+        //arguments.putParcelable(item);
+        ItemDetailFragment fragment = new ItemDetailFragment();
+        fragment.setArguments(arguments);
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transaction.replace(R.id.content_meeting, filterPlaceFragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        //TODO
     }
 }
