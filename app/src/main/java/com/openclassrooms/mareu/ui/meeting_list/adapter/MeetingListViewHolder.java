@@ -1,4 +1,4 @@
-package com.openclassrooms.mareu.ui.meeting_list;
+package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
 import android.view.View;
 import android.widget.ImageView;

@@ -1,4 +1,4 @@
-package com.openclassrooms.mareu.ui.meeting_list;
+package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.FilterFragment.OnListFragmentInteractionListener;
+import com.openclassrooms.mareu.ui.meeting_list.FilterListFragment.OnListFragmentInteractionListener;
 import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent.FiltersItem;
 
 import java.util.List;
@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link FiltersItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyFilterRecyclerViewAdapter extends RecyclerView.Adapter<MyFilterRecyclerViewAdapter.ViewHolder> {
 

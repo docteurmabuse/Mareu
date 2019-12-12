@@ -1,4 +1,4 @@
-package com.openclassrooms.mareu.ui.meeting_list;
+package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
 import com.openclassrooms.mareu.model.Meeting;
+import com.openclassrooms.mareu.ui.meeting_list.ItemDetailActivity;
+import com.openclassrooms.mareu.ui.meeting_list.ItemDetailFragment;
+import com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -47,9 +50,9 @@ public class MeetingRecyclerViewAdapter
         }
     };
 
-    MeetingRecyclerViewAdapter(MeetingsActivity parent,
-                               List<Meeting> meetings,
-                               boolean twoPane) {
+    public MeetingRecyclerViewAdapter(MeetingsActivity parent,
+                                      List<Meeting> meetings,
+                                      boolean twoPane) {
         mMeetings = meetings;
         mParentActivity = parent;
         mTwoPane = twoPane;

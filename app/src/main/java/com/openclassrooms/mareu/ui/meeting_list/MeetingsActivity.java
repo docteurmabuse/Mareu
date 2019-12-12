@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.dummy.FilterContent;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterFragment.DialogListener, FilterFragment.OnListFragmentInteractionListener {
+public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
@@ -71,14 +71,14 @@ public class MeetingsActivity extends AppCompatActivity implements FilterFragmen
 
     private void initFiltersView() {
         fab.hide();
-        FilterFragment filterFragment = new FilterFragment();
+        FilterListFragment filterListFragment = new FilterListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
         if (prev != null) {
             transaction.remove(prev);
         }
         transaction.addToBackStack(null);
-        transaction.replace(R.id.content_meeting, filterFragment);
+        transaction.replace(R.id.content_meeting, filterListFragment);
         transaction.commit();
     }
 
