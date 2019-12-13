@@ -22,6 +22,7 @@
         <item>Birdo</item>
     </string-array>
     <string name="title_activity_meetings">Maréu</string>
+    <string name="termin">Terminé</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
@@ -58,9 +60,18 @@ public class FilterListFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.filter_content, container, false);
         toolbar = view.findViewById(R.id.toolbar);
         TextView titre = view.findViewById(R.id.filter_text);
+        MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
+
         //titre.setText("Filtres : ");
         // Set the adapter
-        Context context = view.getContext();
+        final Context context = view.getContext();
+        bFinnish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,
+                        "Button3 Clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
         RecyclerView recyclerView = view.findViewById(R.id.filter_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new MyFilterAdapter(FilterContent.ITEMS, mListener));
