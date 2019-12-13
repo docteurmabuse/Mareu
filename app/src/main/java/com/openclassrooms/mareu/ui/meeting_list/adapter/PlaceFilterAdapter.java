@@ -1,6 +1,5 @@
 package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     private final List<FilterContent.Places> mValues;
     private final FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener;
-    private Context context;
 
     public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
@@ -56,13 +54,13 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         View fView;
         TextView fPlaceText;
         CheckBox fCheckView;
-        public FilterContent.Places fPlaces;
+        FilterContent.Places fPlaces;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             fView = view;
             fPlaceText = view.findViewById(R.id.place_name);
