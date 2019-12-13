@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -76,13 +75,11 @@ public class FilterPlaceFragment extends DialogFragment {
         TextView titre = view.findViewById(R.id.filter_text);
         titre.setText("Salle de Réunion : ");
         // Set the adapter
-        if (view instanceof ConstraintLayout) {
-            Context context = view.getContext();
+        Context context = view.getContext();
 
-            RecyclerView recyclerView = view.findViewById(R.id.filter_list);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener));
-        }
+        RecyclerView recyclerView = view.findViewById(R.id.filter_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener));
         return view;
 
     }

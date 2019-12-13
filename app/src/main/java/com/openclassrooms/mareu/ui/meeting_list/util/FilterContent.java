@@ -29,18 +29,18 @@ public class FilterContent {
             new Places(2, "Luigi", true),
             new Places(3, "Peach", true),
             new Places(4, "Toad", true),
-            new Places(5, "Daisy", true),
-            new Places(6, "Harmonie", true),
-            new Places(7, "Donkey Kong", true),
-            new Places(8, "Wario", true),
-            new Places(9, "Birdogi", true)
+            new Places(5, "Yoshi", true),
+            new Places(6, "Daisy", true),
+            new Places(7, "Harmonie", true),
+            new Places(8, "Donkey Kong", true),
+            new Places(9, "Wario", true),
+            new Places(10, "Birdogi", true)
     );
     /**
      * A map of sample (dummy) items, by ID.
      */
     public static final Map<Integer, FiltersItem> ITEM_MAP = new HashMap<Integer, FiltersItem>();
     public static final Map<Integer, Places> ITEM_PLACE_MAP = new HashMap<>();
-
 
 
     public static List<FiltersItem> createDummyItem() {

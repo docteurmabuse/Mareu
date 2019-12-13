@@ -71,15 +71,17 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     private void initFiltersView() {
-        FilterListFragment filterListFragment = new FilterListFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            transaction.remove(prev);
-        }
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.content_meeting, filterListFragment);
-        transaction.commit();
+        FilterListFragment.display(getSupportFragmentManager());
+
+//        FilterListFragment filterListFragment = new FilterListFragment();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+//        if (prev != null) {
+//            transaction.remove(prev);
+//        }
+//        transaction.addToBackStack(null);
+//        transaction.replace(R.id.content_meeting, filterListFragment);
+//        transaction.commit();
     }
 
 

@@ -1,14 +1,17 @@
 package com.openclassrooms.mareu.ui.meeting_list.filters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +31,8 @@ public class FilterListFragment extends DialogFragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
+    public static final String TAG = "filter_dialog";
+    private Toolbar toolbar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -35,33 +40,62 @@ public class FilterListFragment extends DialogFragment {
      *//*
     public FilterListFragment() {
     }*/
-
-    public static FilterListFragment newInstance() {
-        return new FilterListFragment();
+    public static FilterListFragment display(FragmentManager fragmentMananger) {
+        FilterListFragment filterListFragment = new FilterListFragment();
+        filterListFragment.show(fragmentMananger, TAG);
+        return filterListFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.filter_content, container, false);
+        toolbar = view.findViewById(R.id.toolbar);
         TextView titre = view.findViewById(R.id.filter_text);
-        titre.setText("Filtres : ");
+        //titre.setText("Filtres : ");
         // Set the adapter
-        if (view instanceof ConstraintLayout) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = view.findViewById(R.id.filter_list);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MyFilterAdapter(FilterContent.ITEMS, mListener));
-        }
+        Context context = view.getContext();
+        RecyclerView recyclerView = view.findViewById(R.id.filter_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(new MyFilterAdapter(FilterContent.ITEMS, mListener));
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstance) {
+        super.onViewCreated(view, savedInstance);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+        toolbar.setTitle("Filtres");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -99,6 +133,7 @@ public class FilterListFragment extends DialogFragment {
 
         void onPlaceFragmentInteraction(FilterContent.FiltersItem item);
     }
+
     public interface DialogListener {
         void onFinishEditDialog(String inputText);
     }
