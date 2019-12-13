@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
+import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 /**
@@ -33,6 +34,8 @@ public class FilterListFragment extends DialogFragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
+    private FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener2;
+
     public static final String TAG = "filter_dialog";
     private Toolbar toolbar;
 
@@ -72,9 +75,14 @@ public class FilterListFragment extends DialogFragment {
                         "Button3 Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
-        RecyclerView recyclerView = view.findViewById(R.id.filter_list);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new MyFilterAdapter(FilterContent.ITEMS, mListener));
+
+
+        RecyclerView recyclerView2 = view.findViewById(R.id.recycler_1);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView2.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener2));
         return view;
     }
 
