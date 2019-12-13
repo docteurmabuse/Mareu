@@ -17,7 +17,6 @@ public class FilterContent {
      * An array of Filters List items.
      */
     public static final List<FiltersItem> ITEMS = Arrays.asList(
-            new FiltersItem(1, "Lieu"),
             new FiltersItem(1, "Date")
     );
 
