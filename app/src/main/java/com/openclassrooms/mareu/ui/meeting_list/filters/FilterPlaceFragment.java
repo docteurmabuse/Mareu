@@ -1,11 +1,13 @@
-package com.openclassrooms.mareu.ui.meeting_list;
+package com.openclassrooms.mareu.ui.meeting_list.filters;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,8 +37,8 @@ public class FilterPlaceFragment extends DialogFragment {
 
     private OnPlaceFragmentInteractionListener mListener;
 
-    public FilterPlaceFragment() {
-        // Required empty public constructor
+    public static FilterPlaceFragment newInstance() {
+        return new FilterPlaceFragment();
     }
 
     /**
@@ -47,7 +49,7 @@ public class FilterPlaceFragment extends DialogFragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment FilterPlaceFragment.
      */
-    // TODO: Rename and change types and number of parameters
+   /* // TODO: Rename and change types and number of parameters
     public static FilterPlaceFragment newInstance(String param1, String param2) {
         FilterPlaceFragment fragment = new FilterPlaceFragment();
         Bundle args = new Bundle();
@@ -55,30 +57,34 @@ public class FilterPlaceFragment extends DialogFragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-
+    }*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_filter_list, container, false);
+        View view = inflater.inflate(R.layout.filter_content, container, false);
+        TextView titre = view.findViewById(R.id.filter_text);
+        titre.setText("Salle de Réunion : ");
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (view instanceof ConstraintLayout) {
             Context context = view.getContext();
+
             RecyclerView recyclerView = view.findViewById(R.id.filter_list);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener));
         }
         return view;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

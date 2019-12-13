@@ -1,10 +1,11 @@
-package com.openclassrooms.mareu.ui.meeting_list;
+package com.openclassrooms.mareu.ui.meeting_list.filters;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
@@ -35,8 +36,6 @@ public class FilterListFragment extends DialogFragment {
     public FilterListFragment() {
     }*/
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static FilterListFragment newInstance() {
         return new FilterListFragment();
     }
@@ -51,7 +50,8 @@ public class FilterListFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.filter_content, container, false);
-
+        TextView titre = view.findViewById(R.id.filter_text);
+        titre.setText("Filtres : ");
         // Set the adapter
         if (view instanceof ConstraintLayout) {
             Context context = view.getContext();

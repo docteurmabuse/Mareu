@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FilterPlaceFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterPlaceFragment.OnPlaceFragmentInteractionListener {
@@ -95,8 +97,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Bundle arguments = new Bundle();
         //arguments.putParcelable(item);
-        ItemDetailFragment fragment = new ItemDetailFragment();
-        fragment.setArguments(arguments);
+        filterPlaceFragment.setArguments(arguments);
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
         transaction.replace(R.id.content_meeting, filterPlaceFragment);

@@ -1,5 +1,6 @@
 package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.FilterPlaceFragment;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FilterPlaceFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     private final List<FilterContent.Places> mValues;
     private final FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener;
+    private Context context;
 
     public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
@@ -43,7 +45,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    //TODO   mListener.onListFragmentInteraction(holder.fPlaces);
+                    mListener.onPlaceFragmentInteraction(holder.fPlaces);
                 }
             }
         });
@@ -51,13 +53,13 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View fView;
-        public final TextView fPlaceText;
-        public final CheckBox fCheckView;
+        View fView;
+        TextView fPlaceText;
+        CheckBox fCheckView;
         public FilterContent.Places fPlaces;
 
         public ViewHolder(View view) {
@@ -66,6 +68,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
             fPlaceText = view.findViewById(R.id.place_name);
             fCheckView = view.findViewById(R.id.chbx_place);
         }
+
 
     }
 }

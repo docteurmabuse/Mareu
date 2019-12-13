@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/item_filter_icon"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layout_marginStart="16dp"
     android:layout_marginTop="16dp"
-    android:src="@drawable/ic_place_black_24dp"
     app:cardPreventCornerOverlap="true"
     app:layout_constraintTop_toTopOf="parent">
 

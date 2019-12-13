@@ -10,7 +10,6 @@ import java.util.Map;
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>
- * TODO: Replace all uses of this class before publishing your app.
  */
 public class FilterContent {
 
@@ -40,6 +39,8 @@ public class FilterContent {
      * A map of sample (dummy) items, by ID.
      */
     public static final Map<Integer, FiltersItem> ITEM_MAP = new HashMap<Integer, FiltersItem>();
+    public static final Map<Integer, Places> ITEM_PLACE_MAP = new HashMap<>();
+
 
 
     public static List<FiltersItem> createDummyItem() {
@@ -75,7 +76,6 @@ public class FilterContent {
             this.id = id;
             this.pName = pName;
             this.isSelected = isSelected;
-
         }
 
         public Integer getId() {
