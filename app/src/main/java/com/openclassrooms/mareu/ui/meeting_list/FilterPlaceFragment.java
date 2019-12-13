@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,9 +70,9 @@ public class FilterPlaceFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_filter_place, container, false);
+        View view = inflater.inflate(R.layout.fragment_filter_list, container, false);
         // Set the adapter
-        if (view instanceof ConstraintLayout) {
+        if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = view.findViewById(R.id.filter_list);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));

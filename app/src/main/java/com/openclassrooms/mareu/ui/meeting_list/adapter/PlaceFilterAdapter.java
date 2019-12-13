@@ -28,7 +28,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.place_filter_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.place_filter_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -36,7 +36,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final FilterContent.Places places = mValues.get(position);
         holder.fPlaces = mValues.get(position);
-        holder.fIdView.setText(mValues.get(position).toString());
+        holder.fPlaceText.setText(mValues.get(position).getpName());
         holder.fView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,14 +56,14 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View fView;
-        public final TextView fIdView;
+        public final TextView fPlaceText;
         public final CheckBox fCheckView;
         public FilterContent.Places fPlaces;
 
         public ViewHolder(View view) {
             super(view);
             fView = view;
-            fIdView = view.findViewById(R.id.filter_name);
+            fPlaceText = view.findViewById(R.id.place_name);
             fCheckView = view.findViewById(R.id.chbx_place);
         }
 

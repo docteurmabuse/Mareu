@@ -68,12 +68,12 @@ public class FilterContent {
 
     public static class Places {
         public final Integer id;
-        final String fPlaces;
+        final String pName;
         final Boolean isSelected;
 
-        public Places(Integer id, String fPlaces, Boolean isSelected) {
+        public Places(Integer id, String pName, Boolean isSelected) {
             this.id = id;
-            this.fPlaces = fPlaces;
+            this.pName = pName;
             this.isSelected = isSelected;
 
         }
@@ -82,8 +82,8 @@ public class FilterContent {
             return id;
         }
 
-        public String getfPlaces() {
-            return fPlaces;
+        public String getpName() {
+            return pName;
         }
     }
 }
