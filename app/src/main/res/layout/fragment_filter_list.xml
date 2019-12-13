@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_main"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,10 +12,11 @@
 
         <TextView
             android:id="@+id/filter_text"
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingBottom="10dp"
+            android:padding="16dp"
             android:text="@string/dates"
             android:textStyle="bold" />
 
@@ -24,10 +26,11 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingBottom="10dp"
+            android:padding="16dp"
             android:text="@string/lieu_de_r_union"
             android:textStyle="bold" />
 
