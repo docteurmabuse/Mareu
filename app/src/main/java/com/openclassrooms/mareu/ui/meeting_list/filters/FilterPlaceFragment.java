@@ -77,7 +77,7 @@ public class FilterPlaceFragment extends DialogFragment {
         // Set the adapter
         Context context = view.getContext();
 
-        RecyclerView recyclerView = view.findViewById(R.id.filter_list);
+        RecyclerView recyclerView = view.findViewById(R.id.item_recylerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener));
         return view;
