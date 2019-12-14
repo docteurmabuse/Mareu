@@ -71,6 +71,7 @@ public class FilterContent {
         final String pName;
         final Boolean isSelected;
 
+
         public Places(Integer id, String pName, Boolean isSelected) {
             this.id = id;
             this.pName = pName;
@@ -84,5 +85,10 @@ public class FilterContent {
         public String getpName() {
             return pName;
         }
+
+        public Boolean getSelected() {
+            return isSelected;
+        }
+
     }
 }

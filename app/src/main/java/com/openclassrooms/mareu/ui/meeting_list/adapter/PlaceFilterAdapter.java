@@ -10,19 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.filters.FilterPlaceFragment;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.ViewHolder> {
 
     private final List<FilterContent.Places> mValues;
-    private final FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener;
+    public final List<FilterContent.Places> placeSelected;
+    private final FilterListFragment.OnPlaceFragmentInteractionListener mListener;
 
-    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener) {
+    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
         this.mListener = mListener;
+        this.placeSelected = new ArrayList<>();
     }
 
     @NonNull
@@ -33,21 +36,42 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final FilterContent.Places places = mValues.get(position);
         holder.fPlaces = mValues.get(position);
         holder.fPlaceText.setText(mValues.get(position).getpName());
+        holder.fCheckView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.fCheckView.isChecked()) {
+                    addPlace(mValues.get(position));
+                } else {
+                    removePlace(mValues.get(position));
+                }
+            }
+
+            private void removePlace(FilterContent.Places places) {
+                placeSelected.add(mValues.get(position));
+
+            }
+
+            private void addPlace(FilterContent.Places places) {
+                placeSelected.remove(mValues.get(position));
+
+            }
+        });
         holder.fView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onPlaceFragmentInteraction(holder.fPlaces);
+                    mListener.onPlaceFragmentInteraction(placeSelected);
                 }
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

@@ -22,6 +22,8 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -34,7 +36,7 @@ public class FilterListFragment extends DialogFragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
-    private FilterPlaceFragment.OnPlaceFragmentInteractionListener mListener2;
+    private FilterListFragment.OnPlaceFragmentInteractionListener mListener2;
 
     public static final String TAG = "filter_dialog";
     private Toolbar toolbar;
@@ -150,7 +152,7 @@ public class FilterListFragment extends DialogFragment {
 
     public interface OnPlaceFragmentInteractionListener {
 
-        void onPlaceFragmentInteraction(FilterContent.FiltersItem item);
+        void onPlaceFragmentInteraction(List<FilterContent.Places> placeSelected);
     }
 
     public interface DialogListener {
