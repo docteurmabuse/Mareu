@@ -20,9 +20,14 @@ import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
-import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.FiltersItem;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.PLACE_ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.Places;
 
 /**
  * A fragment representing a list of Items.
@@ -37,7 +42,7 @@ public class FilterListFragment extends DialogFragment {
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
     private FilterListFragment.OnPlaceFragmentInteractionListener mListener2;
-
+    public static List<Places> placeSelected;
     public static final String TAG = "filter_dialog";
     private Toolbar toolbar;
 
@@ -57,6 +62,7 @@ public class FilterListFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
+        placeSelected = new ArrayList<>();
     }
 
     @Override
@@ -65,26 +71,29 @@ public class FilterListFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.filter_content, container, false);
         toolbar = view.findViewById(R.id.toolbar);
         TextView titre = view.findViewById(R.id.filter_text);
-        MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
 
         //titre.setText("Filtres : ");
         // Set the adapter
         final Context context = view.getContext();
-        bFinnish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,
-                        "Button3 Clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new MyFilterAdapter(FilterContent.ITEMS, mListener));
+        recyclerView.setAdapter(new MyFilterAdapter(ITEMS, mListener));
 
 
         RecyclerView recyclerView2 = view.findViewById(R.id.recycler_1);
         recyclerView2.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView2.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener2));
+        recyclerView2.setAdapter(new PlaceFilterAdapter(PLACE_ITEMS, mListener2));
+        MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
+        bFinnish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (placeSelected != null) {
+                    mListener2.onPlaceFragmentInteraction(placeSelected);
+                    Toast.makeText(context, placeSelected.get(0).getpName(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return view;
     }
 
@@ -147,12 +156,12 @@ public class FilterListFragment extends DialogFragment {
      */
     public interface OnListFragmentInteractionListener {
 
-        void onListFragmentInteraction(FilterContent.FiltersItem item);
+        void onListFragmentInteraction(FiltersItem item);
     }
 
     public interface OnPlaceFragmentInteractionListener {
 
-        void onPlaceFragmentInteraction(List<FilterContent.Places> placeSelected);
+        void onPlaceFragmentInteraction(List<Places> placeSelected);
     }
 
     public interface DialogListener {

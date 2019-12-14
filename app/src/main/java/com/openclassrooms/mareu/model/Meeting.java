@@ -1,6 +1,7 @@
 package com.openclassrooms.mareu.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 public class Meeting implements Serializable {
@@ -18,7 +19,7 @@ public class Meeting implements Serializable {
     /**
      * Meeting Date
      */
-    private String mDate;
+    private Date mDate;
 
     /**
      * Meeting Time
@@ -41,7 +42,7 @@ public class Meeting implements Serializable {
     private String mParticipants;
 
 
-    public Meeting(Integer mId, Integer mAvatar, String mDate, String mTime, String mPlace, String mSubject, String mParticipants) {
+    public Meeting(Integer mId, Integer mAvatar, Date mDate, String mTime, String mPlace, String mSubject, String mParticipants) {
         this.mId = mId;
         this.mAvatar = mAvatar;
         this.mDate = mDate;
@@ -67,11 +68,11 @@ public class Meeting implements Serializable {
         this.mAvatar = mAvatar;
     }
 
-    public String getmDate() {
+    public Date getmDate() {
         return mDate;
     }
 
-    public void setmDate(String mDate) {
+    public void setmDate(Date mDate) {
         this.mDate = mDate;
     }
 

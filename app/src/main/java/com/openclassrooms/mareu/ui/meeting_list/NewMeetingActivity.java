@@ -22,7 +22,12 @@ import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class NewMeetingActivity extends AppCompatActivity {
@@ -35,6 +40,11 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mParticipants;
     EditText mSubject;
     Button mButton;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    String testDateString = "02/04/2014";
+
+    DateFormat formatter = null;
+    Date convertedDate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +94,14 @@ public class NewMeetingActivity extends AppCompatActivity {
         int mSize = mApiService.getMeetings().size();
         int id = mSize + 1;
         int avatar = getRandomColor();
-        String date = mDate.getText().toString();
+        String fDate = mDate.getText().toString();
+        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        try {
+            convertedDate = formatter.parse(fDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date date = convertedDate;
         String time = mTime.getText().toString();
         String place = mPlaceList.getSelectedItem().toString();
         String subject = mSubject.getText().toString();

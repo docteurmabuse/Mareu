@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 /**
@@ -44,8 +43,7 @@ public class FilterPlaceFragment extends DialogFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+
      * @return A new instance of fragment FilterPlaceFragment.
      */
    /* // TODO: Rename and change types and number of parameters
@@ -79,7 +77,7 @@ public class FilterPlaceFragment extends DialogFragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.item_recylerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener));
+        //  recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener2));
         return view;
 
     }

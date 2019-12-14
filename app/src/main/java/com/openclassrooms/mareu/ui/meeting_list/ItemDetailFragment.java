@@ -13,6 +13,8 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.model.Meeting;
 
+import java.util.Date;
+
 /**
  * A fragment representing a single Item detail screen.
  * This fragment is either contained in a {@link MeetingsActivity}
@@ -32,7 +34,7 @@ public class ItemDetailFragment extends Fragment {
     private Meeting meeting;
     private Integer mId;
     private Integer mAvatar;
-    private String mDate;
+    private Date mDate;
     private String mTime;
     private String mPlace;
     private String mSubject;
@@ -89,7 +91,7 @@ public class ItemDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         if (meeting != null) {
             ((TextView) rootView.findViewById(R.id.place_detail)).setText(mPlace);
-            ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate);
+            ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate.toString());
             ((TextView) rootView.findViewById(R.id.time_detail)).setText(mTime);
             ((TextView) rootView.findViewById(R.id.participants_detail)).setText(mParticipants);
 
