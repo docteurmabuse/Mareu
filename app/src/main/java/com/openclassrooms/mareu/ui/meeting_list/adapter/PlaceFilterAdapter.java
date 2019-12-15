@@ -15,8 +15,6 @@ import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 import java.util.List;
 
-import static com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment.placeSelected;
-
 public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.ViewHolder> {
 
     private final List<FilterContent.Places> mValues;
@@ -28,6 +26,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         this.mListener = mListener;
     }
 
+    public FilterContent.Places places;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,24 +54,26 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
             }
 
-            private void removePlace(FilterContent.Places places) {
-                mListener.onPlaceFragmentInteraction(places, false);
-                placeSelected.add(mValues.get(position));
-
-            }
-
-            private void addPlace(FilterContent.Places places) {
-                mListener.onPlaceFragmentInteraction(places, true);
-                placeSelected.remove(mValues.get(position));
-            }
         });
         holder.fView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onPlaceFragmentInteraction(places, true);
+                //   mListener.onPlaceFragmentInteraction(places, true);
 
             }
         });
+    }
+
+    private void removePlace(FilterContent.Places places) {
+        mListener.onPlaceFragmentInteraction(places, false);
+        //placeSelected.add(mValues.get(position));
+
+    }
+
+    private void addPlace(FilterContent.Places pPlaces) {
+        mListener.onPlaceFragmentInteraction(pPlaces, true);
+        FilterContent.Places places = pPlaces;
+        // placeSelected.remove(mValues.get(position));
     }
 
 
