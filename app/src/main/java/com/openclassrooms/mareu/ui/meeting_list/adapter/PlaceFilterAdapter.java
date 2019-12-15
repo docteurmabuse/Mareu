@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.ui.meeting_list.FiltersViewModel;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
@@ -20,13 +21,17 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     private final List<FilterContent.Places> mValues;
     // public static  List<FilterContent.Places> placeSelected ;
     private final FilterListFragment.OnPlaceFragmentInteractionListener mListener;
+    private FiltersViewModel filtersViewModel;
 
-    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
+    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener, FiltersViewModel filtersViewModel) {
         this.mValues = mValues;
         this.mListener = mListener;
+        this.filtersViewModel = filtersViewModel;
+
     }
 
     public FilterContent.Places places;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,6 +64,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
             @Override
             public void onClick(View v) {
                 //   mListener.onPlaceFragmentInteraction(places, true);
+                filtersViewModel.setName("Mario");
 
             }
         });
