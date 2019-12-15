@@ -103,9 +103,8 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
                 .setAction("Action", null).show();
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
-            if (mApiService.getMeetings().contains("Mario")) {
+            if (meeting.getmPlace().contains("Mario")) {
                 fMeetings.add(meeting);
-
             }
         }
         mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
