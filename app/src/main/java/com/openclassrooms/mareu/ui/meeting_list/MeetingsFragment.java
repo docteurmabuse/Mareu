@@ -12,21 +12,27 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
+import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
+import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MeetingsFragment extends Fragment {
+public class MeetingsFragment extends Fragment implements FilterListFragment.OnPlaceFragmentInteractionListener {
 
     private RecyclerView mRecyclerView;
 
@@ -89,6 +95,20 @@ public class MeetingsFragment extends Fragment {
 
     public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), mApiService.getMeetings(), mTwoPane));
+    }
+
+    public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
+        //TODO
+        Snackbar.make(this.getView(), "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        List<Meeting> fMeetings = new ArrayList<>();
+        for (Meeting meeting : mApiService.getMeetings()) {
+            if (mApiService.getMeetings().contains(places.getpName())) {
+                fMeetings.add(meeting);
+
+            }
+        }
+        mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
     }
 
 }

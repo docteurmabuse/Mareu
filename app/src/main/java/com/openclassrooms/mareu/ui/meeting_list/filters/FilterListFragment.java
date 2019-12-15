@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
@@ -41,7 +40,7 @@ public class FilterListFragment extends DialogFragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
-    private FilterListFragment.OnPlaceFragmentInteractionListener mListener2;
+    private OnPlaceFragmentInteractionListener mListener2;
     public static List<Places> placeSelected;
     public static final String TAG = "filter_dialog";
     private Toolbar toolbar;
@@ -88,10 +87,7 @@ public class FilterListFragment extends DialogFragment {
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (placeSelected != null) {
-                    mListener2.onPlaceFragmentInteraction(placeSelected);
-                    Toast.makeText(context, placeSelected.get(0).getpName(), Toast.LENGTH_SHORT).show();
-                }
+                dismiss();
             }
         });
         return view;
@@ -161,7 +157,7 @@ public class FilterListFragment extends DialogFragment {
 
     public interface OnPlaceFragmentInteractionListener {
 
-        void onPlaceFragmentInteraction(List<Places> placeSelected);
+        void onPlaceFragmentInteraction(Places fPlaces, Boolean isSelected);
     }
 
     public interface DialogListener {

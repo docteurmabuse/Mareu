@@ -56,18 +56,20 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
             }
 
             private void removePlace(FilterContent.Places places) {
+                mListener.onPlaceFragmentInteraction(places, false);
                 placeSelected.add(mValues.get(position));
 
             }
 
             private void addPlace(FilterContent.Places places) {
+                mListener.onPlaceFragmentInteraction(places, true);
                 placeSelected.remove(mValues.get(position));
             }
         });
         holder.fView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  mListener.onPlaceFragmentInteraction(placeSelected);
+                mListener.onPlaceFragmentInteraction(places, true);
 
             }
         });
