@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.FiltersViewModel;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 
@@ -42,7 +41,6 @@ public class FilterListFragment extends DialogFragment {
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
     private OnPlaceFragmentInteractionListener mListener2;
-    private FiltersViewModel filtersViewModel;
 
     public static List<Places> placeSelected;
     public static final String TAG = "filter_dialog";
@@ -85,7 +83,7 @@ public class FilterListFragment extends DialogFragment {
 
         RecyclerView recyclerView2 = view.findViewById(R.id.recycler_1);
         recyclerView2.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView2.setAdapter(new PlaceFilterAdapter(PLACE_ITEMS, mListener2, filtersViewModel));
+        recyclerView2.setAdapter(new PlaceFilterAdapter(PLACE_ITEMS, mListener2));
         MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override

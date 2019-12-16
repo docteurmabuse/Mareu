@@ -8,31 +8,60 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.di.DI;
+import com.openclassrooms.mareu.model.Meeting;
+import com.openclassrooms.mareu.service.MeetingApiService;
+import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
+    private RecyclerView mRecyclerView;
+    private MeetingAdapter mAdapter;
+    private MeetingApiService mApiService;
+    private boolean mTwoPane;
+    private List<Meeting> fMeetings;
+
+    public MeetingsActivity() {
+        mApiService = DI.getMeetingApiService();
+        fMeetings = Objects.requireNonNull(mApiService).getMeetings();
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //mApiService = DI.getMeetingApiService();
         setContentView(R.layout.activity_meetings);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
         initMeetingsView();
+        initRecyclerView();
+    }
+
+
+    private void initRecyclerView() {
+        mRecyclerView = findViewById(R.id.item_recylerview);
+        assert mRecyclerView != null;
+        setupRecyclerView(mRecyclerView);
     }
 
     private void initMeetingsView() {
@@ -40,7 +69,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        transaction.add(R.id.content_meeting, newFragment);
+        transaction.add(R.id.frameLayout, newFragment);
         transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
@@ -51,8 +80,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 Context context = view.getContext();
                 Intent intent = new Intent(context, NewMeetingActivity.class);
                 context.startActivity(intent);
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
     }
@@ -68,6 +95,12 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        mAdapter = new MeetingAdapter(this, fMeetings, mTwoPane);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void initFiltersView() {
@@ -102,8 +135,16 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
-        //TODO
-        Toast.makeText(getApplicationContext(), "Hello Places", Toast.LENGTH_SHORT).show();
 
+        Toast.makeText(getApplicationContext(), "Hello Places2", Toast.LENGTH_SHORT).show();
+        mRecyclerView = findViewById(R.id.item_recylerview);
+        assert mRecyclerView != null;
+        fMeetings = new ArrayList<>();
+        for (Meeting meeting : mApiService.getMeetings()) {
+            if (meeting.getmPlace().contains("Mario")) {
+                fMeetings.add(meeting);
+            }
+        }
+        mRecyclerView.setAdapter(new MeetingAdapter(this, fMeetings, mTwoPane));
     }
 }

@@ -23,6 +23,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:id="@+id/item_recylerview"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity"
         tools:listitem="@layout/item_list_content" />

@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
@@ -36,11 +33,11 @@ import java.util.Objects;
  */
 public class MeetingsFragment extends Fragment implements FilterListFragment.OnPlaceFragmentInteractionListener, FilterListFragment.OnListFragmentInteractionListener {
 
-    private RecyclerView mRecyclerView;
+    public static final String TAG = "meeting_fragment";
+    public RecyclerView mRecyclerView;
 
     private MeetingApiService mApiService;
     private boolean mTwoPane;
-    private FiltersViewModel filtersViewModel;
 
 
     protected MeetingsFragment newInstance() {
@@ -71,23 +68,6 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
         return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        filtersViewModel.getName().observe(requireActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                List<Meeting> fMeetings = new ArrayList<>();
-                for (Meeting meeting : mApiService.getMeetings()) {
-                    if (meeting.getmPlace().contains(s)) {
-                        fMeetings.add(meeting);
-                    }
-                }
-                mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
-            }
-        });
-    }
 
     @Override
     public void onStart() {
@@ -119,10 +99,6 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
     }
 
     public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
-        //TODO
-
-        Snackbar.make(this.getView(), "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getmPlace().contains("Mario")) {
@@ -133,9 +109,6 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
     }
 
     public void onListFragmentInteraction(FilterContent.FiltersItem places) {
-        //TODO
-        Snackbar.make(this.getView(), "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getmPlace().contains("Mario")) {

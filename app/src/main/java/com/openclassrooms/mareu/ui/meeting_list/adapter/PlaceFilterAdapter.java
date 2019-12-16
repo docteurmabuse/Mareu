@@ -66,13 +66,13 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     private void removePlace(FilterContent.Places places) {
         mListener.onPlaceFragmentInteraction(places, false);
+
         //placeSelected.add(mValues.get(position));
 
     }
 
     private void addPlace(FilterContent.Places pPlaces) {
         mListener.onPlaceFragmentInteraction(pPlaces, true);
-        FilterContent.Places places = pPlaces;
         // placeSelected.remove(mValues.get(position));
     }
 
