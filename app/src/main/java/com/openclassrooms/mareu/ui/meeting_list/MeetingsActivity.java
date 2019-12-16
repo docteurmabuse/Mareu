@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,10 +17,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.filters.FilterPlaceFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterPlaceFragment.OnPlaceFragmentInteractionListener {
+public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
@@ -95,20 +95,15 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onListFragmentInteraction(FilterContent.FiltersItem item) {
-        FilterPlaceFragment filterPlaceFragment = new FilterPlaceFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        Bundle arguments = new Bundle();
-        //arguments.putParcelable(item);
-        filterPlaceFragment.setArguments(arguments);
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.replace(R.id.content_meeting, filterPlaceFragment);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();
+
+        Toast.makeText(getApplicationContext(), "Hello Filter", Toast.LENGTH_SHORT).show();
+
+
     }
 
-    public void onPlaceFragmentInteraction(FilterContent.Places places) {
+    public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
         //TODO
+        Toast.makeText(getApplicationContext(), "Hello Places", Toast.LENGTH_SHORT).show();
+
     }
 }

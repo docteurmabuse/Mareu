@@ -99,6 +99,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
 
     public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
         //TODO
+
         Snackbar.make(this.getView(), "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
         List<Meeting> fMeetings = new ArrayList<>();

@@ -132,6 +132,12 @@ public class FilterListFragment extends DialogFragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
+        if (context instanceof OnPlaceFragmentInteractionListener) {
+            mListener2 = (FilterListFragment.OnPlaceFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
 
 /**
@@ -77,7 +78,7 @@ public class FilterPlaceFragment extends DialogFragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.item_recylerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        //  recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, mListener2));
+        recyclerView.setAdapter(new PlaceFilterAdapter(FilterContent.PLACE_ITEMS, (FilterListFragment.OnPlaceFragmentInteractionListener) mListener));
         return view;
 
     }
