@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,12 +34,13 @@ import java.util.Objects;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MeetingsFragment extends Fragment implements FilterListFragment.OnPlaceFragmentInteractionListener {
+public class MeetingsFragment extends Fragment implements FilterListFragment.OnPlaceFragmentInteractionListener, FilterListFragment.OnListFragmentInteractionListener {
 
     private RecyclerView mRecyclerView;
 
     private MeetingApiService mApiService;
     private boolean mTwoPane;
+    private FiltersViewModel filtersViewModel;
 
 
     protected MeetingsFragment newInstance() {
@@ -66,6 +69,24 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
             mTwoPane = true;
         }
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        filtersViewModel.getName().observe(requireActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                List<Meeting> fMeetings = new ArrayList<>();
+                for (Meeting meeting : mApiService.getMeetings()) {
+                    if (meeting.getmPlace().contains(s)) {
+                        fMeetings.add(meeting);
+                    }
+                }
+                mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
+            }
+        });
     }
 
     @Override
@@ -100,6 +121,19 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
     public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
         //TODO
 
+        Snackbar.make(this.getView(), "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        List<Meeting> fMeetings = new ArrayList<>();
+        for (Meeting meeting : mApiService.getMeetings()) {
+            if (meeting.getmPlace().contains("Mario")) {
+                fMeetings.add(meeting);
+            }
+        }
+        mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
+    }
+
+    public void onListFragmentInteraction(FilterContent.FiltersItem places) {
+        //TODO
         Snackbar.make(this.getView(), "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
         List<Meeting> fMeetings = new ArrayList<>();
