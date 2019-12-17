@@ -21,6 +21,7 @@ import com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +30,7 @@ public class MeetingAdapter
         extends RecyclerView.Adapter<MeetingListViewHolder> {
 
     private final MeetingsActivity mParentActivity;
-    private final List<Meeting> mMeetings;
+    public List<Meeting> mMeetings;
     private final boolean mTwoPane;
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
@@ -74,7 +75,9 @@ public class MeetingAdapter
     public void onBindViewHolder(final MeetingListViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
         Date date = mMeetings.get(position).getmDate();
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+       // DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
         String formattedDate = df.format(date);
         String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();

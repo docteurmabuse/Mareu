@@ -56,7 +56,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mApiService = DI.getMeetingApiService();
+        mApiService = DI.getMeetingApiService();
         setContentView(R.layout.activity_meetings);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +65,10 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         initRecyclerView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.item_recylerview);
@@ -162,10 +166,13 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         assert mRecyclerView != null;
         fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
-            if (meeting.getmPlace().contains("Mario")) {
+            if (meeting.getmPlace().contains("Wario")) {
                 fMeetings.add(meeting);
             }
         }
-        mRecyclerView.setAdapter(new MeetingAdapter(this, fMeetings, mTwoPane));
+       // mRecyclerView.setAdapter(new MeetingAdapter(this, fMeetings, mTwoPane));
+        mAdapter.mMeetings=fMeetings;
+        mRecyclerView.getAdapter().notifyDataSetChanged();
+
     }
 }

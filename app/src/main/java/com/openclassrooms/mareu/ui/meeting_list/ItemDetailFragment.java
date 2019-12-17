@@ -14,6 +14,7 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.model.Meeting;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -79,7 +80,7 @@ public class ItemDetailFragment extends Fragment {
         mId = meeting.getmId();
         mAvatar = meeting.getmAvatar();
         Date date = meeting.getmDate();
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
         mDate = df.format(date);
         mTime = meeting.getmTime();
         mPlace = meeting.getmPlace();
@@ -95,7 +96,7 @@ public class ItemDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         if (meeting != null) {
             ((TextView) rootView.findViewById(R.id.place_detail)).setText(mPlace);
-            ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate.toString());
+            ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate);
             ((TextView) rootView.findViewById(R.id.time_detail)).setText(mTime);
             ((TextView) rootView.findViewById(R.id.participants_detail)).setText(mParticipants);
 
