@@ -25,7 +25,7 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.Filters;
+import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -126,7 +126,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
 
-    public void onListFragmentInteraction(Filters.FiltersItem item) {
+    public void onListFragmentInteraction(FiltersContent.FiltersItem item) {
 
         Toast.makeText(getApplicationContext(), "Hello Filter", Toast.LENGTH_SHORT).show();
         Calendar calendar = Calendar.getInstance();
@@ -155,7 +155,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         Date mDate = convertedDate;
     }
 
-    public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
+    public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
 
         Toast.makeText(getApplicationContext(), "Hello Places2", Toast.LENGTH_SHORT).show();
         mRecyclerView = findViewById(R.id.item_recylerview);

@@ -1,77 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_list_meeting_avatar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/item_list_meeting_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="#5E855F"
-        app:cardBackgroundColor="#4CAF50"
-        app:cardCornerRadius="25dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_green_dark"
-        tools:src="@android:color/holo_green_dark"
-        tools:srcCompat="@android:color/holo_green_dark" />
-
-    <LinearLayout
-        android:id="@+id/item_list_meeting_text_layout"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_avatar"
-        app:layout_constraintStart_toEndOf="@+id/item_list_meeting_avatar"
-        app:layout_constraintTop_toTopOf="@+id/item_list_meeting_avatar">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/item_list_meeting_title"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/meeting_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:foregroundGravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/avatar" />
+
+        <LinearLayout
+            android:id="@+id/item_list_meeting_text_layout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:singleLine="true"
-            app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_title"
-            app:layout_constraintStart_toEndOf="@+id/item_list_meeting_avatar"
-            app:layout_constraintTop_toTopOf="@+id/item_list_meeting_title" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/item_list_meeting_delete_button"
+            app:layout_constraintStart_toEndOf="@id/meeting_avatar"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/item_list_meeting_subtitle"
-            android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/item_list_meeting_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:minLines="2"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_list_meeting_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/item_list_meeting_delete_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_title"
-            app:layout_constraintStart_toEndOf="@+id/item_list_meeting_avatar"
-            app:layout_constraintTop_toTopOf="@+id/item_list_meeting_title" />
-
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/item_list_meeting_delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_text_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_list_meeting_text_layout"
-        app:srcCompat="@drawable/ic_delete_black_24dp" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_margin="16dp"
+            android:background="@null"
+            android:contentDescription="@string/delete_meeting_button"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete_black_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

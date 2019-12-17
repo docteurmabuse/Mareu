@@ -25,6 +25,7 @@
     <string name="termin">Terminé</string>
     <string name="lieu_de_r_union">Lieu de réunion :</string>
     <string name="dates">Dates :</string>
+    <string name="delete_meeting_button">Delete Meeting Button</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

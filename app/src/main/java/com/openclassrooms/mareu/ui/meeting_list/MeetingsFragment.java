@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,14 +18,13 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.Filters;
+import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -57,7 +55,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
+        //    mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
         if (view.findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -98,7 +96,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
         recyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), mApiService.getMeetings(), mTwoPane));
     }
 
-    public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
+    public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getmPlace().contains("Mario")) {
@@ -108,7 +106,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
         mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
     }
 
-    public void onListFragmentInteraction(Filters.FiltersItem places) {
+    public void onListFragmentInteraction(FiltersContent.FiltersItem places) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getmPlace().contains("Mario")) {

@@ -2,6 +2,7 @@ package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,9 +70,10 @@ public class MeetingAdapter
     @Override
     public void onBindViewHolder(final MeetingListViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
-        String Title = mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
+        String Title = mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmDate() + " - " + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();
-        holder.mAvatarView.setCardBackgroundColor(meeting.getmAvatar());
+        GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
+        drawable.setColor(meeting.getmAvatar());
         holder.mSubtitleView.setText(Subtitle);
         holder.mTitleView.setText(Title);
         holder.itemView.setTag(mMeetings.get(position));

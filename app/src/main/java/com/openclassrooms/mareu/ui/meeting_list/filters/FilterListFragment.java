@@ -23,10 +23,10 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.FiltersItem;
-import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.PLACE_ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.Places;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.FiltersItem;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.PLACE_ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.Places;
 
 /**
  * A fragment representing a list of Items.

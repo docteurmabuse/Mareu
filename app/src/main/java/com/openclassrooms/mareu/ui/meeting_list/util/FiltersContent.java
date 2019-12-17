@@ -11,10 +11,10 @@ import java.util.Map;
  * Android template wizards.
  * <p>
  */
-public class Filters {
+public class FiltersContent {
 
     /**
-     * An array of Filters List items.
+     * An array of FiltersContent List items.
      */
     public static final List<FiltersItem> ITEMS = Arrays.asList(
             new FiltersItem(1, "Date")
