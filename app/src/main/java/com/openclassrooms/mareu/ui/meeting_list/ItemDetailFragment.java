@@ -13,7 +13,9 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.model.Meeting;
 
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -34,7 +36,7 @@ public class ItemDetailFragment extends Fragment {
     private Meeting meeting;
     private Integer mId;
     private Integer mAvatar;
-    private Date mDate;
+    private String mDate;
     private String mTime;
     private String mPlace;
     private String mSubject;
@@ -76,7 +78,9 @@ public class ItemDetailFragment extends Fragment {
     private void getMeeting() {
         mId = meeting.getmId();
         mAvatar = meeting.getmAvatar();
-        mDate = meeting.getmDate();
+        Date date = meeting.getmDate();
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        mDate = df.format(date);
         mTime = meeting.getmTime();
         mPlace = meeting.getmPlace();
         mSubject = meeting.getmSubject();

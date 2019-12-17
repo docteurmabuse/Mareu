@@ -20,7 +20,10 @@ import com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MeetingAdapter
         extends RecyclerView.Adapter<MeetingListViewHolder> {
@@ -70,7 +73,10 @@ public class MeetingAdapter
     @Override
     public void onBindViewHolder(final MeetingListViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
-        String Title = mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmDate()  + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
+        Date date = mMeetings.get(position).getmDate();
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        String formattedDate = df.format(date);
+        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
         drawable.setColor(meeting.getmAvatar());
