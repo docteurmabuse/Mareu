@@ -1,11 +1,13 @@
 package com.openclassrooms.mareu.ui.meeting_list;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,13 +25,14 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
+import com.openclassrooms.mareu.ui.meeting_list.util.Filters;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.DialogListener, FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener {
+public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
@@ -118,23 +121,24 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
 
-    @Override
-    public void onFinishEditDialog(String inputText) {
-/*
-        if (TextUtils.isEmpty(inputText)) {
-            textView.setText("Email was not entered");
-        } else
-            textView.setText("Email entered: " + inputText);*/
-    }
-
-    public void onListFragmentInteraction(FilterContent.FiltersItem item) {
+    public void onListFragmentInteraction(Filters.FiltersItem item) {
 
         Toast.makeText(getApplicationContext(), "Hello Filter", Toast.LENGTH_SHORT).show();
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
-
+                    }
+                }, year, month, dayOfMonth);
+        datePickerDialog.show();
     }
 
-    public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
+    public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
 
         Toast.makeText(getApplicationContext(), "Hello Places2", Toast.LENGTH_SHORT).show();
         mRecyclerView = findViewById(R.id.item_recylerview);

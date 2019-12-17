@@ -11,7 +11,7 @@ import java.util.Map;
  * Android template wizards.
  * <p>
  */
-public class FilterContent {
+public class Filters {
 
     /**
      * An array of Filters List items.

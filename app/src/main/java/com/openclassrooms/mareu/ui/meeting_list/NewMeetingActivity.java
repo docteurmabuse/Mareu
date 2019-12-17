@@ -40,11 +40,14 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mParticipants;
     EditText mSubject;
     Button mButton;
-    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    String testDateString = "02/04/2014";
+    SimpleDateFormat df;
 
     DateFormat formatter = null;
     Date convertedDate = null;
+
+    public NewMeetingActivity() {
+        df = new SimpleDateFormat("dd/MM/yyyy");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

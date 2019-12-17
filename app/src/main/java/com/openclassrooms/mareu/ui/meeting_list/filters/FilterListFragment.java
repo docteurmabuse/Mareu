@@ -23,10 +23,10 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.FiltersItem;
-import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.PLACE_ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.Places;
+import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.FiltersItem;
+import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.PLACE_ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.util.Filters.Places;
 
 /**
  * A fragment representing a list of Items.
@@ -165,10 +165,6 @@ public class FilterListFragment extends DialogFragment {
     public interface OnPlaceFragmentInteractionListener {
 
         void onPlaceFragmentInteraction(Places fPlaces, Boolean isSelected);
-    }
-
-    public interface DialogListener {
-        void onFinishEditDialog(String inputText);
     }
 
 

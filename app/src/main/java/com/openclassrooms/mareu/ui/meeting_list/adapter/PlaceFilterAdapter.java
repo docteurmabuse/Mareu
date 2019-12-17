@@ -11,22 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
+import com.openclassrooms.mareu.ui.meeting_list.util.Filters;
 
 import java.util.List;
 
 public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.ViewHolder> {
 
-    private final List<FilterContent.Places> mValues;
-    // public static  List<FilterContent.Places> placeSelected ;
+    private final List<Filters.Places> mValues;
+    // public static  List<Filters.Places> placeSelected ;
     private final FilterListFragment.OnPlaceFragmentInteractionListener mListener;
+    public Filters.Places places;
 
-    public PlaceFilterAdapter(List<FilterContent.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
+    public PlaceFilterAdapter(List<Filters.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
         this.mListener = mListener;
     }
-
-    public FilterContent.Places places;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,7 +35,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        final FilterContent.Places places = mValues.get(position);
+        final Filters.Places places = mValues.get(position);
         holder.fPlaces = mValues.get(position);
         holder.fPlaceText.setText(mValues.get(position).getpName());
         holder.fCheckView.setOnClickListener(new View.OnClickListener() {
@@ -64,14 +63,14 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         });
     }
 
-    private void removePlace(FilterContent.Places places) {
+    private void removePlace(Filters.Places places) {
         mListener.onPlaceFragmentInteraction(places, false);
 
         //placeSelected.add(mValues.get(position));
 
     }
 
-    private void addPlace(FilterContent.Places pPlaces) {
+    private void addPlace(Filters.Places pPlaces) {
         mListener.onPlaceFragmentInteraction(pPlaces, true);
         // placeSelected.remove(mValues.get(position));
     }
@@ -86,7 +85,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         View fView;
         TextView fPlaceText;
         CheckBox fCheckView;
-        FilterContent.Places fPlaces;
+        Filters.Places fPlaces;
 
         ViewHolder(View view) {
             super(view);

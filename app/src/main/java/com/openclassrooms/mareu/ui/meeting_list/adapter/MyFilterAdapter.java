@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment.OnListFragmentInteractionListener;
-import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent.FiltersItem;
+import com.openclassrooms.mareu.ui.meeting_list.util.Filters.FiltersItem;
 
 import java.util.List;
 

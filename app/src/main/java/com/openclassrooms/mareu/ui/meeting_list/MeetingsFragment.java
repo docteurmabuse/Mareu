@@ -19,7 +19,7 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.FilterContent;
+import com.openclassrooms.mareu.ui.meeting_list.util.Filters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -98,7 +98,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
         recyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), mApiService.getMeetings(), mTwoPane));
     }
 
-    public void onPlaceFragmentInteraction(FilterContent.Places places, Boolean isSelected) {
+    public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getmPlace().contains("Mario")) {
@@ -108,7 +108,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
         mRecyclerView.setAdapter(new MeetingAdapter((MeetingsActivity) getActivity(), fMeetings, mTwoPane));
     }
 
-    public void onListFragmentInteraction(FilterContent.FiltersItem places) {
+    public void onListFragmentInteraction(Filters.FiltersItem places) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
             if (meeting.getmPlace().contains("Mario")) {
