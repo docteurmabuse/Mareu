@@ -27,9 +27,14 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.Filters;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener {
@@ -135,7 +140,19 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
                     }
                 }, year, month, dayOfMonth);
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
+        SimpleDateFormat df;
+        DateFormat formatter = null;
+        Date convertedDate = null;
+        String fDate = (dayOfMonth + "/" + (month + 1) + '/' + year);
+        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        try {
+            convertedDate = formatter.parse(fDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date mDate = convertedDate;
     }
 
     public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
