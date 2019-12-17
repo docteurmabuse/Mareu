@@ -21,11 +21,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
+import com.openclassrooms.mareu.events.DeleteMeetingEvent;
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
 import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -45,11 +49,11 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private MeetingAdapter mAdapter;
     private MeetingApiService mApiService;
     private boolean mTwoPane;
-    private List<Meeting> fMeetings;
+    private List<Meeting> mMeetings;
 
     public MeetingsActivity() {
         mApiService = DI.getMeetingApiService();
-        fMeetings = Objects.requireNonNull(mApiService).getMeetings();
+        //mMeetings = Objects.requireNonNull(mApiService).getMeetings();
     }
 
 
@@ -68,6 +72,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     @Override
     protected void onResume() {
         super.onResume();
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
@@ -77,14 +82,14 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     private void initMeetingsView() {
-        Fragment newFragment = new MeetingsFragment();
+      /*  Fragment newFragment = new MeetingsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
         transaction.add(R.id.frameLayout, newFragment);
         transaction.addToBackStack(null);
         // Commit the transaction
-        transaction.commit();
+        transaction.commit();*/
         fab = findViewById(R.id.fab_add_meeting);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +99,13 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 context.startActivity(intent);
             }
         });
+        if (findViewById(R.id.item_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-w900dp).
+            // If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,9 +122,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        mAdapter = new MeetingAdapter(this, fMeetings, mTwoPane);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane));
     }
 
     private void initFiltersView() {
@@ -164,15 +174,35 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         Toast.makeText(getApplicationContext(), "Hello Places2", Toast.LENGTH_SHORT).show();
         mRecyclerView = findViewById(R.id.item_recylerview);
         assert mRecyclerView != null;
-        fMeetings = new ArrayList<>();
+        //mMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
-            if (meeting.getmPlace().contains("Wario")) {
-                fMeetings.add(meeting);
+            if (meeting.getmPlace().contains(places.getpName())) {
+                mMeetings.add(meeting);
             }
         }
-       // mRecyclerView.setAdapter(new MeetingAdapter(this, fMeetings, mTwoPane));
-        mAdapter.mMeetings=fMeetings;
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        // mRecyclerView.setAdapter(new MeetingAdapter(this, fMeetings, mTwoPane));
+//        mAdapter.mMeetings=fMeetings;
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
 
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+        initRecyclerView();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void DeleteMeetingEvent(DeleteMeetingEvent event) {
+        mApiService.deleteMeeting(event.meeting);
+        initRecyclerView();
     }
 }

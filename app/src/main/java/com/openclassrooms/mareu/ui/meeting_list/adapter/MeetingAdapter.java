@@ -76,8 +76,8 @@ public class MeetingAdapter
         final Meeting meeting = mMeetings.get(position);
         Date date = mMeetings.get(position).getmDate();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-       // DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        //SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
         String formattedDate = df.format(date);
         String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();

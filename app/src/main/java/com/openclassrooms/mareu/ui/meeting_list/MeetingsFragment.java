@@ -99,7 +99,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
     public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
-            if (meeting.getmPlace().contains("Mario")) {
+            if (meeting.getmPlace().contains("wario")) {
                 fMeetings.add(meeting);
             }
         }
@@ -109,7 +109,7 @@ public class MeetingsFragment extends Fragment implements FilterListFragment.OnP
     public void onListFragmentInteraction(FiltersContent.FiltersItem places) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : mApiService.getMeetings()) {
-            if (meeting.getmPlace().contains("Mario")) {
+            if (meeting.getmPlace().contains("Wario")) {
                 fMeetings.add(meeting);
             }
         }
