@@ -70,7 +70,7 @@ public class MeetingAdapter
     @Override
     public void onBindViewHolder(final MeetingListViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
-        String Title = mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmDate() + " - " + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
+        String Title = mMeetings.get(position).getmSubject() + " - " + mMeetings.get(position).getmDate()  + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
         drawable.setColor(meeting.getmAvatar());
