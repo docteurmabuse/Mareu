@@ -21,6 +21,8 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.FiltersItem;
@@ -59,6 +61,12 @@ public class FilterListFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
         sortedPlaces = PLACE_ITEMS;
+        Collections.sort(sortedPlaces, new Comparator<Places>() {
+            @Override
+            public int compare(Places o1, Places o2) {
+                return o1.getpName().compareToIgnoreCase(o2.getpName());
+            }
+        });
     }
 
     @Override
@@ -78,7 +86,7 @@ public class FilterListFragment extends DialogFragment {
 
         RecyclerView recyclerView2 = view.findViewById(R.id.recycler_1);
         recyclerView2.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView2.setAdapter(new PlaceFilterAdapter(PLACE_ITEMS, mListener2));
+        recyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
         MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override
