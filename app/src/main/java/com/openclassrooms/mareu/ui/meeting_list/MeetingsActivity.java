@@ -47,10 +47,12 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private MeetingApiService mApiService;
     private boolean mTwoPane;
     private List<Meeting> mMeetings;
+    List<FiltersContent.Places> placeSelected;
 
     public MeetingsActivity() {
         mApiService = DI.getMeetingApiService();
         //mMeetings = Objects.requireNonNull(mApiService).getMeetings();
+        placeSelected = new ArrayList<>();
     }
 
 
@@ -169,7 +171,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
         RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
         assert mRecyclerView != null;
-        List<FiltersContent.Places> placeSelected = new ArrayList<>();
+
 
         if (isSelected) {
             placeSelected.add(places);
@@ -177,7 +179,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         } else {
             placeSelected.remove(places);
         }
-        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(places);
+        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(placeSelected);
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
 
     }

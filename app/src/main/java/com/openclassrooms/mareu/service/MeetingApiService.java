@@ -29,7 +29,7 @@ public interface MeetingApiService {
      */
     void deleteMeeting(Meeting meeting);
 
-    List<Meeting> getPlaceFilteredMeetings(FiltersContent.Places places);
+    List<Meeting> getPlaceFilteredMeetings(List<FiltersContent.Places> fPlaces);
 
 }
 
