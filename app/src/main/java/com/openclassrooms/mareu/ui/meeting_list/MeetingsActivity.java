@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -182,8 +181,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onFilterButtonClick(List<FiltersContent.Places> places) {
-        Toast toast = Toast.makeText(this, "Hello", Toast.LENGTH_SHORT);
-        toast.show();
         mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(placeSelected);
         placeSelected.clear();
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
