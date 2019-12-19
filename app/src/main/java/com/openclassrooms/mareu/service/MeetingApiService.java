@@ -1,6 +1,7 @@
 package com.openclassrooms.mareu.service;
 
 import com.openclassrooms.mareu.model.Meeting;
+import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public interface MeetingApiService {
      * @param meeting
      */
     void deleteMeeting(Meeting meeting);
+
+    List<Meeting> getFilteredMeetings(FiltersContent.Places places);
 
 }
 
