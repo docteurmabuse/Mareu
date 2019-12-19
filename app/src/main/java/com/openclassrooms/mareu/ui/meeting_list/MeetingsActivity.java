@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener {
+public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener, FilterListFragment.OnFilterButtonClickListener {
 
     private FloatingActionButton fab;
     private Toolbar toolbar;
@@ -145,7 +145,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
     public void onListFragmentInteraction(FiltersContent.FiltersItem item) {
 
-        Toast.makeText(getApplicationContext(), "Hello Filter", Toast.LENGTH_SHORT).show();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -154,22 +153,36 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        DateFormat formatter = null;
+                        Date convertedDate = null;
+                        Date filterDate = null;
 
+                        String fDate = (day + "/" + (month + 1) + '/' + year);
+                        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+                        try {
+                            convertedDate = formatter.parse(fDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date mDate = convertedDate;
+                        List<Meeting> fMeetings = new ArrayList<>();
+                        assert mDate != null;
+
+                        for (Meeting meeting : mApiService.getMeetings()) {
+                            filterDate = meeting.getmDate();
+                            if (filterDate.equals(convertedDate)) ;
+                            {
+                                fMeetings.add(meeting);
+                            }
+                        }
+                        RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
+                        assert mRecyclerView != null;
+                        mAdapter.mMeetings = fMeetings;
+                        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
                     }
                 }, year, month, dayOfMonth);
         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
-        SimpleDateFormat df;
-        DateFormat formatter = null;
-        Date convertedDate = null;
-        String fDate = (dayOfMonth + "/" + (month + 1) + '/' + year);
-        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-        try {
-            convertedDate = formatter.parse(fDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Date mDate = convertedDate;
     }
 
     public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
@@ -182,11 +195,14 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         } else {
             placeSelected.remove(places);
         }
-        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(placeSelected);
-        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
+
 
     }
 
+    public void onFilterButtonClick(List<FiltersContent.Places> places) {
+        Toast toast = Toast.makeText(this, "Hello", Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
     @Override
     public void onStart() {

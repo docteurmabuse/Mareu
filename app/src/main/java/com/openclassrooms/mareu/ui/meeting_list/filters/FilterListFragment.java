@@ -19,6 +19,7 @@ import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
+import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,9 @@ public class FilterListFragment extends DialogFragment {
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
     private OnPlaceFragmentInteractionListener mListener2;
+    List<FiltersContent.Places> placeSelected;
+    private OnFilterButtonClickListener mListener3;
 
-    public static List<Places> placeSelected;
     public static final String TAG = "filter_dialog";
     private Toolbar toolbar;
 
@@ -88,6 +90,7 @@ public class FilterListFragment extends DialogFragment {
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mListener3.onFilterButtonClick(placeSelected);
                 dismiss();
             }
         });
@@ -139,6 +142,13 @@ public class FilterListFragment extends DialogFragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+        if (context instanceof OnFilterButtonClickListener) {
+            mListener3 = (FilterListFragment.OnFilterButtonClickListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -167,5 +177,8 @@ public class FilterListFragment extends DialogFragment {
         void onPlaceFragmentInteraction(Places fPlaces, Boolean isSelected);
     }
 
+    public interface OnFilterButtonClickListener {
+        void onFilterButtonClick(List<Places> places);
+    }
 
 }
