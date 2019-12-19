@@ -175,7 +175,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
             placeSelected.add(places);
 
         } else {
-
+            placeSelected.remove(places);
         }
         mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(places);
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();

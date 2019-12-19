@@ -57,7 +57,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         holder.fView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onPlaceFragmentInteraction(mValues.get(position), true);
+                //   mListener.onPlaceFragmentInteraction(mValues.get(position), true);
 
             }
         });
