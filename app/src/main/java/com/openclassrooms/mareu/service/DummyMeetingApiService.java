@@ -38,10 +38,8 @@ public class DummyMeetingApiService implements MeetingApiService {
         meetings.remove(meeting);
     }
 
-
     @Override
     public List<Meeting> getPlaceFilteredMeetings(List<FiltersContent.Places> fPlaces) {
-
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : getMeetings()) {
             for (FiltersContent.Places places : fPlaces) {
@@ -49,7 +47,6 @@ public class DummyMeetingApiService implements MeetingApiService {
                     fMeetings.add(meeting);
                 }
             }
-
         }
         return fMeetings;
     }

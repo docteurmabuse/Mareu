@@ -50,9 +50,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     List<FiltersContent.Places> placeSelected;
 
     public MeetingsActivity() {
-        mApiService = DI.getMeetingApiService();
+        // mApiService = DI.getMeetingApiService();
         //mMeetings = Objects.requireNonNull(mApiService).getMeetings();
-        placeSelected = new ArrayList<>();
     }
 
 
@@ -60,6 +59,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getMeetingApiService();
+        placeSelected = new ArrayList<>();
+
         setContentView(R.layout.activity_meetings);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,8 +77,11 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.item_recylerview);
+        mAdapter = new MeetingAdapter(this, mApiService.getMeetings(), true);
         assert mRecyclerView != null;
-        setupRecyclerView(mRecyclerView);
+        //setupRecyclerView(mRecyclerView);
+        mRecyclerView.setItemAnimator(null);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void initMeetingsView() {
@@ -171,7 +175,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
         RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
         assert mRecyclerView != null;
-
 
         if (isSelected) {
             placeSelected.add(places);
