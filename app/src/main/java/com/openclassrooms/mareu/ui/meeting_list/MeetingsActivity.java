@@ -47,7 +47,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private MeetingApiService mApiService;
     private boolean mTwoPane;
     private List<Meeting> mMeetings;
-    List<FiltersContent.Places> placeSelected;
+    private List<FiltersContent.Places> placeSelected;
 
     public MeetingsActivity() {
         // mApiService = DI.getMeetingApiService();
@@ -85,14 +85,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     private void initMeetingsView() {
-      /*  Fragment newFragment = new MeetingsFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.add(R.id.frameLayout, newFragment);
-        transaction.addToBackStack(null);
-        // Commit the transaction
-        transaction.commit();*/
         fab = findViewById(R.id.fab_add_meeting);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,16 +122,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
     private void initFiltersView() {
         FilterListFragment.display(getSupportFragmentManager());
-
-//        FilterListFragment filterListFragment = new FilterListFragment();
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
-//        if (prev != null) {
-//            transaction.remove(prev);
-//        }
-//        transaction.addToBackStack(null);
-//        transaction.replace(R.id.content_meeting, filterListFragment);
-//        transaction.commit();
     }
 
 
@@ -202,6 +184,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     public void onFilterButtonClick(List<FiltersContent.Places> places) {
         Toast toast = Toast.makeText(this, "Hello", Toast.LENGTH_SHORT);
         toast.show();
+        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(placeSelected);
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
     }
 
     @Override
