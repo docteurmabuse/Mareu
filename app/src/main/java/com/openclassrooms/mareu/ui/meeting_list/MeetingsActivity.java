@@ -185,6 +185,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         Toast toast = Toast.makeText(this, "Hello", Toast.LENGTH_SHORT);
         toast.show();
         mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(placeSelected);
+        placeSelected.clear();
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
     }
 
