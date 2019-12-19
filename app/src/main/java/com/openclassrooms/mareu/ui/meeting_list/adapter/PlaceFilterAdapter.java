@@ -65,7 +65,6 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     private void removePlace(FiltersContent.Places places) {
         mListener.onPlaceFragmentInteraction(places, false);
-
         //placeSelected.add(mValues.get(position));
 
     }

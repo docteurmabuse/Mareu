@@ -13,9 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -170,18 +167,17 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
-
-        Toast.makeText(getApplicationContext(), "Hello Places2", Toast.LENGTH_SHORT).show();
-        mRecyclerView = findViewById(R.id.item_recylerview);
+        RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
         assert mRecyclerView != null;
-        //mMeetings = new ArrayList<>();
-        for (Meeting meeting : mApiService.getMeetings()) {
-            if (meeting.getmPlace().contains(places.getpName())) {
-                mMeetings.add(meeting);
-            }
+        List<FiltersContent.Places> placeSelected = new ArrayList<>();
+
+        if (isSelected) {
+            placeSelected.add(places);
+
+        } else {
+
         }
-        // mRecyclerView.setAdapter(new MeetingAdapter(this, fMeetings, mTwoPane));
-//        mAdapter.mMeetings=fMeetings;
+        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(places);
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
 
     }

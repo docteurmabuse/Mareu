@@ -40,7 +40,7 @@ public class DummyMeetingApiService implements MeetingApiService {
 
 
     @Override
-    public List<Meeting> getFilteredMeetings(FiltersContent.Places places) {
+    public List<Meeting> getPlaceFilteredMeetings(FiltersContent.Places places) {
 
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : getMeetings()) {
