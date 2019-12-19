@@ -21,7 +21,6 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.FiltersItem;
@@ -42,18 +41,13 @@ public class FilterListFragment extends DialogFragment {
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
     private OnPlaceFragmentInteractionListener mListener2;
-    List<FiltersContent.Places> placeSelected;
+    private List<FiltersContent.Places> sortedPlaces;
     private OnFilterButtonClickListener mListener3;
 
     public static final String TAG = "filter_dialog";
     private Toolbar toolbar;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     *//*
-    public FilterListFragment() {
-    }*/
+
     public static FilterListFragment display(FragmentManager fragmentMananger) {
         FilterListFragment filterListFragment = new FilterListFragment();
         filterListFragment.show(fragmentMananger, TAG);
@@ -64,7 +58,7 @@ public class FilterListFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
-        placeSelected = new ArrayList<>();
+        sortedPlaces = PLACE_ITEMS;
     }
 
     @Override
@@ -74,8 +68,7 @@ public class FilterListFragment extends DialogFragment {
         toolbar = view.findViewById(R.id.toolbar);
         TextView titre = view.findViewById(R.id.filter_text);
 
-        //titre.setText("Filtres : ");
-        // Set the adapter
+
         final Context context = view.getContext();
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
@@ -90,7 +83,7 @@ public class FilterListFragment extends DialogFragment {
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener3.onFilterButtonClick(placeSelected);
+                mListener3.onFilterButtonClick();
                 dismiss();
             }
         });
@@ -178,7 +171,7 @@ public class FilterListFragment extends DialogFragment {
     }
 
     public interface OnFilterButtonClickListener {
-        void onFilterButtonClick(List<Places> places);
+        void onFilterButtonClick();
     }
 
 }
