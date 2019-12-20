@@ -42,9 +42,18 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getPlaceFilteredMeetings(Date fDate, List<FiltersContent.Places> fPlaces) {
         List<Meeting> fMeetings = new ArrayList<>();
-        for (Meeting meeting : getMeetings()) {
-            for (FiltersContent.Places places : fPlaces) {
-                if (meeting.getmPlace().contains(places.getpName())) {
+        if (fPlaces != null) {
+            for (Meeting meeting : getMeetings()) {
+                for (FiltersContent.Places places : fPlaces) {
+                    if (meeting.getmPlace().contains(places.getpName())) {
+                        fMeetings.add(meeting);
+                    }
+                }
+            }
+
+        } else if (fDate != null) {
+            for (Meeting meeting : getMeetings()) {
+                if (meeting.getmDate().equals(fDate)) {
                     fMeetings.add(meeting);
                 }
             }

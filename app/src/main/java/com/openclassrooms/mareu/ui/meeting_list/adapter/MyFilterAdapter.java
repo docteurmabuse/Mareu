@@ -1,8 +1,10 @@
 package com.openclassrooms.mareu.ui.meeting_list.adapter;
 
+import android.app.DatePickerDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +14,13 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment.OnListFragmentInteractionListener;
 import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.FiltersItem;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link FiltersItem} and makes a call to the
@@ -49,13 +57,47 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
                         if (null != mListener) {
                             // Notify the active callbacks interface (the activity, if the
                             // fragment is attached to one) that an item has been selected.
-                            mListener.onListFragmentInteraction(holder.mItem);
+                            selectFilterDate(v);
+
                         }
                         break;
                 }
 
             }
         });
+    }
+
+    private void selectFilterDate(View v) {
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        DateFormat formatter = null;
+                        Date convertedDate = null;
+                        Date filterDate = null;
+
+                        String fDate = (day + "/" + (month + 1) + '/' + year);
+                        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+                        try {
+                            convertedDate = formatter.parse(fDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date mDate = convertedDate;
+                        assert mDate != null;
+                        mListener.onListFragmentInteraction(mDate);
+
+                    }
+                }, year, month, dayOfMonth);
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+        datePickerDialog.show();
+
+
     }
 
     @Override

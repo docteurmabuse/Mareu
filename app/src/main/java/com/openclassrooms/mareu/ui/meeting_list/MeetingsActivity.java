@@ -1,13 +1,11 @@
 package com.openclassrooms.mareu.ui.meeting_list;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,14 +25,9 @@ import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener, FilterListFragment.OnFilterButtonClickListener {
@@ -125,46 +118,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
 
-    public void onListFragmentInteraction(FiltersContent.FiltersItem item) {
-
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        DateFormat formatter = null;
-                        Date convertedDate = null;
-                        Date filterDate = null;
-
-                        String fDate = (day + "/" + (month + 1) + '/' + year);
-                        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-                        try {
-                            convertedDate = formatter.parse(fDate);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        Date mDate = convertedDate;
-                        List<Meeting> fMeetings = new ArrayList<>();
-                        assert mDate != null;
-
-                        for (Meeting meeting : mApiService.getMeetings()) {
-                            filterDate = meeting.getmDate();
-                            if (filterDate.equals(convertedDate)) ;
-                            {
-                                fMeetings.add(meeting);
-                            }
-                        }
-                        RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
-                        assert mRecyclerView != null;
-                        mAdapter.mMeetings = fMeetings;
-                        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
-                    }
-                }, year, month, dayOfMonth);
-        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
-        datePickerDialog.show();
+    public void onListFragmentInteraction(Date mDate) {
+        fDate = mDate;
     }
 
     public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {

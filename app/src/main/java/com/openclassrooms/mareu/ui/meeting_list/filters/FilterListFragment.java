@@ -23,9 +23,9 @@ import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
-import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.FiltersItem;
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.PLACE_ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.Places;
@@ -170,7 +170,7 @@ public class FilterListFragment extends DialogFragment {
      */
     public interface OnListFragmentInteractionListener {
 
-        void onListFragmentInteraction(FiltersItem item);
+        void onListFragmentInteraction(Date fDate);
     }
 
     public interface OnPlaceFragmentInteractionListener {
