@@ -4,6 +4,7 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.openclassrooms.mareu.service.FakeMeetingGenerator.generateMeetings;
@@ -39,7 +40,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> getPlaceFilteredMeetings(List<FiltersContent.Places> fPlaces) {
+    public List<Meeting> getPlaceFilteredMeetings(Date fDate, List<FiltersContent.Places> fPlaces) {
         List<Meeting> fMeetings = new ArrayList<>();
         for (Meeting meeting : getMeetings()) {
             for (FiltersContent.Places places : fPlaces) {
@@ -50,4 +51,6 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
         return fMeetings;
     }
+
+
 }

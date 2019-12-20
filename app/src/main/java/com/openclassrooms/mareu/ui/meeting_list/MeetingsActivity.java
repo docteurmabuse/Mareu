@@ -47,6 +47,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private boolean mTwoPane;
     private List<Meeting> mMeetings;
     private List<FiltersContent.Places> placeSelected;
+    private Date fDate;
 
     public MeetingsActivity() {
         // mApiService = DI.getMeetingApiService();
@@ -59,7 +60,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         super.onCreate(savedInstanceState);
         mApiService = DI.getMeetingApiService();
         placeSelected = new ArrayList<>();
-
+        fDate = null;
         setContentView(R.layout.activity_meetings);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -181,7 +182,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onFilterButtonClick() {
-        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(placeSelected);
+        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(fDate, placeSelected);
         placeSelected.clear();
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
     }
