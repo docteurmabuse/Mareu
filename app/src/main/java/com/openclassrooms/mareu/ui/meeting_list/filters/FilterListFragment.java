@@ -38,9 +38,6 @@ import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.Place
  */
 public class FilterListFragment extends DialogFragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
     private OnPlaceFragmentInteractionListener mListener2;
     private List<FiltersContent.Places> sortedPlaces;
@@ -75,7 +72,6 @@ public class FilterListFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.filter_content, container, false);
         toolbar = view.findViewById(R.id.toolbar);
         TextView titre = view.findViewById(R.id.filter_text);
-
 
         final Context context = view.getContext();
 
@@ -112,6 +108,7 @@ public class FilterListFragment extends DialogFragment {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dismiss();
             }
         });
