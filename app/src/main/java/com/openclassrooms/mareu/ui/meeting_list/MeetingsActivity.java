@@ -70,11 +70,13 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.item_recylerview);
-        mAdapter = new MeetingAdapter(this, mApiService.getMeetings(), true);
+        mAdapter = new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane);
         assert mRecyclerView != null;
         //setupRecyclerView(mRecyclerView);
         mRecyclerView.setItemAnimator(null);
         mRecyclerView.setAdapter(mAdapter);
+        // mRecyclerView.setAdapter(new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane));
+
     }
 
     private void initMeetingsView() {
