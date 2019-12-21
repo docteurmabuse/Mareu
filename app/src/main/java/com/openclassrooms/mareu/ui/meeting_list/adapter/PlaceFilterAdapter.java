@@ -21,11 +21,14 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     // public static  List<FiltersContent.Places> placeSelected ;
     private final FilterListFragment.OnPlaceFragmentInteractionListener mListener;
     public FiltersContent.Places places;
+    private boolean isSelected;
+
 
     public PlaceFilterAdapter(List<FiltersContent.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
         this.mListener = mListener;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,6 +39,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final FiltersContent.Places places = mValues.get(position);
+
         holder.fPlaces = mValues.get(position);
         holder.fPlaceText.setText(mValues.get(position).getpName());
         holder.fCheckView.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +50,10 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
                     // fragment is attached to one) that an item has been selected.
                     if (holder.fCheckView.isChecked()) {
                         addPlace(mValues.get(position));
+                        isSelected=true;
                     } else {
                         removePlace(mValues.get(position));
+                        isSelected=false;
                     }
                 }
 
@@ -57,6 +63,19 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         holder.fView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Notify the active callbacks interface (the activity, if the
+                // fragment is attached to one) that an item has been selected.
+                //holder.fCheckView.setChecked(true);
+
+                if (isSelected) {
+                    holder.fCheckView.setChecked(false);
+                    removePlace(mValues.get(position));
+                    isSelected=false;
+                } else {
+                    holder.fCheckView.setChecked(true);
+                    addPlace(mValues.get(position));
+                    isSelected=true;
+                }
                 //   mListener.onPlaceFragmentInteraction(mValues.get(position), true);
 
             }
@@ -65,13 +84,10 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     private void removePlace(FiltersContent.Places places) {
         mListener.onPlaceFragmentInteraction(places, false);
-        //placeSelected.add(mValues.get(position));
-
     }
 
     private void addPlace(FiltersContent.Places pPlaces) {
         mListener.onPlaceFragmentInteraction(pPlaces, true);
-        // placeSelected.remove(mValues.get(position));
     }
 
 
