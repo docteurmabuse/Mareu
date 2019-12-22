@@ -100,6 +100,7 @@ public class FilterListFragment extends DialogFragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mListener3.onFilterButtonClick();
                 dismiss();
             }
         });
@@ -108,8 +109,7 @@ public class FilterListFragment extends DialogFragment {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener3.onFilterButtonClick();
-                dismiss();
+                // dismiss();
             }
         });
     }
