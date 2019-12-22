@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +26,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.PLACE_ITEMS;
@@ -43,14 +45,13 @@ public class FilterListFragment extends DialogFragment {
     private List<FiltersContent.Places> sortedPlaces;
     private OnFilterButtonClickListener mListener3;
 
-    public static final String TAG = "filter_dialog";
+    private static final String TAG = "filter_dialog";
     private Toolbar toolbar;
 
 
-    public static FilterListFragment display(FragmentManager fragmentMananger) {
+    public static void display(FragmentManager fragmentMananger) {
         FilterListFragment filterListFragment = new FilterListFragment();
         filterListFragment.show(fragmentMananger, TAG);
-        return filterListFragment;
     }
 
     @Override
@@ -95,7 +96,7 @@ public class FilterListFragment extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstance) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,12 +107,12 @@ public class FilterListFragment extends DialogFragment {
         });
         toolbar.setTitle("Filtres");
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setOnClickListener(new View.OnClickListener() {
+        /*toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // dismiss();
             }
-        });
+        });*/
     }
 
     @Override
@@ -121,12 +122,12 @@ public class FilterListFragment extends DialogFragment {
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
+            Objects.requireNonNull(dialog.getWindow()).setLayout(width, height);
         }
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
