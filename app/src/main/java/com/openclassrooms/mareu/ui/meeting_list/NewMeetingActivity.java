@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Meeting;
@@ -33,7 +35,7 @@ import java.util.Locale;
 import java.util.Random;
 
 
-public class NewMeetingActivity extends AppCompatActivity implements TextWatcher {
+public class NewMeetingActivity extends AppCompatActivity {
 
     DatePickerDialog datePicker;
     EditText mDate;
@@ -41,6 +43,7 @@ public class NewMeetingActivity extends AppCompatActivity implements TextWatcher
     EditText mTime;
     Spinner mPlaceList;
     EditText mParticipants;
+    TextInputLayout subject;
     EditText mSubject;
     Button mButton;
 
@@ -75,6 +78,7 @@ public class NewMeetingActivity extends AppCompatActivity implements TextWatcher
     private void initViews() {
         mPlaceList = findViewById(R.id.place_spinner);
         mSubject = findViewById(R.id.name_input);
+        mSubject.addTextChangedListener(new ValidationTextWatcher(mSubject));
         mParticipants = findViewById(R.id.participants_input);
     }
 
@@ -84,12 +88,36 @@ public class NewMeetingActivity extends AppCompatActivity implements TextWatcher
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addNewMeeting();
+                if (!validateSubject()) {
+                    addNewMeeting();
+                    return;
+                }
                 Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
     }
+
+    private boolean validateSubject() {
+        if (mSubject.getText().toString().trim().isEmpty()) {
+            subject.setError("Sujet est requis");
+            requestFocus(mSubject);
+            return false;
+        } else if (mSubject.getText().toString().length() < 5) {
+            subject.setError("le Sujet doit êter inférieur à 5 caractères");
+            requestFocus(mSubject);
+        } else {
+            subject.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
 
     public int getRandomColor() {
         Random rnd = new Random();
@@ -162,23 +190,32 @@ public class NewMeetingActivity extends AppCompatActivity implements TextWatcher
         });
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private class ValidationTextWatcher implements TextWatcher {
 
+        private View view;
+
+        private ValidationTextWatcher(View view) {
+            this.view = view;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            switch (view.getId()) {
+                case R.id.name_input:
+                    validateSubject();
+                    break;
+            }
+        }
     }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }
