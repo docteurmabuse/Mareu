@@ -43,7 +43,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mTime;
     Spinner mPlaceList;
     EditText mParticipants;
-    TextInputLayout subject;
+    TextInputLayout lSubject, lPartcipants, lDate, lTime, lPlace;
     EditText mSubject;
     Button mButton;
 
@@ -77,7 +77,11 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private void initViews() {
         mPlaceList = findViewById(R.id.place_spinner);
-        subject = findViewById(R.id.subject);
+        lSubject = findViewById(R.id.subject);
+        lPartcipants = findViewById(R.id.participants_layout);
+        lDate = findViewById(R.id.date_layout);
+        lTime = findViewById(R.id.time_layout);
+        lPlace = findViewById(R.id.place_layout);
         mSubject = findViewById(R.id.name_input);
         mSubject.addTextChangedListener(new ValidationTextWatcher(mSubject));
         mParticipants = findViewById(R.id.participants_input);
@@ -105,15 +109,28 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private boolean validateSubject() {
         if (mSubject.getText().toString().trim().isEmpty()) {
-            subject.setError("Sujet est requis");
+            lSubject.setError("Sujet est requis");
             requestFocus(mSubject);
             return false;
         } else if (mSubject.getText().toString().length() < 5) {
-            subject.setError("le Sujet doit êter inférieur à 5 caractères");
+            lSubject.setError("le Sujet doit êter inférieur à 5 caractères");
             requestFocus(mSubject);
         } else {
-            subject.setErrorEnabled(false);
+            lSubject.setErrorEnabled(false);
         }
+        return true;
+    }
+
+    private boolean validatePartcipants() {
+
+        return true;
+    }
+
+    private boolean validateTime() {
+        return true;
+    }
+
+    private boolean validateDate() {
         return true;
     }
 
@@ -219,8 +236,18 @@ public class NewMeetingActivity extends AppCompatActivity {
                 case R.id.name_input:
                     validateSubject();
                     break;
+                case R.id.date_input:
+                    validateDate();
+                    break;
+                case R.id.time_input:
+                    validateTime();
+                    break;
+                case R.id.participants_input:
+                    validatePartcipants();
+                    break;
             }
         }
     }
+
 
 }
