@@ -77,6 +77,7 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private void initViews() {
         mPlaceList = findViewById(R.id.place_spinner);
+        subject = findViewById(R.id.subject);
         mSubject = findViewById(R.id.name_input);
         mSubject.addTextChangedListener(new ValidationTextWatcher(mSubject));
         mParticipants = findViewById(R.id.participants_input);
@@ -89,11 +90,15 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!validateSubject()) {
-                    addNewMeeting();
+                    Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     return;
+                } else {
+                    addNewMeeting();
+                    Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
-                Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
     }
