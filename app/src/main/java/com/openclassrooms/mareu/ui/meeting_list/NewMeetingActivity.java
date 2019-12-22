@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,7 +32,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-public class NewMeetingActivity extends AppCompatActivity {
+
+public class NewMeetingActivity extends AppCompatActivity implements TextWatcher {
 
     DatePickerDialog datePicker;
     EditText mDate;
@@ -40,10 +43,11 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mParticipants;
     EditText mSubject;
     Button mButton;
-    SimpleDateFormat df;
 
+    SimpleDateFormat df;
     DateFormat formatter = null;
     Date convertedDate = null;
+
 
     public NewMeetingActivity() {
         df = new SimpleDateFormat("dd/MM/yyyy");
@@ -158,4 +162,23 @@ public class NewMeetingActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }
