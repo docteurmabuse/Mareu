@@ -75,14 +75,14 @@ public class FilterListFragment extends DialogFragment {
 
         final Context context = view.getContext();
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new MyFilterAdapter(ITEMS, mListener));
+        RecyclerView oFiltersRecyclerView = view.findViewById(R.id.recycler);
+        oFiltersRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        oFiltersRecyclerView.setAdapter(new MyFilterAdapter(ITEMS, mListener));
 
+        RecyclerView placeRecyclerView2 = view.findViewById(R.id.recycler_1);
+        placeRecyclerView2.setLayoutManager(new LinearLayoutManager(context));
+        placeRecyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
 
-        RecyclerView recyclerView2 = view.findViewById(R.id.recycler_1);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
         MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,7 @@ public class FilterListFragment extends DialogFragment {
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mListener3.onFilterButtonClick();
                 dismiss();
             }
         });
@@ -153,6 +153,8 @@ public class FilterListFragment extends DialogFragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        mListener2 = null;
+        mListener3 = null;
     }
 
     /**

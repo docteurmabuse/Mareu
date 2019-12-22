@@ -136,7 +136,11 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onFilterButtonClick() {
-        mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(fDate, placeSelected);
+        if (fDate == null && placeSelected.size() < 1) {
+            mAdapter.mMeetings = mApiService.getMeetings();
+        } else {
+            mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(fDate, placeSelected);
+        }
         placeSelected.clear();
         fDate = null;
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
