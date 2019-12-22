@@ -3,10 +3,10 @@ package com.openclassrooms.mareu.ui.meeting_list.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
@@ -99,7 +99,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         View fView;
         TextView fPlaceText;
-        CheckBox fCheckView;
+        AppCompatCheckBox fCheckView;
         FiltersContent.Places fPlaces;
 
         ViewHolder(View view) {
