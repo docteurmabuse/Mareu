@@ -43,7 +43,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mTime;
     Spinner mPlaceList;
     EditText mParticipants;
-    TextInputLayout lSubject, lPartcipants, lDate, lTime, lPlace;
+    TextInputLayout lSubject, lPartcipants, lDate, lTime;
     EditText mSubject;
     Button mButton;
 
@@ -81,10 +81,13 @@ public class NewMeetingActivity extends AppCompatActivity {
         lPartcipants = findViewById(R.id.participants_layout);
         lDate = findViewById(R.id.date_layout);
         lTime = findViewById(R.id.time_layout);
-        lPlace = findViewById(R.id.place_layout);
         mSubject = findViewById(R.id.name_input);
-        mSubject.addTextChangedListener(new ValidationTextWatcher(mSubject));
         mParticipants = findViewById(R.id.participants_input);
+        mSubject.addTextChangedListener(new ValidationTextWatcher(mSubject));
+        mDate.addTextChangedListener(new ValidationTextWatcher(mDate));
+        mTime.addTextChangedListener(new ValidationTextWatcher(mTime));
+        mParticipants.addTextChangedListener(new ValidationTextWatcher(mParticipants));
+
     }
 
     private void initBtn() {
@@ -93,10 +96,9 @@ public class NewMeetingActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateSubject()) {
+                if (!validateSubject() || !validateParticipants() || !validateDate() || !validateDate() || !validateTime()) {
                     Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    return;
                 } else {
                     addNewMeeting();
                     Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
@@ -109,29 +111,62 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private boolean validateSubject() {
         if (mSubject.getText().toString().trim().isEmpty()) {
-            lSubject.setError("Sujet est requis");
+            lSubject.setError("Ce champ est requis!");
             requestFocus(mSubject);
             return false;
-        } else if (mSubject.getText().toString().length() < 5) {
-            lSubject.setError("le Sujet doit êter inférieur à 5 caractères");
+        } else if (mSubject.getText().toString().length() > 5) {
+            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
             requestFocus(mSubject);
+            return false;
         } else {
             lSubject.setErrorEnabled(false);
+            return true;
         }
-        return true;
     }
 
-    private boolean validatePartcipants() {
 
-        return true;
+    private boolean validateParticipants() {
+        if (mParticipants.getText().toString().trim().isEmpty()) {
+            lPartcipants.setError("*Ce champ est requis!");
+            requestFocus(mParticipants);
+            return false;
+
+        } else if (mParticipants.getText().toString().length() > 5) {
+            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
+            requestFocus(mSubject);
+            return false;
+        } else {
+            lPartcipants.setErrorEnabled(false);
+            return true;
+        }
     }
 
     private boolean validateTime() {
-        return true;
+        if (mDate.getText().toString().trim().isEmpty()) {
+            lDate.setError("Ce champ est requis!");
+            return false;
+        } else if (mDate.getText().toString().length() > 4) {
+            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
+            requestFocus(mSubject);
+            return false;
+        } else {
+            lTime.setErrorEnabled(false);
+            return true;
+        }
     }
 
     private boolean validateDate() {
-        return true;
+        if (mTime.getText().toString().trim().isEmpty()) {
+            lTime.setError("Ce champ est requis");
+            return false;
+        } else if (mTime.getText().toString().length() > 4) {
+            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
+            requestFocus(mSubject);
+            return false;
+        } else {
+            lDate.setErrorEnabled(false);
+            return true;
+        }
     }
 
     private void requestFocus(View view) {
@@ -243,7 +278,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                     validateTime();
                     break;
                 case R.id.participants_input:
-                    validatePartcipants();
+                    validateParticipants();
                     break;
             }
         }
