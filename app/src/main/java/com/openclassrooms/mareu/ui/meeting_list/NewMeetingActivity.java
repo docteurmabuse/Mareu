@@ -33,6 +33,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class NewMeetingActivity extends AppCompatActivity {
@@ -114,8 +117,8 @@ public class NewMeetingActivity extends AppCompatActivity {
             lSubject.setError("Ce champ est requis!");
             requestFocus(mSubject);
             return false;
-        } else if (mSubject.getText().toString().length() < 5) {
-            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
+        } else if (mSubject.getText().toString().length() < 2) {
+            lSubject.setError("Ce champ doit êter supérieur à 2 caractères!");
             requestFocus(mSubject);
             return false;
         } else {
@@ -127,12 +130,12 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private boolean validateParticipants() {
         if (mParticipants.getText().toString().trim().isEmpty()) {
-            lPartcipants.setError("*Ce champ est requis!");
+            lPartcipants.setError("Ce champ est requis!");
             requestFocus(mParticipants);
             return false;
 
-        } else if (mParticipants.getText().toString().length() < 5) {
-            lPartcipants.setError("Le champ doit êter supérieur à 5 caractères!");
+        } else if (!isValidEmail()) {
+            lPartcipants.setError("Ce champ doit être au format email (monemail@mail.com,monemail2@mail.com)!");
             requestFocus(mParticipants);
             return false;
         } else {
@@ -141,12 +144,29 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isValidEmail() {
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        StringTokenizer email = new StringTokenizer(mParticipants.getText().toString(), ",");
+        boolean isValidEmail = false;
+        while (email.hasMoreElements()) {
+            Matcher matcher = pattern.matcher(email.nextToken());
+            if (!matcher.matches()) {
+                isValidEmail = false;
+                break;
+            } else {
+                isValidEmail = true;
+            }
+        }
+        return isValidEmail;
+    }
+
     private boolean validateTime() {
         if (mTime.getText().toString().trim().isEmpty()) {
             lTime.setError("Ce champ est requis!");
             return false;
         } else if (!mTime.getText().toString().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
-            lTime.setError("Le champ doit être au format Heure (13:00)!");
+            lTime.setError("Ce champ doit être au format Heure (13:00)!");
             requestFocus(mTime);
             return false;
         } else {
@@ -160,7 +180,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             lDate.setError("Ce champ est requis");
             return false;
         } else if (!isValideDate()) {
-            lDate.setError("Le champ doit être au format date!");
+            lDate.setError("Ce champ doit être au format date!");
             requestFocus(mDate);
             return false;
         } else {
@@ -204,10 +224,10 @@ public class NewMeetingActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        String subject = mSubject.getText().toString();
         Date date = convertedDate;
         String time = mTime.getText().toString();
         String place = mPlaceList.getSelectedItem().toString();
-        String subject = mSubject.getText().toString();
         String participants = mParticipants.getText().toString();
         Meeting meeting = new Meeting(id, avatar, date, time, place, subject, participants);
         mApiService.addMeeting(meeting);
@@ -227,7 +247,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                 timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int mHour, int mMinutes) {
-                        mTime.setText(mHour + "h" + mMinutes);
+                        mTime.setText(String.format("%02dh%02d", mHour, mMinutes));
                     }
                 }, hours, minutes, true);
                 timePicker.show();
