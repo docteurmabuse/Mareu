@@ -114,7 +114,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             lSubject.setError("Ce champ est requis!");
             requestFocus(mSubject);
             return false;
-        } else if (mSubject.getText().toString().length() > 5) {
+        } else if (mSubject.getText().toString().length() < 5) {
             lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
             requestFocus(mSubject);
             return false;
@@ -131,9 +131,9 @@ public class NewMeetingActivity extends AppCompatActivity {
             requestFocus(mParticipants);
             return false;
 
-        } else if (mParticipants.getText().toString().length() > 5) {
-            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
-            requestFocus(mSubject);
+        } else if (mParticipants.getText().toString().length() < 5) {
+            lPartcipants.setError("Le champ doit êter supérieur à 5 caractères!");
+            requestFocus(mParticipants);
             return false;
         } else {
             lPartcipants.setErrorEnabled(false);
@@ -142,12 +142,12 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private boolean validateTime() {
-        if (mDate.getText().toString().trim().isEmpty()) {
-            lDate.setError("Ce champ est requis!");
+        if (mTime.getText().toString().trim().isEmpty()) {
+            lTime.setError("Ce champ est requis!");
             return false;
-        } else if (mDate.getText().toString().length() > 4) {
-            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
-            requestFocus(mSubject);
+        } else if (mTime.getText().toString().length() < 5) {
+            lTime.setError("Le champ doit êter supérieur à 5 caractères!");
+            requestFocus(mTime);
             return false;
         } else {
             lTime.setErrorEnabled(false);
@@ -156,16 +156,27 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private boolean validateDate() {
-        if (mTime.getText().toString().trim().isEmpty()) {
-            lTime.setError("Ce champ est requis");
+        if (mDate.getText().toString().trim().isEmpty()) {
+            lDate.setError("Ce champ est requis");
             return false;
-        } else if (mTime.getText().toString().length() > 4) {
-            lSubject.setError("Le champ doit êter supérieur à 5 caractères!");
-            requestFocus(mSubject);
+        } else if (!isValideDate()) {
+            lDate.setError("Le champ doit être au format date!");
+            requestFocus(mDate);
             return false;
         } else {
             lDate.setErrorEnabled(false);
             return true;
+        }
+    }
+
+    private boolean isValideDate() {
+        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        try {
+            convertedDate = formatter.parse(mDate.getText().toString());
+            return true;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
