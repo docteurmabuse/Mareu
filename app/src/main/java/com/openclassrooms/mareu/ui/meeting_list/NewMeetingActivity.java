@@ -145,8 +145,8 @@ public class NewMeetingActivity extends AppCompatActivity {
         if (mTime.getText().toString().trim().isEmpty()) {
             lTime.setError("Ce champ est requis!");
             return false;
-        } else if (mTime.getText().toString().length() < 5) {
-            lTime.setError("Le champ doit êter supérieur à 5 caractères!");
+        } else if (!mTime.getText().toString().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
+            lTime.setError("Le champ doit être au format Heure (13:00)!");
             requestFocus(mTime);
             return false;
         } else {
