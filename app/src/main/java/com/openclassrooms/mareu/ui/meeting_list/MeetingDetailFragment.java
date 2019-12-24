@@ -98,8 +98,6 @@ public class MeetingDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate);
             ((TextView) rootView.findViewById(R.id.time_detail)).setText(mTime);
             ((TextView) rootView.findViewById(R.id.participants_detail)).setText(mParticipants);
-
-
         }
 
         return rootView;
