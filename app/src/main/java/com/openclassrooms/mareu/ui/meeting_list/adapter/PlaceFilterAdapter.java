@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent;
 
 import java.util.List;
 

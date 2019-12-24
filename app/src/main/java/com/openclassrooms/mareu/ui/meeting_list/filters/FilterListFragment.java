@@ -20,7 +20,6 @@ import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
-import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,9 +27,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.PLACE_ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.Places;
+import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.PLACE_ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.Places;
 
 /**
  * A fragment representing a list of Items.
@@ -84,6 +83,13 @@ public class FilterListFragment extends DialogFragment {
         placeRecyclerView2.setLayoutManager(new LinearLayoutManager(context));
         placeRecyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
 
+        MaterialButton bDateFilter = view.findViewById(R.id.date_btn);
+        bDateFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
         bFinnish.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -20,7 +20,7 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

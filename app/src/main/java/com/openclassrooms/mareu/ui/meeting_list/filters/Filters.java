@@ -1,8 +1,6 @@
 package com.openclassrooms.mareu.ui.meeting_list.filters;
 
 
-import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
-
 import java.util.Date;
 import java.util.List;
 

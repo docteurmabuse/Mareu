@@ -10,16 +10,16 @@
     <string name="create_btn">Créer la réunion</string>
     <string name="filtrer">Filtrer : </string>
     <string-array name="labels_place_array">
-        <item>Mario</item>
+        <item>Birdo</item>
+        <item>Daisy</item>
+        <item>Donkey Kong</item>
+        <item>Harmonie</item>
         <item>Luigi</item>
+        <item>Mario</item>
         <item>Peach</item>
         <item>Toad</item>
-        <item>Yoshi</item>
-        <item>Daisy</item>
-        <item>Harmonie</item>
-        <item>Donkey Kong</item>
         <item>Wario</item>
-        <item>Birdo</item>
+        <item>Yoshi</item>
     </string-array>
     <string name="title_activity_meetings">Maréu</string>
     <string name="termin">Terminé</string>

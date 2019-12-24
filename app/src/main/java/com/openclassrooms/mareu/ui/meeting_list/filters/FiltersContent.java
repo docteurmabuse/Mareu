@@ -1,4 +1,4 @@
-package com.openclassrooms.mareu.ui.meeting_list.util;
+package com.openclassrooms.mareu.ui.meeting_list.filters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class FiltersContent {
             new Places(7, "Harmonie", true),
             new Places(8, "Donkey Kong", true),
             new Places(9, "Wario", true),
-            new Places(10, "Birdogi", true)
+            new Places(10, "Birdo", true)
     );
     /**
      * A map of sample (dummy) items, by ID.

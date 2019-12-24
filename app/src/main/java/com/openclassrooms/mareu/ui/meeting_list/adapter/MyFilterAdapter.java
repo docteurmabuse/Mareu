@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment.OnListFragmentInteractionListener;
-import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent.FiltersItem;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.FiltersItem;
 
 import java.text.DateFormat;
 import java.text.ParseException;

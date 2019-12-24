@@ -1,7 +1,7 @@
 package com.openclassrooms.mareu.service;
 
 import com.openclassrooms.mareu.model.Meeting;
-import com.openclassrooms.mareu.ui.meeting_list.util.FiltersContent;
+import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
