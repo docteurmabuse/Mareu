@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:orientation="vertical"
-    tools:context="com.openclassrooms.mareu.ui.meeting_list.ItemDetailFragment">
+    tools:context="com.openclassrooms.mareu.ui.meeting_list.MeetingDetailFragment">
 
     <TextView
         android:id="@+id/place_detail"

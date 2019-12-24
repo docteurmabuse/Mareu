@@ -18,7 +18,7 @@ import com.openclassrooms.mareu.model.Meeting;
  * item details are presented side-by-side with a list of items
  * in a {@link MeetingsActivity}.
  */
-public class ItemDetailActivity extends AppCompatActivity {
+public class MeetingDetailActivity extends AppCompatActivity {
     private Meeting meeting;
 
     @Override
@@ -47,12 +47,12 @@ public class ItemDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            meeting = (Meeting) getIntent().getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID);
+            meeting = (Meeting) getIntent().getSerializableExtra(MeetingDetailFragment.ARG_ITEM_ID);
             assert meeting != null;
             assert actionBar != null;
             actionBar.setBackgroundDrawable(new ColorDrawable(meeting.getmAvatar()));
-            arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
-            ItemDetailFragment fragment = new ItemDetailFragment();
+            arguments.putSerializable(MeetingDetailFragment.ARG_ITEM_ID, meeting);
+            MeetingDetailFragment fragment = new MeetingDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)

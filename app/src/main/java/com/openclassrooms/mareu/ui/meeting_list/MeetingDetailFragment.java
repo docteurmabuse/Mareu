@@ -23,7 +23,7 @@ import java.util.Locale;
  * in two-pane mode (on tablets) or a {@link MeetingsActivity}
  * on handsets.
  */
-public class ItemDetailFragment extends Fragment {
+public class MeetingDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -47,7 +47,7 @@ public class ItemDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemDetailFragment() {
+    public MeetingDetailFragment() {
     }
 
     @Override

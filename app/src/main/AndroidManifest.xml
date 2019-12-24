@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".ui.meeting_list.ItemDetailActivity"
+            android:name=".ui.meeting_list.MeetingDetailActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ui.meeting_list.MeetingsActivity"
             android:theme="@style/AppTheme.NoActionBar">

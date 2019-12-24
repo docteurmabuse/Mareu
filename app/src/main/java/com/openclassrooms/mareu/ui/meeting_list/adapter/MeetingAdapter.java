@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
 import com.openclassrooms.mareu.model.Meeting;
-import com.openclassrooms.mareu.ui.meeting_list.ItemDetailActivity;
-import com.openclassrooms.mareu.ui.meeting_list.ItemDetailFragment;
+import com.openclassrooms.mareu.ui.meeting_list.MeetingDetailActivity;
+import com.openclassrooms.mareu.ui.meeting_list.MeetingDetailFragment;
 import com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,8 +37,8 @@ public class MeetingAdapter
             Meeting meeting = (Meeting) view.getTag();
             if (mTwoPane) {
                 Bundle arguments = new Bundle();
-                arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
-                ItemDetailFragment fragment = new ItemDetailFragment();
+                arguments.putSerializable(MeetingDetailFragment.ARG_ITEM_ID, meeting);
+                MeetingDetailFragment fragment = new MeetingDetailFragment();
                 fragment.setArguments(arguments);
                 mParentActivity.getSupportFragmentManager().beginTransaction()
                         .replace(R.id.item_detail_container, fragment)
@@ -46,8 +46,8 @@ public class MeetingAdapter
             } else {
                 Context context = view.getContext();
                 Bundle arguments = new Bundle();
-                arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, meeting);
-                Intent intent = new Intent(context, ItemDetailActivity.class);
+                arguments.putSerializable(MeetingDetailFragment.ARG_ITEM_ID, meeting);
+                Intent intent = new Intent(context, MeetingDetailActivity.class);
                 intent.putExtras(arguments);
                 context.startActivity(intent);
             }
