@@ -76,10 +76,8 @@ public class MyFilterAdapter extends RecyclerView.Adapter<MyFilterAdapter.ViewHo
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        DateFormat formatter = null;
+                        DateFormat formatter;
                         Date convertedDate = null;
-                        Date filterDate = null;
-
                         String fDate = (day + "/" + (month + 1) + '/' + year);
                         formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
                         try {

@@ -2,9 +2,9 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,15 +23,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/date_btn"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:text="Date"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
             app:icon="@drawable/ic_today_black_24dp"
-            android:backgroundTint="#AFAFAF"
-            android:text="Date"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:iconTint="@color/colorPrimaryDark" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Title"

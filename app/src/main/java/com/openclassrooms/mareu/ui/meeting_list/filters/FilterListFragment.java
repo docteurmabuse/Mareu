@@ -1,5 +1,6 @@
 package com.openclassrooms.mareu.ui.meeting_list.filters;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,10 +23,15 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.ITEMS;
@@ -75,10 +82,10 @@ public class FilterListFragment extends DialogFragment {
 
         final Context context = view.getContext();
 
-        RecyclerView oFiltersRecyclerView = view.findViewById(R.id.recycler);
+       /* RecyclerView oFiltersRecyclerView = view.findViewById(R.id.recycler);
         oFiltersRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         oFiltersRecyclerView.setAdapter(new MyFilterAdapter(ITEMS, mListener));
-
+*/
         RecyclerView placeRecyclerView2 = view.findViewById(R.id.recycler_1);
         placeRecyclerView2.setLayoutManager(new LinearLayoutManager(context));
         placeRecyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
@@ -87,7 +94,7 @@ public class FilterListFragment extends DialogFragment {
         bDateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                selectFilterDate(v);
             }
         });
         MaterialButton bFinnish = view.findViewById(R.id.finnish_btn);
@@ -162,6 +169,37 @@ public class FilterListFragment extends DialogFragment {
         mListener = null;
         mListener2 = null;
         mListener3 = null;
+    }
+
+    private void selectFilterDate(View v) {
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        DateFormat formatter;
+                        Date convertedDate = null;
+                        String fDate = (day + "/" + (month + 1) + '/' + year);
+                        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+                        try {
+                            convertedDate = formatter.parse(fDate);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Date mDate = convertedDate;
+                        assert mDate != null;
+                        mListener.onListFragmentInteraction(mDate);
+
+                    }
+                }, year, month, dayOfMonth);
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+        datePickerDialog.show();
+
+
     }
 
     /**
