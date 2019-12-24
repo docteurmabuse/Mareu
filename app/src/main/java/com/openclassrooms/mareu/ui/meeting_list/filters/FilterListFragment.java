@@ -172,15 +172,15 @@ public class FilterListFragment extends DialogFragment {
     }
 
     private void selectFilterDate(View v) {
-
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(),
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(),R.style.DatePickerDialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
                         DateFormat formatter;
                         Date convertedDate = null;
                         String fDate = (day + "/" + (month + 1) + '/' + year);
@@ -198,8 +198,8 @@ public class FilterListFragment extends DialogFragment {
                 }, year, month, dayOfMonth);
         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
-
-
+        /*datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(0x550000);*/
     }
 
     /**
