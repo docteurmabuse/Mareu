@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maréu</string>
+    <string name="app_name">Ma réu</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_activity_add_meeting">Nouvelle Réunion</string>
     <string name="time_input">Heure</string>
@@ -21,7 +21,7 @@
         <item>Wario</item>
         <item>Yoshi</item>
     </string-array>
-    <string name="title_activity_meetings">Maréu</string>
+    <string name="title_activity_meetings">Ma réu</string>
     <string name="termin">Terminé</string>
     <string name="lieu_de_r_union">Lieu de réunion :</string>
     <string name="dates">Dates :</string>
