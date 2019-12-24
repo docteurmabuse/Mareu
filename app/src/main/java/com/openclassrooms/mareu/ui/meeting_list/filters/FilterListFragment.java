@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.ui.meeting_list.adapter.MyFilterAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 
 import java.text.DateFormat;
@@ -34,7 +33,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.PLACE_ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.Places;
 
@@ -176,7 +174,7 @@ public class FilterListFragment extends DialogFragment {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(),R.style.DatePickerDialogTheme,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(), R.style.DatePickerDialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -198,8 +196,10 @@ public class FilterListFragment extends DialogFragment {
                 }, year, month, dayOfMonth);
         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
-        /*datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(0x550000);*/
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
     }
 
     /**
