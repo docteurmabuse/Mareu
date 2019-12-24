@@ -13,7 +13,6 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.model.Meeting;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -85,7 +84,7 @@ public class ItemDetailFragment extends Fragment {
         mTime = meeting.getmTime();
         mPlace = meeting.getmPlace();
         mSubject = meeting.getmSubject();
-        mParticipants = meeting.getmParticipants();
+        mParticipants = meeting.getmParticipants().replace(",", "\n");
     }
 
     @Override
