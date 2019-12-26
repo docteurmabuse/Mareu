@@ -29,6 +29,7 @@ import com.openclassrooms.mareu.service.MeetingApiService;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -53,6 +54,10 @@ public class NewMeetingActivity extends AppCompatActivity {
     SimpleDateFormat df;
     DateFormat formatter = null;
     Date convertedDate = null;
+
+    private MeetingApiService mApiService = DI.getMeetingApiService();
+    private String mDateString;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
 
 
     public NewMeetingActivity() {
@@ -99,13 +104,17 @@ public class NewMeetingActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validateSubject() || !validateParticipants() || !validateDate() || !validateDate() || !validateTime()) {
-                    Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-                    addNewMeeting();
-                    Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                try {
+                    if (!validateSubject() || !validateParticipants() || !validateDate() || !validateDate() || !validateTime()) {
+                        Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    } else {
+                        addNewMeeting();
+                        Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -161,18 +170,52 @@ public class NewMeetingActivity extends AppCompatActivity {
         return isValidEmail;
     }
 
-    private boolean validateTime() {
+    private boolean validateTime() throws ParseException {
         if (mTime.getText().toString().trim().isEmpty()) {
             lTime.setError("Ce champ est requis!");
             return false;
+        } else if (mDate.getText().toString().trim().isEmpty()) {
+            lDate.setError("Ce champ est requis!");
+            return false;
         } else if (!mTime.getText().toString().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
             lTime.setError("Ce champ doit être au format Heure (13:00)!");
+            requestFocus(mTime);
+            return false;
+        } else if (!isValideTime()) {
+            lTime.setError("Une réunion est déjà prévu dans la même salle dans un intervalle de 45mn!");
             requestFocus(mTime);
             return false;
         } else {
             lTime.setErrorEnabled(false);
             return true;
         }
+    }
+
+    private boolean isValideTime() throws ParseException {
+        String newMeetingTime = mTime.getText().toString().replace("h", ":");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.FRENCH);
+        Date time2 = null;
+        Date time1 = format.parse(newMeetingTime.replace("h", ":"));
+        boolean validTime = false;
+        for (Meeting meeting : mApiService.getMeetings()) {
+            String meetingTime = meeting.getmTime();
+            time2 = format.parse(meetingTime.replace("h", ":"));
+            long differenceinMn = (time2.getTime() - time1.getTime()) / 60000;
+            DateFormat formatter2 = DateFormat.getInstance();
+            formatter2 = DateFormat.getDateInstance(DateFormat.FULL, Locale.FRANCE);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            Date date2 = sdf.parse(mDateString);
+            Date date1 = sdf.parse(meeting.getmDate().toString());
+
+            assert date1 != null;
+            if (differenceinMn / 60000 < 45 && date1.equals(date2)) {
+                validTime = false;
+            } else {
+                validTime = true;
+            }
+        }
+        return validTime;
+
     }
 
     private boolean validateDate() {
@@ -213,7 +256,6 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private void addNewMeeting() {
-        MeetingApiService mApiService = DI.getMeetingApiService();
         int mSize = mApiService.getMeetings().size();
         int id = mSize + 1;
         int avatar = getRandomColor();
@@ -226,7 +268,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
         String subject = mSubject.getText().toString();
         Date date = convertedDate;
-        String time = mTime.getText().toString();
+        String time = mTime.getText().toString().replace("h", ":");
         String place = mPlaceList.getSelectedItem().toString();
         String participants = mParticipants.getText().toString();
         Meeting meeting = new Meeting(id, avatar, date, time, place, subject, participants);
@@ -247,6 +289,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                 timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int mHour, int mMinutes) {
+                        mDateString = mDateString + " " + String.format("%02d:%02d", mHour, mMinutes);
                         mTime.setText(String.format("%02dh%02d", mHour, mMinutes));
                     }
                 }, hours, minutes, true);
@@ -269,7 +312,9 @@ public class NewMeetingActivity extends AppCompatActivity {
                 datePicker = new DatePickerDialog(NewMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        mDateString = dayOfMonth + "/" + (monthOfYear + 1) + '/' + year;
                         mDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + '/' + year);
+                      //  mTime.setText("");
                     }
                 }, year, month, day);
                 datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
@@ -306,7 +351,11 @@ public class NewMeetingActivity extends AppCompatActivity {
                     validateDate();
                     break;
                 case R.id.time_input:
-                    validateTime();
+                    try {
+                        validateTime();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case R.id.participants_input:
                     validateParticipants();

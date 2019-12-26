@@ -42,11 +42,11 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getPlaceFilteredMeetings(Date fDate, List<FiltersContent.Places> fPlaces) {
         List<Meeting> fMeetings = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
+        /*SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
         String mDate1 = null;
         if (fDate != null) {
             mDate1 = df.format(fDate);
-        }
+        }*/
         if (fPlaces.size() > 0 && fDate == null) {
             for (Meeting meeting : getMeetings()) {
                 for (FiltersContent.Places places : fPlaces) {
@@ -57,17 +57,17 @@ public class DummyMeetingApiService implements MeetingApiService {
             }
         } else if (fPlaces.size() > 0) {
             for (Meeting meeting : getMeetings()) {
-               String mDate2 = df.format(meeting.getmDate());
+              // String mDate2 = df.format(meeting.getmDate());
                 for (FiltersContent.Places places : fPlaces) {
-                    if (meeting.getmPlace().contains(places.getpName()) &&mDate2.equals(mDate1)) {
+                    if (meeting.getmPlace().contains(places.getpName()) && meeting.getmDate().equals(fDate)) {
                         fMeetings.add(meeting);
                     }
                 }
             }
         } else if (fPlaces.size() < 1) {
             for (Meeting meeting : getMeetings()) {
-                  String mDate2 = df.format(meeting.getmDate());
-                if (mDate2.equals(mDate1)) {
+                  //String mDate2 = df.format(meeting.getmDate());
+                if (meeting.getmDate().equals(fDate)) {
                     fMeetings.add(meeting);
                 }
             }

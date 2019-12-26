@@ -82,7 +82,7 @@ public class MeetingAdapter
         if (date != null) {
             formattedDate = df.format(date);
         }
-        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + mMeetings.get(position).getmTime() + " - " + mMeetings.get(position).getmPlace();
+        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + mMeetings.get(position).getmTime().replace(":","h") + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
         drawable.setColor(meeting.getmAvatar());
