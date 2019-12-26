@@ -29,7 +29,6 @@ import com.openclassrooms.mareu.service.MeetingApiService;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -57,7 +56,7 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String mDateString;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy" + " " + "hh:mm");
 
 
     public NewMeetingActivity() {
@@ -202,17 +201,13 @@ public class NewMeetingActivity extends AppCompatActivity {
             time2 = format.parse(meetingTime.replace("h", ":"));
             long differenceinMn = (time2.getTime() - time1.getTime()) / 60000;
             DateFormat formatter2 = DateFormat.getInstance();
+            SimpleDateFormat format3 = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.FRENCH);
             formatter2 = DateFormat.getDateInstance(DateFormat.FULL, Locale.FRANCE);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
             Date date2 = sdf.parse(mDateString);
-            Date date1 = sdf.parse(meeting.getmDate().toString());
+            Date date1 = meeting.getmDate();
 
             assert date1 != null;
-            if (differenceinMn / 60000 < 45 && date1.equals(date2)) {
-                validTime = false;
-            } else {
-                validTime = true;
-            }
+            validTime = differenceinMn / 60000 >= 45 || !date1.equals(date2);
         }
         return validTime;
 
@@ -262,7 +257,8 @@ public class NewMeetingActivity extends AppCompatActivity {
         String fDate = mDate.getText().toString();
         formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
         try {
-            convertedDate = formatter.parse(fDate);
+            //convertedDate = formatter.parse(fDate);
+            convertedDate = sdf.parse(mDateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
