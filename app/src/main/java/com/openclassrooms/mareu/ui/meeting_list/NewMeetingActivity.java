@@ -9,10 +9,12 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.appcompat.app.ActionBar;
@@ -53,6 +55,8 @@ public class NewMeetingActivity extends AppCompatActivity {
     SimpleDateFormat df;
     DateFormat formatter = null;
     Date convertedDate = null;
+    int currentItem = mPlaceList.getSelectedItemPosition();
+
 
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String mDateString;
@@ -82,6 +86,7 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private void initViews() {
         mPlaceList = findViewById(R.id.place_spinner);
+        initPlaceListener();
         lSubject = findViewById(R.id.subject);
         lPartcipants = findViewById(R.id.participants_layout);
         lDate = findViewById(R.id.date_layout);
@@ -93,6 +98,27 @@ public class NewMeetingActivity extends AppCompatActivity {
         mTime.addTextChangedListener(new ValidationTextWatcher(mTime));
         mParticipants.addTextChangedListener(new ValidationTextWatcher(mParticipants));
 
+    }
+
+    private void initPlaceListener() {
+        mPlaceList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentItem == position) {
+                    return; //do nothing
+                } else {
+                    TextView spinner_item_text = (TextView) view;
+                    //write your code here
+                }
+                currentItem = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
     }
 
     private void initBtn() {
