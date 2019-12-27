@@ -31,14 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="80dp">
+            android:padding="60dp">
 
             <ImageView
                 android:id="@+id/no_meeting_ico"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
                 android:maxHeight="320dp"
                 android:src="@drawable/ic_no_meeting"
                 android:tint="@color/colorAccent"
