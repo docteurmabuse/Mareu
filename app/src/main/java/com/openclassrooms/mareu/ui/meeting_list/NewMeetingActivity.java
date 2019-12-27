@@ -195,7 +195,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             Date date1 = meeting.getmDate();
             assert date2 != null;
             long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
-            if (differenceinMn >= 45) validTime = true;
+            if (differenceinMn >= 45 && meeting.getmPlace()==mPlaceList.getSelectedItem().toString()) validTime = true;
             else {
                 if (validTime = false) {
                     break;
