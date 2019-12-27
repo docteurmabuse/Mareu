@@ -27,4 +27,5 @@
     <string name="dates">Dates :</string>
     <string name="delete_meeting_button">Delete Meeting Button</string>
     <string name="cancel">Réinitialiser</string>
+    <string name="date">Date</string>
 </resources>

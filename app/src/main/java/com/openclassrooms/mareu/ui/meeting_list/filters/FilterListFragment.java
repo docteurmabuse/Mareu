@@ -51,6 +51,7 @@ public class FilterListFragment extends DialogFragment {
 
     private static final String TAG = "filter_dialog";
     private Toolbar toolbar;
+    TextView dateText;
 
 
     public static void display(FragmentManager fragmentMananger) {
@@ -89,6 +90,7 @@ public class FilterListFragment extends DialogFragment {
         placeRecyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
 
         MaterialButton bDateFilter = view.findViewById(R.id.date_btn);
+        dateText = view.findViewById(R.id.filter_date_txt);
         bDateFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +191,7 @@ public class FilterListFragment extends DialogFragment {
                             e.printStackTrace();
                         }
                         Date mDate = convertedDate;
+                        dateText.setText(fDate);
                         assert mDate != null;
                         mListener.onListFragmentInteraction(mDate);
 

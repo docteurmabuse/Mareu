@@ -21,19 +21,37 @@
             android:text="@string/dates"
             android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/date_btn"
-            style="?android:attr/borderlessButtonStyle"
+        <RelativeLayout
+            android:id="@+id/relative_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:text="Date"
-            android:textAlignment="viewStart"
-            android:textColor="#000000"
-            app:icon="@drawable/ic_today_black_24dp"
-            app:iconTint="@color/colorPrimaryDark" />
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/date_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:backgroundTint="#FFFFFF"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="@string/date"
+                android:textAlignment="viewStart"
+                android:textColor="#000000"
+                app:icon="@drawable/ic_today_black_24dp"
+                app:iconTint="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/filter_date_txt"
+                android:paddingEnd="16dp"
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/date_btn"
+                android:layout_centerVertical="true"
+                android:gravity="center"/>
+        </RelativeLayout>
 
         <TextView
             style="@style/TextAppearance.AppCompat.Title"
