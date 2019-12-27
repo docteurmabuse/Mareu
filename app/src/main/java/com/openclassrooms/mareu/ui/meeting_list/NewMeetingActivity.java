@@ -57,8 +57,6 @@ public class NewMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String mDateString;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
-
     public NewMeetingActivity() {
         df = new SimpleDateFormat("dd/MM/yyyy");
     }
@@ -250,10 +248,8 @@ public class NewMeetingActivity extends AppCompatActivity {
         int mSize = mApiService.getMeetings().size();
         int id = mSize + 1;
         int avatar = getRandomColor();
-        String fDate = mDate.getText().toString();
         formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
         try {
-            //convertedDate = formatter.parse(fDate);
             convertedDate = sdf.parse(mDateString);
         } catch (ParseException e) {
             e.printStackTrace();
