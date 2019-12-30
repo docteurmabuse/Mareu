@@ -21,6 +21,7 @@ import com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -75,14 +76,16 @@ public class MeetingAdapter
         final Meeting meeting = mMeetings.get(position);
         Date date = mMeetings.get(position).getmDate();
 
-        //SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        SimpleDateFormat tf = new SimpleDateFormat("HH:ss");
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String formattedDate = "";
-
+        String formattedTime ="";
         if (date != null) {
             formattedDate = df.format(date);
+            formattedTime = tf.format(date);
+
         }
-        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + mMeetings.get(position).getmTime().replace(":","h") + " - " + mMeetings.get(position).getmPlace();
+        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + formattedTime.replace(":","h") + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
         drawable.setColor(meeting.getmAvatar());

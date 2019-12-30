@@ -30,6 +30,35 @@
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/place_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:paddingStart="4dp"
+                android:text="@string/place_input"
+                android:textSize="18dp" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/place_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/place_input"
+                android:entries="@array/labels_place_array"
+                android:pointerIcon="arrow"
+                android:prompt="@string/place_input"
+                android:spinnerMode="dialog"
+                tools:targetApi="n" />
+        </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/date_layout"
             android:layout_width="fill_parent"
@@ -60,34 +89,6 @@
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/place_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:paddingStart="4dp"
-                android:text="@string/place_input"
-                android:textSize="18dp" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/place_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/place_input"
-                android:entries="@array/labels_place_array"
-                android:pointerIcon="arrow"
-                android:prompt="@string/place_input"
-                android:spinnerMode="dialog"
-                tools:targetApi="n" />
-        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/participants_layout"

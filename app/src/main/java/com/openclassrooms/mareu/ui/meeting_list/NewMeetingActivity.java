@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,12 +56,13 @@ public class NewMeetingActivity extends AppCompatActivity {
     SimpleDateFormat df;
     DateFormat formatter = null;
     Date convertedDate = null;
-    int currentItem = mPlaceList.getSelectedItemPosition();
 
 
     private MeetingApiService mApiService = DI.getMeetingApiService();
+    private String placeSelected;
     private String mDateString;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
     public NewMeetingActivity() {
         df = new SimpleDateFormat("dd/MM/yyyy");
     }
@@ -104,13 +106,8 @@ public class NewMeetingActivity extends AppCompatActivity {
         mPlaceList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (currentItem == position) {
-                    return; //do nothing
-                } else {
-                    TextView spinner_item_text = (TextView) view;
-                    //write your code here
-                }
-                currentItem = position;
+                placeSelected = mPlaceList.getItemAtPosition(position).toString();
+                mTime.setText("");
             }
 
             @Override
@@ -139,7 +136,6 @@ public class NewMeetingActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
@@ -221,9 +217,13 @@ public class NewMeetingActivity extends AppCompatActivity {
             Date date1 = meeting.getmDate();
             assert date2 != null;
             long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
-            if (differenceinMn >= 45 && meeting.getmPlace()==mPlaceList.getSelectedItem().toString()) validTime = true;
-            else {
-                if (validTime = false) {
+            if (meeting.getmPlace() != placeSelected) {
+                validTime = true;
+            } else {
+                if (differenceinMn >= 45) {
+                    validTime = true;
+                } else {
+                    validTime = false;
                     break;
                 }
             }
