@@ -114,7 +114,6 @@ public class NewMeetingActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
     }
 
@@ -190,11 +189,20 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private boolean validateTime() throws ParseException {
+        Date time = null;
+        if (mDateString != null) {
+            time = sdf.parse(mDateString);
+        }
+        Date now = new Date();
+
         if (mTime.getText().toString().trim().isEmpty()) {
             lTime.setError("Ce champ est requis!");
             return false;
         } else if (mDate.getText().toString().trim().isEmpty()) {
             lDate.setError("Ce champ est requis!");
+            return false;
+        } else if (time.before(now)) {
+            lTime.setError("Vous ne pouvez pas organiser de réunion avant l'heure actuelle!");
             return false;
         } else if (!mTime.getText().toString().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
             lTime.setError("Ce champ doit être au format Heure (13:00)!");
@@ -215,17 +223,18 @@ public class NewMeetingActivity extends AppCompatActivity {
         for (Meeting meeting : mApiService.getMeetings()) {
             Date date2 = sdf.parse(mDateString);
             Date date1 = meeting.getmDate();
+            String mPlace = meeting.getmPlace();
             assert date2 != null;
             long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
-            if (meeting.getmPlace() != placeSelected) {
-                validTime = true;
-            } else {
+            if (mPlace.equals(placeSelected)) {
                 if (differenceinMn >= 45) {
                     validTime = true;
                 } else {
                     validTime = false;
                     break;
                 }
+            } else {
+                validTime = true;
             }
         }
         return validTime;
@@ -285,7 +294,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         String time = mTime.getText().toString().replace("h", ":");
         String place = mPlaceList.getSelectedItem().toString();
         String participants = mParticipants.getText().toString();
-        Meeting meeting = new Meeting(id, avatar, date, time, place, subject, participants);
+        Meeting meeting = new Meeting(id, avatar, date, place, subject, participants);
         mApiService.addMeeting(meeting);
         finish();
     }
@@ -327,7 +336,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         mDateString = dayOfMonth + "/" + (monthOfYear + 1) + '/' + year;
-                        mDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + '/' + year);
+                        mDate.setText(mDateString);
                         mTime.setText("");
                     }
                 }, year, month, day);

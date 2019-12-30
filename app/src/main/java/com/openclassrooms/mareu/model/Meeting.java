@@ -38,7 +38,7 @@ public class Meeting implements Serializable {
     private String mParticipants;
 
 
-    public Meeting(Integer mId, Integer mAvatar, Date mDate, String mTime, String mPlace, String mSubject, String mParticipants) {
+    public Meeting(Integer mId, Integer mAvatar, Date mDate, String mPlace, String mSubject, String mParticipants) {
         this.mId = mId;
         this.mAvatar = mAvatar;
         this.mDate = mDate;
