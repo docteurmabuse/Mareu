@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -25,6 +26,8 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
     private MeetingApiService service;
+    static Date currentDate = new Date(System.currentTimeMillis());
+
 
     @Before
     public void setup() {
@@ -38,7 +41,8 @@ public class MeetingServiceTest {
 
     @Test
     public void getMeetingsWithSuccess() {
-        Meeting meeting = new Meeting(1, 545121, "05/12/2019", "12:30", "salle Icare", "RéunionA", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
+        Meeting meeting = new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
+
         //service.addMeeting(meeting);
         List<Meeting> meetings = service.getMeetings();
         List<Meeting> dummyMeetingsExpected = FakeMeetingGenerator.FAKE_MEETING;
@@ -47,7 +51,7 @@ public class MeetingServiceTest {
 
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting(1, 545121, "05/12/2019", "12:30", "salle Icare", "RéunionA", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
+        Meeting meeting = new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
         service.addMeeting(meeting);
         assertEquals(1, service.getMeetings().size());
     }
