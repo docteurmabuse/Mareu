@@ -21,10 +21,6 @@ public class Meeting implements Serializable {
      */
     private Date mDate;
 
-    /**
-     * Meeting Time
-     */
-    private String mTime;
 
     /**
      * Meeting Place
@@ -46,7 +42,6 @@ public class Meeting implements Serializable {
         this.mId = mId;
         this.mAvatar = mAvatar;
         this.mDate = mDate;
-        this.mTime = mTime;
         this.mPlace = mPlace;
         this.mSubject = mSubject;
         this.mParticipants = mParticipants;
@@ -74,14 +69,6 @@ public class Meeting implements Serializable {
 
     public void setmDate(Date mDate) {
         this.mDate = mDate;
-    }
-
-    public String getmTime() {
-        return mTime;
-    }
-
-    public void setmTime(String mTime) {
-        this.mTime = mTime;
     }
 
     public String getmPlace() {

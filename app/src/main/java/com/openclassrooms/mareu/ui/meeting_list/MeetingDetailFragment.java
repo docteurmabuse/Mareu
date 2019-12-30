@@ -79,9 +79,10 @@ public class MeetingDetailFragment extends Fragment {
         mId = meeting.getmId();
         mAvatar = meeting.getmAvatar();
         Date date = meeting.getmDate();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        SimpleDateFormat tf = new SimpleDateFormat("HH:ss", Locale.FRANCE);
+        mTime = tf.format(date).replace(":","h");
         mDate = df.format(date);
-        mTime = meeting.getmTime();
         mPlace = meeting.getmPlace();
         mSubject = meeting.getmSubject();
         mParticipants = meeting.getmParticipants().replace(",", "\n");
