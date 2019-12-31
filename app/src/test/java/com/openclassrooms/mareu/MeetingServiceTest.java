@@ -24,9 +24,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 /**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Unit test on Meeting service.
  */
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
