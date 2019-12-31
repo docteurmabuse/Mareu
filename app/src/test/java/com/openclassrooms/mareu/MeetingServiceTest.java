@@ -60,7 +60,7 @@ public class MeetingServiceTest {
     }
 
     @Test
-    public void getFilteredMeetingWithSuccess() {
+    public void getFilteredMeetingsWithSuccess() {
         List<Places> placesSelected = Arrays.asList(
                 new Places(9, "Wario"),
                 new Places(1, "Mario")

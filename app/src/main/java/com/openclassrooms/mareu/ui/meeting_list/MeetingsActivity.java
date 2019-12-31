@@ -62,7 +62,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     private void initRecyclerView() {
-        mRecyclerView = findViewById(R.id.item_recylerview);
+        mRecyclerView = findViewById(R.id.meetings_recylerview);
         emptyData = findViewById(R.id.empty_data_txt);
         noMeeting = findViewById(R.id.no_meeting_ico);
         if (mApiService.getMeetings().size() < 1) {
@@ -124,7 +124,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
-        RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
+        RecyclerView mRecyclerView = findViewById(R.id.meetings_recylerview);
         assert mRecyclerView != null;
 
         if (isSelected) {
