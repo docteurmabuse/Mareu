@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +17,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
-import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
@@ -34,13 +32,10 @@ import java.util.Objects;
 
 public class MeetingsActivity extends AppCompatActivity implements FilterListFragment.OnListFragmentInteractionListener, FilterListFragment.OnPlaceFragmentInteractionListener, FilterListFragment.OnFilterButtonClickListener {
 
-    private FloatingActionButton fab;
-    private Toolbar toolbar;
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
     private MeetingApiService mApiService;
     private boolean mTwoPane;
-    private List<Meeting> mMeetings;
     private List<Filters.Places> placeSelected;
     private Date fDate;
     private TextView emptyData;
@@ -53,7 +48,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         placeSelected = new ArrayList<>();
         fDate = null;
         setContentView(R.layout.activity_meetings);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
         initMeetingsView();
@@ -88,7 +83,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     }
 
     private void initMeetingsView() {
-        fab = findViewById(R.id.fab_add_meeting);
+        FloatingActionButton fab = findViewById(R.id.fab_add_meeting);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
