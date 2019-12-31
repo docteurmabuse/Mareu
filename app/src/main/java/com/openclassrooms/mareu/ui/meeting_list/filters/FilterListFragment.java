@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.PLACE_ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent.Places;
+import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.PLACE_ITEMS;
+import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.Places;
 
 /**
  * A fragment representing a list of Items.
@@ -46,7 +46,7 @@ public class FilterListFragment extends DialogFragment {
 
     private OnListFragmentInteractionListener mListener;
     private OnPlaceFragmentInteractionListener mListener2;
-    private List<FiltersContent.Places> sortedPlaces;
+    private List<Filters.Places> sortedPlaces;
     private OnFilterButtonClickListener mListener3;
 
     private static final String TAG = "filter_dialog";
@@ -81,10 +81,6 @@ public class FilterListFragment extends DialogFragment {
 
         final Context context = view.getContext();
 
-       /* RecyclerView oFiltersRecyclerView = view.findViewById(R.id.recycler);
-        oFiltersRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        oFiltersRecyclerView.setAdapter(new MyFilterAdapter(ITEMS, mListener));
-*/
         RecyclerView placeRecyclerView2 = view.findViewById(R.id.recycler_1);
         placeRecyclerView2.setLayoutManager(new LinearLayoutManager(context));
         placeRecyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
@@ -120,12 +116,6 @@ public class FilterListFragment extends DialogFragment {
         });
         toolbar.setTitle("Filtres");
         toolbar.setTitleTextColor(Color.WHITE);
-        /*toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // dismiss();
-            }
-        });*/
     }
 
     @Override
@@ -184,7 +174,7 @@ public class FilterListFragment extends DialogFragment {
                         DateFormat formatter;
                         Date convertedDate = null;
                         String fDate = (day + "/" + (month + 1) + '/' + year);
-                        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+                        formatter = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
                         try {
                             convertedDate = formatter.parse(fDate);
                         } catch (ParseException e) {

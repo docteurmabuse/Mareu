@@ -1,7 +1,7 @@
 package com.openclassrooms.mareu.service;
 
 import com.openclassrooms.mareu.model.Meeting;
-import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent;
+import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> getPlaceFilteredMeetings(Date fDate, List<FiltersContent.Places> fPlaces) {
+    public List<Meeting> getFilteredMeetings(Date fDate, List<Filters.Places> fPlaces) {
         List<Meeting> fMeetings = new ArrayList<>();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
         String mDate1 = null;
@@ -49,7 +49,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
         if (fPlaces.size() > 0 && fDate == null) {
             for (Meeting meeting : getMeetings()) {
-                for (FiltersContent.Places places : fPlaces) {
+                for (Filters.Places places : fPlaces) {
                     if (meeting.getmPlace().contains(places.getpName())) {
                         fMeetings.add(meeting);
                     }
@@ -58,7 +58,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         } else if (fPlaces.size() > 0) {
             for (Meeting meeting : getMeetings()) {
                 String mDate2 = df.format(meeting.getmDate());
-                for (FiltersContent.Places places : fPlaces) {
+                for (Filters.Places places : fPlaces) {
                     if (meeting.getmPlace().contains(places.getpName()) && mDate2.equals(mDate1)) {
                         fMeetings.add(meeting);
                     }

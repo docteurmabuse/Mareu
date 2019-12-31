@@ -12,10 +12,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -26,18 +28,13 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
     private MeetingApiService service;
-    static Date currentDate = new Date(System.currentTimeMillis());
-
+    private static Date currentDate = new Date(System.currentTimeMillis());
 
     @Before
     public void setup() {
         service = DI.getNewInstanceApiService();
     }
 
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
 
     @Test
     public void getMeetingsWithSuccess() {
@@ -58,6 +55,15 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
+        Meeting meetingToDelete = service.getMeetings().get(0);
+        service.deleteMeeting(meetingToDelete);
+        assertFalse(service.getMeetings().contains(meetingToDelete));
+    }
 
+    @Test
+    public void getFilteredMeetingWithSuccess() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        Date tomorrow = calendar.getTime();
     }
 }

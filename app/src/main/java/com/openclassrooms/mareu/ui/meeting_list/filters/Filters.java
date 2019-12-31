@@ -1,41 +1,52 @@
 package com.openclassrooms.mareu.ui.meeting_list.filters;
 
-
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Helper class for providing sample content for user interfaces created by
+ * Android template wizards.
+ * <p>
+ */
 public class Filters {
-    private Date date = null;
-    private List<FiltersContent.Places> places = null;
-    private String sortBy = null;
 
-    public Filters(Date date, List<FiltersContent.Places> places, String sortBy) {
-        this.date = date;
-        this.places = places;
-        this.sortBy = sortBy;
+    /**
+     * An array of Meetings Place List items.
+     */
+    public static final List<Places> PLACE_ITEMS = Arrays.asList(
+            new Places(1, "Mario"),
+            new Places(2, "Luigi"),
+            new Places(3, "Peach"),
+            new Places(4, "Toad"),
+            new Places(5, "Yoshi"),
+            new Places(6, "Daisy"),
+            new Places(7, "Harmonie"),
+            new Places(8, "Donkey Kong"),
+            new Places(9, "Wario"),
+            new Places(10, "Birdo")
+    );
+
+    public static List<Places> createPlaces() {
+        return new ArrayList<>(PLACE_ITEMS);
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public static class Places {
+        public final Integer id;
+        final String pName;
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+        public Places(Integer id, String pName) {
+            this.id = id;
+            this.pName = pName;
+        }
 
-    public List<FiltersContent.Places> getPlaces() {
-        return places;
-    }
+        public Integer getId() {
+            return id;
+        }
 
-    public void setPlaces(List<FiltersContent.Places> places) {
-        this.places = places;
-    }
+        public String getpName() {
+            return pName;
+        }
 
-    public String getSortBy() {
-        return sortBy;
-    }
-
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
     }
 }

@@ -22,7 +22,7 @@ import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent;
+import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,16 +41,10 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private MeetingApiService mApiService;
     private boolean mTwoPane;
     private List<Meeting> mMeetings;
-    private List<FiltersContent.Places> placeSelected;
+    private List<Filters.Places> placeSelected;
     private Date fDate;
     private TextView emptyData;
     private ImageView noMeeting;
-
-    public MeetingsActivity() {
-        // mApiService = DI.getMeetingApiService();
-        //mMeetings = Objects.requireNonNull(mApiService).getMeetings();
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +69,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.item_recylerview);
         emptyData = findViewById(R.id.empty_data_txt);
-        noMeeting =findViewById(R.id.no_meeting_ico);
+        noMeeting = findViewById(R.id.no_meeting_ico);
         if (mApiService.getMeetings().size() < 1) {
             mRecyclerView.setVisibility(View.GONE);
             emptyData.setVisibility(View.VISIBLE);
@@ -89,11 +83,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         }
         mAdapter = new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane);
         assert mRecyclerView != null;
-        //setupRecyclerView(mRecyclerView);
         mRecyclerView.setItemAnimator(null);
         mRecyclerView.setAdapter(mAdapter);
-        // mRecyclerView.setAdapter(new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane));
-
     }
 
     private void initMeetingsView() {
@@ -128,10 +119,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         return super.onOptionsItemSelected(item);
     }
 
-    public void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane));
-    }
-
     private void initFiltersView() {
         FilterListFragment.display(getSupportFragmentManager());
     }
@@ -141,7 +128,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         fDate = mDate;
     }
 
-    public void onPlaceFragmentInteraction(FiltersContent.Places places, Boolean isSelected) {
+    public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
         RecyclerView mRecyclerView = findViewById(R.id.item_recylerview);
         assert mRecyclerView != null;
 
@@ -165,8 +152,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 noMeeting.setVisibility(View.GONE);
             }
         } else {
-            mAdapter.mMeetings = mApiService.getPlaceFilteredMeetings(fDate, placeSelected);
-            if (mApiService.getPlaceFilteredMeetings(fDate, placeSelected).size() < 1) {
+            mAdapter.mMeetings = mApiService.getFilteredMeetings(fDate, placeSelected);
+            if (mApiService.getFilteredMeetings(fDate, placeSelected).size() < 1) {
                 mRecyclerView.setVisibility(View.GONE);
                 emptyData.setVisibility(View.VISIBLE);
                 noMeeting.setVisibility(View.VISIBLE);

@@ -1,7 +1,7 @@
 package com.openclassrooms.mareu.service;
 
 import com.openclassrooms.mareu.model.Meeting;
-import com.openclassrooms.mareu.ui.meeting_list.filters.FiltersContent;
+import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
 import java.util.Date;
 import java.util.List;
@@ -30,6 +30,6 @@ public interface MeetingApiService {
      */
     void deleteMeeting(Meeting meeting);
 
-    List<Meeting> getPlaceFilteredMeetings(Date fDate, List<FiltersContent.Places> fPlaces);
+    List<Meeting> getFilteredMeetings(Date fDate, List<Filters.Places> fPlaces);
 }
 
