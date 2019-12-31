@@ -47,9 +47,9 @@ public class MeetingServiceTest {
 
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
+        Meeting meeting = new Meeting(7, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
         service.addMeeting(meeting);
-        assertEquals(1, service.getMeetings().size());
+        assertEquals(7, service.getMeetings().size());
     }
 
     @Test
@@ -73,6 +73,15 @@ public class MeetingServiceTest {
         );
         assertArrayEquals(meetingsDatePlaces.toArray(), fMeetingExpectedDatePlaces.toArray());
 
+        List<Meeting> meetingsEmptyDate = service.getFilteredMeetings(null, placesSelected);
+        List<Meeting> fMeetingExpectedNoDate = Arrays.asList(
+                new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+                new Meeting(2, 0xFF5E755F, tomorrow, "Mario", "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+                new Meeting(3, 0xFF5E888F, currentDate, "Wario", "Réunion C", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+                new Meeting(4, 0xFF5E155F, tomorrow, "Wario", "Réunion D", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
+        );
+        assertArrayEquals(meetingsEmptyDate.toArray(), fMeetingExpectedNoDate.toArray());
+
         List<Places> emptyPlacesSelected = new ArrayList<>();
         List<Meeting> meetingsEmptyPlaces = service.getFilteredMeetings(currentDate, emptyPlacesSelected);
         List<Meeting> fMeetingExpectedDateNoPlaces = Arrays.asList(
@@ -82,15 +91,6 @@ public class MeetingServiceTest {
                 new Meeting(6, 0xFF5E338F, currentDate, "Yoshi", "Réunion F", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
         );
         assertArrayEquals(meetingsEmptyPlaces.toArray(), fMeetingExpectedDateNoPlaces.toArray());
-
-        List<Meeting> meetingsEmptyDate = service.getFilteredMeetings(null, placesSelected);
-        List<Meeting> fMeetingExpectedNoDate = Arrays.asList(
-                new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-                new Meeting(2, 0xFF5E755F, tomorrow, "Mario", "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-                new Meeting(3, 0xFF5E888F, currentDate, "Wario", "Réunion C", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-                new Meeting(4, 0xFF5E155F, tomorrow, "Wario", "Réunion D", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
-        );
-        assertArrayEquals(meetingsEmptyDate.toArray(), fMeetingExpectedNoDate.toArray());
 
     }
 }
