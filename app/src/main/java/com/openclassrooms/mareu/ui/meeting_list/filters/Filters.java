@@ -23,7 +23,6 @@ public class Filters {
             new Places(6, "Daisy"),
             new Places(7, "Harmonie"),
             new Places(8, "Donkey Kong"),
-            new Places(9, "Wario"),
             new Places(10, "Birdo")
     );
 

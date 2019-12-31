@@ -16,7 +16,7 @@ public class FakeMeetingGenerator {
     static Date tomorrow = new Date(System.currentTimeMillis()+86400000);
 
 
-    public static List<Meeting> FAKE_MEETING = Arrays.asList(
+    public static List<Meeting> FAKE_MEETINGS = Arrays.asList(
             new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
             new Meeting(2, 0xFF5E755F, tomorrow, "Mario", "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
             new Meeting(3, 0xFF5E888F, currentDate, "Wario", "Réunion C", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
@@ -30,6 +30,6 @@ public class FakeMeetingGenerator {
     }
 
     static List<Meeting> generateMeetings() {
-        return new ArrayList<>(FAKE_MEETING);
+        return new ArrayList<>(FAKE_MEETINGS);
     }
 }
