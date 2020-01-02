@@ -115,6 +115,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
 
+
     private void initBtn() {
         mButton = findViewById(R.id.form_btn);
 
@@ -332,8 +333,8 @@ public class NewMeetingActivity extends AppCompatActivity {
                 // date picker dialog
                 datePicker = new DatePickerDialog(NewMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        mDateString = dayOfMonth + "/" + (monthOfYear + 1) + '/' + year;
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        mDateString = String.format("%02d/%02d", day, month + 1) + '/' + year;
                         mDate.setText(mDateString);
                         mTime.setText("");
                     }
