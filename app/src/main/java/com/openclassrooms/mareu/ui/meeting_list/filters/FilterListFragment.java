@@ -173,7 +173,7 @@ public class FilterListFragment extends DialogFragment {
 
                         DateFormat formatter;
                         Date convertedDate = null;
-                        String fDate = (day + "/" + (month + 1) + '/' + year);
+                        String fDate = String.format("%02d/%02d", day, month + 1) + '/' + year;
                         formatter = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
                         try {
                             convertedDate = formatter.parse(fDate);
