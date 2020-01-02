@@ -14,9 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -107,7 +105,6 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 placeSelected = mPlaceList.getItemAtPosition(position).toString();
-                mTime.setText("");
             }
 
             @Override
@@ -117,6 +114,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         });
     }
 
+
     private void initBtn() {
         mButton = findViewById(R.id.form_btn);
 
@@ -124,7 +122,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (!validateSubject() || !validateParticipants() || !validateDate() || !validateDate() || !validateTime()) {
+                    if (!validateSubject() || !validateParticipants() || !validateDate() || !validateDate() || !validateTime() || !isValideTime()) {
                         Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
