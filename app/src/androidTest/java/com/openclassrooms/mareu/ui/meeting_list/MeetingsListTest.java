@@ -123,6 +123,8 @@ public class MeetingsListTest {
                         isDisplayed()));
         textInputEditText2.perform(click());
 
+        onView(withId(android.R.id.button1)).perform(click());
+
         ViewInteraction materialButton = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(
