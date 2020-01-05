@@ -28,6 +28,7 @@
     <string name="delete_meeting_button">Delete Meeting Button</string>
     <string name="cancel">Réinitialiser</string>
     <string name="date">Date</string>
-    <string name="aucune_r_union_de_pr_vu">Aucune réunion de prévu!</string>
-    <string name="r_initialiser_les_filtres">Réinitialiser les filtres</string>
+    <string name="aucune_reunion_de_prevu">Aucune réunion de prévu!</string>
+    <string name="reinitialiser_initialiser_les_filtres">Réinitialiser les filtres</string>
+    <string name="no_meeting_image">No meeting image</string>
 </resources>

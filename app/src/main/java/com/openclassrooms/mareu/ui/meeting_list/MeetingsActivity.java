@@ -69,13 +69,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         assert mRecyclerView != null;
         mRecyclerView.setItemAnimator(null);
         mRecyclerView.setAdapter(mAdapter);
-    }
-
-    private void initMeetingsView() {
-        FloatingActionButton fab = findViewById(R.id.fab_add_meeting);
-        emptyData = findViewById(R.id.empty_data_txt);
-        noMeeting = findViewById(R.id.no_meeting_ico);
-        resetFiltersBtn = findViewById(R.id.reset_filer_btn);
         if (mApiService.getMeetings().size() < 1) {
             mRecyclerView.setVisibility(View.GONE);
             emptyData.setVisibility(View.VISIBLE);
@@ -87,8 +80,14 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
             emptyData.setVisibility(View.GONE);
             noMeeting.setVisibility(View.GONE);
             resetFiltersBtn.setVisibility(View.GONE);
-
         }
+    }
+
+    private void initMeetingsView() {
+        FloatingActionButton fab = findViewById(R.id.fab_add_meeting);
+        emptyData = findViewById(R.id.empty_data_txt);
+        noMeeting = findViewById(R.id.no_meeting_ico);
+        resetFiltersBtn = findViewById(R.id.reset_filer_btn);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,10 +152,12 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 mRecyclerView.setVisibility(View.GONE);
                 emptyData.setVisibility(View.VISIBLE);
                 noMeeting.setVisibility(View.VISIBLE);
+                resetFiltersBtn.setVisibility(View.VISIBLE);
             } else {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 emptyData.setVisibility(View.GONE);
                 noMeeting.setVisibility(View.GONE);
+                resetFiltersBtn.setVisibility(View.GONE);
             }
         } else {
             mAdapter.mMeetings = mApiService.getFilteredMeetings(fDate, placeSelected);
@@ -164,10 +165,12 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 mRecyclerView.setVisibility(View.GONE);
                 emptyData.setVisibility(View.VISIBLE);
                 noMeeting.setVisibility(View.VISIBLE);
+                resetFiltersBtn.setVisibility(View.VISIBLE);
             } else {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 emptyData.setVisibility(View.GONE);
                 noMeeting.setVisibility(View.GONE);
+                resetFiltersBtn.setVisibility(View.GONE);
             }
         }
         placeSelected.clear();
