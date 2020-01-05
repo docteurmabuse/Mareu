@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
@@ -40,6 +41,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private Date fDate;
     private TextView emptyData;
     private ImageView noMeeting;
+    private MaterialButton resetFiltersBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,19 +65,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.meetings_recylerview);
-        emptyData = findViewById(R.id.empty_data_txt);
-        noMeeting = findViewById(R.id.no_meeting_ico);
-        if (mApiService.getMeetings().size() < 1) {
-            mRecyclerView.setVisibility(View.GONE);
-            emptyData.setVisibility(View.VISIBLE);
-            noMeeting.setVisibility(View.VISIBLE);
-
-        } else {
-            mRecyclerView.setVisibility(View.VISIBLE);
-            emptyData.setVisibility(View.GONE);
-            noMeeting.setVisibility(View.GONE);
-
-        }
         mAdapter = new MeetingAdapter(this, mApiService.getMeetings(), mTwoPane);
         assert mRecyclerView != null;
         mRecyclerView.setItemAnimator(null);
@@ -84,12 +73,35 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
 
     private void initMeetingsView() {
         FloatingActionButton fab = findViewById(R.id.fab_add_meeting);
+        emptyData = findViewById(R.id.empty_data_txt);
+        noMeeting = findViewById(R.id.no_meeting_ico);
+        resetFiltersBtn = findViewById(R.id.reset_filer_btn);
+        if (mApiService.getMeetings().size() < 1) {
+            mRecyclerView.setVisibility(View.GONE);
+            emptyData.setVisibility(View.VISIBLE);
+            noMeeting.setVisibility(View.VISIBLE);
+            resetFiltersBtn.setVisibility(View.VISIBLE);
+
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyData.setVisibility(View.GONE);
+            noMeeting.setVisibility(View.GONE);
+            resetFiltersBtn.setVisibility(View.GONE);
+
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, NewMeetingActivity.class);
                 context.startActivity(intent);
+            }
+        });
+        resetFiltersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initRecyclerView();
             }
         });
         if (findViewById(R.id.item_detail_container) != null) {

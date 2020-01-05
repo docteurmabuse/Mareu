@@ -29,4 +29,5 @@
     <string name="cancel">Réinitialiser</string>
     <string name="date">Date</string>
     <string name="aucune_r_union_de_pr_vu">Aucune réunion de prévu!</string>
+    <string name="r_initialiser_les_filtres">Réinitialiser les filtres</string>
 </resources>
