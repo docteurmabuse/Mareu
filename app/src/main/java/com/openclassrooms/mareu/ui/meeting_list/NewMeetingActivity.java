@@ -59,10 +59,10 @@ public class NewMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String placeSelected;
     private String mDateString;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
 
     public NewMeetingActivity() {
-        df = new SimpleDateFormat("dd/MM/yyyy");
+        df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
     }
 
     @Override
@@ -114,8 +114,6 @@ public class NewMeetingActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void initBtn() {
         mButton = findViewById(R.id.form_btn);
 
@@ -159,7 +157,6 @@ public class NewMeetingActivity extends AppCompatActivity {
             lPartcipants.setError("Ce champ est requis!");
             requestFocus(mParticipants);
             return false;
-
         } else if (!isValidEmail()) {
             lPartcipants.setError("Ce champ doit être au format email (monemail@mail.com,monemail2@mail.com)!");
             requestFocus(mParticipants);
@@ -237,9 +234,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             }
         }
         return validTime;
-
     }
-
 
     private boolean validateDate() {
         if (mDate.getText().toString().trim().isEmpty()) {
@@ -271,7 +266,6 @@ public class NewMeetingActivity extends AppCompatActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
-
 
     public int getRandomColor() {
         Random rnd = new Random();

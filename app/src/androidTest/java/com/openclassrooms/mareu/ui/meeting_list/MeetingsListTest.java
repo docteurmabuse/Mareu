@@ -3,9 +3,11 @@ package com.openclassrooms.mareu.ui.meeting_list;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.DatePicker;
 
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -15,6 +17,7 @@ import com.openclassrooms.mareu.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -70,6 +73,10 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfAddingMeetingIsWorking() {
+        int year = 2020;
+        int month = 10;
+        int day = 12;
+
         // Given :  We add one element
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         // When : We perform click on add meeting button
@@ -122,9 +129,8 @@ public class MeetingsListTest {
                                 0),
                         isDisplayed()));
         textInputEditText2.perform(click());
-
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(year, month + 1, day));
         onView(withId(android.R.id.button1)).perform(click());
-
         ViewInteraction materialButton = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
                         childAtPosition(

@@ -29,8 +29,9 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
     private MeetingApiService service;
+
     private static Date currentDate = new Date(System.currentTimeMillis());
-    static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
+    private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
 
     @Before
     public void setup() {
