@@ -54,7 +54,6 @@ public class MeetingsListTest {
     private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
 
-
     @Rule
     public ActivityTestRule<MeetingsActivity> mActivityTestRule = new ActivityTestRule<>(MeetingsActivity.class);
 
