@@ -121,7 +121,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (!validateSubject() || !validateParticipants() || !validateDate() || !validateDate() || !validateTime() || !isValideTime()) {
+                    if (!validateSubject() || !validateDate() || !validateDate() || !validateTime() || !isValideTime() || !validateParticipants()) {
                         Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
@@ -141,8 +141,8 @@ public class NewMeetingActivity extends AppCompatActivity {
             lSubject.setError("Ce champ est requis!");
             requestFocus(mSubject);
             return false;
-        } else if (mSubject.getText().toString().length() < 2) {
-            lSubject.setError("Ce champ doit êter supérieur à 2 caractères!");
+        } else if (mSubject.getText().toString().length() < 1) {
+            lSubject.setError("Ce champ doit êter supérieur à 1 caractères!");
             requestFocus(mSubject);
             return false;
         } else {

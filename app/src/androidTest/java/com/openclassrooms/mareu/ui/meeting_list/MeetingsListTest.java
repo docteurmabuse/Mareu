@@ -31,6 +31,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.PickerActions.setDate;
 import static androidx.test.espresso.contrib.PickerActions.setTime;
+import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -71,45 +72,13 @@ public class MeetingsListTest {
         };
     }
 
-    @Test
-    public void testSetDate() {
-        int year = 2020;
-        int month = 10;
-        int day = 11;
-        onView(withId(R.id.fab_add_meeting)).perform(click());
-        onView(withId(R.id.form_btn)).perform(click());
-
-
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testSetDateInDatePicker() {
-        onView(withId(R.id.form_btn)).perform(click());
-
-    }
 
     @Test
     public void checkIfAddingMeetingIsWorking() {
-        int year = 2020;
-        int month = 10;
-        int day = 12;
-
         // Given :  We add one element
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         // When : We perform click on add meeting button
-        //onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
-
-        ViewInteraction floatingActionButton = onView(
-                allOf(withId(R.id.fab_add_meeting),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
-        floatingActionButton.perform(click());
-
+        onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
         ViewInteraction textInputEditText = onView(
                 allOf(withId(R.id.name_input),
                         childAtPosition(
@@ -179,6 +148,14 @@ public class MeetingsListTest {
 
         // Then : The number of Element is 7
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT + 1));
+    }
+
+    @Test
+    public void checkIfFormValidationIsWorking_NewMeetingView() {
+        onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
+        onView(withId(R.id.form_btn)).perform(click());
+        onView(ViewMatchers.withId(R.id.subject)).check(matches(hasErrorText("Ce champ est requis!")));
+
     }
 
     @Test
