@@ -121,7 +121,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (!validateSubject() || !validateDate() || !validateDate() || !validateTime() || !isValideTime() || !validateParticipants()) {
+                    if (!validateSubject() || !validateDate() || !validateDate() || !validateTime() || isNotValideTime() || !validateParticipants()) {
                         Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
@@ -204,7 +204,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             lTime.setError("Ce champ doit être au format Heure (13:00)!");
             requestFocus(mTime);
             return false;
-        } else if (!isValideTime()) {
+        } else if (isNotValideTime()) {
             lTime.setError("Une réunion est déjà prévu dans la même salle dans un intervalle de 45mn!");
             requestFocus(mTime);
             return false;
@@ -214,7 +214,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isValideTime() throws ParseException {
+    private boolean isNotValideTime() throws ParseException {
         boolean validTime = false;
         for (Meeting meeting : mApiService.getMeetings()) {
             Date date2 = sdf.parse(mDateString);
@@ -233,7 +233,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                 validTime = true;
             }
         }
-        return validTime;
+        return !validTime;
     }
 
     private boolean validateDate() {
