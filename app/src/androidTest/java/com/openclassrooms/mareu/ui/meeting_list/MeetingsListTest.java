@@ -4,10 +4,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -17,7 +17,6 @@ import com.openclassrooms.mareu.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -28,10 +27,11 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.PickerActions.setDate;
+import static androidx.test.espresso.contrib.PickerActions.setTime;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
@@ -69,6 +69,24 @@ public class MeetingsListTest {
                         && view.equals(((ViewGroup) parent).getChildAt(position));
             }
         };
+    }
+
+    @Test
+    public void testSetDate() {
+        int year = 2020;
+        int month = 10;
+        int day = 11;
+        onView(withId(R.id.fab_add_meeting)).perform(click());
+        onView(withId(R.id.form_btn)).perform(click());
+
+
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testSetDateInDatePicker() {
+        onView(withId(R.id.form_btn)).perform(click());
+
     }
 
     @Test
@@ -120,45 +138,26 @@ public class MeetingsListTest {
                 .atPosition(4);
         appCompatTextView.perform(click());
 
-        ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.date_input),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.date_layout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText2.perform(click());
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(year, month + 1, day));
+        // Show the date picker by typing twice on date  input text
+        onView(withId(R.id.date_input)).perform(click());
+        onView(withId(R.id.date_input)).perform(click());
+        // Sets a date on the date picker widget
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(2020, 10, 30));
+        // Confirm the selected date.
         onView(withId(android.R.id.button1)).perform(click());
-        ViewInteraction materialButton = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                3)));
-        materialButton.perform(scrollTo(), click());
-
-        ViewInteraction textInputEditText3 = onView(
-                allOf(withId(R.id.time_input),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.time_layout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText3.perform(click());
-
-        ViewInteraction materialButton2 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.ScrollView")),
-                                        0),
-                                3)));
-        materialButton2.perform(scrollTo(), click());
-
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.date_input)).check(matches(allOf(withText("30/10/2020"),
+                isDisplayed())));
+        // Show the time picker by typing twice on time input text
+        onView(withId(R.id.time_input)).perform(click());
+        onView(withId(R.id.time_input)).perform(click());
+        // Sets a time on the time picker widget
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(10, 25));
+        // Confirm the selected time.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected time is correct and is displayed in the Ui.
+        onView(withId(R.id.time_input)).check(matches(allOf(withText("10h25"),
+                isDisplayed())));
         ViewInteraction textInputEditText4 = onView(
                 allOf(withId(R.id.participants_input),
                         childAtPosition(
@@ -167,27 +166,16 @@ public class MeetingsListTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(replaceText("Laurent@free.Fr,Roger@orange.Fr"), closeSoftKeyboard());
-
+        textInputEditText4.perform(replaceText("laurent@free.fr,Roger@orange.fr"), closeSoftKeyboard());
         ViewInteraction textInputEditText5 = onView(
-                allOf(withId(R.id.participants_input), withText("Laurent@free.Fr,Roger@orange.Fr"),
+                allOf(withId(R.id.participants_input), withText("Laurent@free.fr,Roger@orange.fr"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.participants_layout),
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText5.perform(pressImeActionButton());
-
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.form_btn), withText("Créer la réunion"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("androidx.core.widget.NestedScrollView")),
-                                        0),
-                                5),
-                        isDisplayed()));
-        appCompatButton.perform(click());
+        onView(withId(R.id.form_btn)).perform(click());
 
         // Then : The number of Element is 7
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT + 1));
