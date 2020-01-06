@@ -31,7 +31,6 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.PickerActions.setDate;
 import static androidx.test.espresso.contrib.PickerActions.setTime;
-import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -154,7 +153,7 @@ public class MeetingsListTest {
     public void checkIfFormValidationIsWorking_NewMeetingView() {
         onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
         onView(withId(R.id.form_btn)).perform(click());
-        onView(ViewMatchers.withId(R.id.subject)).check(matches(hasErrorText("Ce champ est requis!")));
+        onView(ViewMatchers.withId(R.id.subject)).check(matches(withText("Ce champ est requis!")));
 
     }
 
