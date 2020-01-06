@@ -23,6 +23,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -46,8 +50,10 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class MeetingsListTest {
 
-    //This is fix
     private static int ITEMS_COUNT = 6;
+    private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+
 
     @Rule
     public ActivityTestRule<MeetingsActivity> mActivityTestRule = new ActivityTestRule<>(MeetingsActivity.class);
@@ -199,5 +205,23 @@ public class MeetingsListTest {
                                 0),
                         isDisplayed()));
         frameLayout.check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void checkIfFiltersAreWorking() {
+        onView(withId(R.id.icon_filter_menu)).perform(click());
+        onView(withId(R.id.date_btn)).perform(click());
+        // Sets a date on the date picker widget
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(2020, 10, 30));
+        // Confirm the selected date.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText("30/10/2020"),
+                isDisplayed())));
+        //Click on filter button
+        onView(withId(R.id.finnish_btn)).perform(click());
+        //Check if the meeting list is Empty
+        // Then : The number of Element is 7
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(0));
     }
 }

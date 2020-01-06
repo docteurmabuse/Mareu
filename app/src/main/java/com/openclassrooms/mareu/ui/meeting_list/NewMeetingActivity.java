@@ -51,7 +51,6 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mSubject;
     Button mButton;
 
-    SimpleDateFormat df;
     DateFormat formatter = null;
     Date convertedDate = null;
 
@@ -62,7 +61,6 @@ public class NewMeetingActivity extends AppCompatActivity {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
 
     public NewMeetingActivity() {
-        df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
     }
 
     @Override

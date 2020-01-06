@@ -94,4 +94,5 @@ public class MeetingServiceTest {
         assertArrayEquals(meetingsEmptyPlaces.toArray(), fMeetingExpectedDateNoPlaces.toArray());
 
     }
+
 }
