@@ -4,7 +4,7 @@ Ce dépôt contient une mini-application pour le P4 du parcours Grande École du
 
 ## Introduction
 
-Maréu est une application qde gestion de réunion.
+Maréu est une application de gestion de réunion.
 
 
 
