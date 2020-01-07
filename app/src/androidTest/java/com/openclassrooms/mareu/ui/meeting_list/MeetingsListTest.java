@@ -19,13 +19,13 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -51,11 +51,27 @@ import static org.hamcrest.Matchers.is;
 public class MeetingsListTest {
 
     private static int ITEMS_COUNT = 6;
-    private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+    private int day;
+    private int month;
+    private int year;
+    private int hour;
+    private int minutes;
+
 
     @Rule
     public ActivityTestRule<MeetingsActivity> mActivityTestRule = new ActivityTestRule<>(MeetingsActivity.class);
+
+    @Before
+    public void setUp() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        //getTime() returns the current date in default time zone
+        day = calendar.get(Calendar.DATE);
+        //Note: +1 the month for current month
+        month = calendar.get(Calendar.MONTH) + 1;
+        year = calendar.get(Calendar.YEAR);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        minutes = calendar.get(Calendar.MINUTE);
+    }
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
@@ -115,21 +131,21 @@ public class MeetingsListTest {
         onView(withId(R.id.date_input)).perform(click());
         onView(withId(R.id.date_input)).perform(click());
         // Sets a date on the date picker widget
-        onView(isAssignableFrom(DatePicker.class)).perform(setDate(2020, 10, 30));
-        // Confirm the selected date.
+        // onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day+1));
+        // Confirm the selected date for today.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected date is correct and is displayed in the Ui.
-        onView(withId(R.id.date_input)).check(matches(allOf(withText("30/10/2020"),
+        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month) + '/' + year),
                 isDisplayed())));
         // Show the time picker by typing twice on time input text
         onView(withId(R.id.time_input)).perform(click());
         onView(withId(R.id.time_input)).perform(click());
         // Sets a time on the time picker widget
-        onView(isAssignableFrom(TimePicker.class)).perform(setTime(10, 25));
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hour + 1, minutes));
         // Confirm the selected time.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected time is correct and is displayed in the Ui.
-        onView(withId(R.id.time_input)).check(matches(allOf(withText("10h25"),
+        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hour + 1, minutes)),
                 isDisplayed())));
         ViewInteraction textInputEditText4 = onView(
                 allOf(withId(R.id.participants_input),
@@ -208,19 +224,25 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfFiltersAreWorking() {
+        //Click on filter menu
         onView(withId(R.id.icon_filter_menu)).perform(click());
+        //Click on Date Btn
         onView(withId(R.id.date_btn)).perform(click());
-        // Sets a date on the date picker widget
-        onView(isAssignableFrom(DatePicker.class)).perform(setDate(2020, 10, 30));
+        // Sets a date in 3 days from now on the date picker widget
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day + 3));
         // Confirm the selected date.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected date is correct and is displayed in the Ui.
-        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText("30/10/2020"),
+        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText(String.format("%02d/%02d", day + 3, month) + '/' + year),
                 isDisplayed())));
         //Click on filter button
         onView(withId(R.id.finnish_btn)).perform(click());
         //Check if the meeting list is Empty
         // Then : The number of Element is 7
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(0));
+        //Reset filters by clicking on Rest filter button
+        onView(withId(R.id.reset_filer_btn)).perform(click());
+        // Then : The number of Element is 7
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
     }
 }

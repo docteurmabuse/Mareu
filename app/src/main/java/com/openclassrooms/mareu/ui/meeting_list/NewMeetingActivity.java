@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -187,7 +188,9 @@ public class NewMeetingActivity extends AppCompatActivity {
         if (mDateString != null) {
             time = sdf.parse(mDateString);
         }
-        Date now = new Date();
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        //getTime() returns the current date in default time zone
+        Date now = calendar.getTime();
 
         if (mTime.getText().toString().trim().isEmpty()) {
             lTime.setError("Ce champ est requis!");
@@ -282,7 +285,6 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
         String subject = mSubject.getText().toString();
         Date date = convertedDate;
-        String time = mTime.getText().toString().replace("h", ":");
         String place = mPlaceList.getSelectedItem().toString();
         String participants = mParticipants.getText().toString();
         Meeting meeting = new Meeting(id, avatar, date, place, subject, participants);
@@ -328,7 +330,6 @@ public class NewMeetingActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         mDateString = String.format("%02d/%02d", day, month + 1) + '/' + year;
                         mDate.setText(mDateString);
-                        mTime.setText("");
                     }
                 }, year, month, day);
                 datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
