@@ -209,7 +209,22 @@ public class MeetingsListTest {
         // Given : We remove the element at position 2
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         // When perform a click on a delete icon
-        onView(ViewMatchers.withId(R.id.item_list_meeting_delete_button)).perform(click());
+        ViewInteraction appCompatImageButton = onView(
+                allOf(withId(R.id.item_list_meeting_delete_button), withContentDescription("Delete Meeting Button"),
+                        childAtPosition(
+                                allOf(withId(R.id.constraint),
+                                        childAtPosition(
+                                                allOf(withId(R.id.item_list_meeting_avatar),
+                                                        childAtPosition(
+                                                                allOf(withId(R.id.meetings_recylerview),
+                                                                        childAtPosition(
+                                                                                withId(R.id.frameLayout),
+                                                                                1)),
+                                                                1)),
+                                                0)),
+                                2),
+                        isDisplayed()));
+        appCompatImageButton.perform(click());
         //Then then number of element is 5
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT - 1));
     }
@@ -319,6 +334,5 @@ public class MeetingsListTest {
         onView(withId(R.id.finnish_btn)).perform(click());
         // Then : The number of Element is 2
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(2));
-
     }
 }
