@@ -13,6 +13,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
 
 import org.hamcrest.Description;
@@ -88,6 +89,32 @@ public class MeetingsListTest {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
                         && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
+
+    public static Matcher<View> hasTextInputLayoutHintText(final String expectedErrorText) {
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof TextInputLayout)) {
+                    return false;
+                }
+
+                CharSequence error = ((TextInputLayout) view).getError();
+
+                if (error == null) {
+                    return false;
+                }
+
+                String hint = error.toString();
+
+                return expectedErrorText.equals(hint);
+            }
+
+            @Override
+            public void describeTo(Description description) {
             }
         };
     }
@@ -174,8 +201,7 @@ public class MeetingsListTest {
     public void checkIfFormValidationIsWorking_NewMeetingView() {
         onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
         onView(withId(R.id.form_btn)).perform(click());
-        onView(ViewMatchers.withId(R.id.subject)).check(matches(withText("Ce champ est requis!")));
-
+        onView(ViewMatchers.withId(R.id.subject)).check(matches(hasTextInputLayoutHintText("Ce champ est requis!")));
     }
 
     @Test
