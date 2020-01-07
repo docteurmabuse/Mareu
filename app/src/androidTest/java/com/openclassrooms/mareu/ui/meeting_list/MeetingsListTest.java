@@ -224,6 +224,8 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfFiltersAreWorking() {
+        // Given :  We want to know if there is a meeting in 3 days
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         //Click on filter menu
         onView(withId(R.id.icon_filter_menu)).perform(click());
         //Click on Date Btn
@@ -244,5 +246,53 @@ public class MeetingsListTest {
         onView(withId(R.id.reset_filer_btn)).perform(click());
         // Then : The number of Element is 7
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
+
+        // Given :  We want to know if there is a meeting today in the Mario room
+        //Click on filter menu
+        onView(withId(R.id.icon_filter_menu)).perform(click());
+        //Click on Date Btn
+        onView(withId(R.id.date_btn)).perform(click());
+        // Sets a date in 3 days from now on the date picker widget
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day));
+        // Confirm the selected date.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText(String.format("%02d/%02d", day, month) + '/' + year),
+                isDisplayed())));
+        //Click on Mario room filter
+        ViewInteraction appCompatCheckBox = onView(
+                allOf(withId(R.id.chbx_place),
+                        childAtPosition(
+                                childAtPosition(
+                                        childAtPosition(
+                                                allOf(withId(R.id.recycler_1),
+                                                        childAtPosition(
+                                                                withClassName(is("android.widget.LinearLayout")),
+                                                                3)),
+                                                5),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatCheckBox.perform(click());
+        //click on Birdo room filter
+        ViewInteraction appCompatCheckBox2 = onView(
+                allOf(withId(R.id.chbx_place),
+                        childAtPosition(
+                                childAtPosition(
+                                        childAtPosition(
+                                                allOf(withId(R.id.recycler_1),
+                                                        childAtPosition(
+                                                                withClassName(is("android.widget.LinearLayout")),
+                                                                3)),
+                                                0),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatCheckBox2.perform(click());
+        //Click on filter button
+        onView(withId(R.id.finnish_btn)).perform(click());
+        // Then : The number of Element is 2
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(2));
+
     }
 }
