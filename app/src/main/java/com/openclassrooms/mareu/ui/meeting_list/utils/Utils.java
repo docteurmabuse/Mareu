@@ -52,10 +52,17 @@ public class Utils {
         }
     }
 
-    public static boolean isNotValidTime(List<Meeting> meetings, String mDateString, String placeSelected) throws ParseException {
+    public static boolean isNotValidTime(List<Meeting> meetings, String mDateString, String placeSelected) {
         boolean validTime = false;
         for (Meeting meeting : meetings) {
-            Date date2 = sdf.parse(mDateString);
+            Date date2 = null;
+            try {
+                date2 = sdf.parse(mDateString);
+            } catch (ParseException e) {
+                validTime = false;
+                e.printStackTrace();
+                break;
+            }
             Date date1 = meeting.getmDate();
             String mPlace = meeting.getmPlace();
             assert date2 != null;
@@ -156,11 +163,17 @@ public class Utils {
         }
     }
 
-    public static boolean validateTime(String mTime, Context context, EditText view, String mDateString, String mDate, String placeSelected) throws ParseException {
+    public static boolean validateTime(String mTime, Context context, EditText view, String mDateString, String mDate, String placeSelected) {
         Date time = null;
 
         if (mDateString != null) {
-            time = sdf.parse(mDateString);
+            try {
+                time = sdf.parse(mDateString);
+            } catch (ParseException e) {
+                ((NewMeetingActivity) context).lTime.setError("Ce champ est requis. Vous devez d'avord sélectionner une date. IL doit être de type 10h20!");
+                e.printStackTrace();
+                return false;
+            }
         }
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         Date now = calendar.getTime();

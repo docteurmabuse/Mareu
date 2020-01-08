@@ -24,7 +24,6 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -112,17 +111,14 @@ public class NewMeetingActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected) || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants(mParticipants.getText().toString(), NewMeetingActivity.this, mParticipants)) {
-                        Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    } else {
-                        addNewMeeting(mApiService.getMeetings().size(), mDateString, mPlaceList.getSelectedItem().toString(), mSubject.getText().toString(), mParticipants.getText().toString(), NewMeetingActivity.this);
-                        Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+
+                if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected) || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants(mParticipants.getText().toString(), NewMeetingActivity.this, mParticipants)) {
+                    Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    addNewMeeting(mApiService.getMeetings().size(), mDateString, mPlaceList.getSelectedItem().toString(), mSubject.getText().toString(), mParticipants.getText().toString(), NewMeetingActivity.this);
+                    Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
         });
@@ -192,11 +188,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                     validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate);
                     break;
                 case R.id.time_input:
-                    try {
-                        validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected);
                     break;
                 case R.id.participants_input:
                     validateParticipants(mParticipants.getText().toString(), NewMeetingActivity.this, mParticipants);
