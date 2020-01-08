@@ -127,5 +127,18 @@ public class Utils {
         }
     }
 
+    public static boolean validateDate(String mDate, Context context, EditText view) {
+        if (mDate.trim().isEmpty()) {
+            ((NewMeetingActivity) context).lDate.setError("Ce champ est requis");
+            return false;
+        } else if (!Utils.isValideDate(mDate)) {
+            ((NewMeetingActivity) context).lDate.setError("Ce champ doit être au format date!");
+            requestFocus(view, context);
+            return false;
+        } else {
+            ((NewMeetingActivity) context).lDate.setErrorEnabled(false);
+            return true;
+        }
+    }
 
 }

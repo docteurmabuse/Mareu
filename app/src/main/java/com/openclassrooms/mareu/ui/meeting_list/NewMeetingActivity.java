@@ -23,7 +23,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.service.MeetingApiService;
-import com.openclassrooms.mareu.ui.meeting_list.utils.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,6 +40,7 @@ import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.isValidEmail;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.requestFocus;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateDate;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateSubject;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 
@@ -116,7 +116,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate() || !validateDate() || !validateTime() || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants()) {
+                    if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateTime() || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants()) {
                         Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
@@ -174,20 +174,6 @@ public class NewMeetingActivity extends AppCompatActivity {
             return false;
         } else {
             lTime.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    private boolean validateDate() {
-        if (mDate.getText().toString().trim().isEmpty()) {
-            lDate.setError("Ce champ est requis");
-            return false;
-        } else if (!Utils.isValideDate(mDate.getText().toString())) {
-            lDate.setError("Ce champ doit être au format date!");
-            requestFocus(mDate, NewMeetingActivity.this);
-            return false;
-        } else {
-            lDate.setErrorEnabled(false);
             return true;
         }
     }
@@ -254,7 +240,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                     validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject);
                     break;
                 case R.id.date_input:
-                    validateDate();
+                    validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate);
                     break;
                 case R.id.time_input:
                     try {
