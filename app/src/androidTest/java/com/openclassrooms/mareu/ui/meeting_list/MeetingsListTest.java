@@ -72,7 +72,6 @@ public class MeetingsListTest {
         year = calendar.get(Calendar.YEAR);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minutes = calendar.get(Calendar.MINUTE);
-
     }
 
     private static Matcher<View> childAtPosition(
