@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,12 +37,12 @@ public class Utils {
     private static MeetingApiService mApiService = DI.getMeetingApiService();
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
 
-    public static int getRandomColor() {
+    private static int getRandomColor() {
         Random rnd = new Random();
         return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 
-    public static boolean isValideDate(String date) {
+    private static boolean isValideDate(String date) {
         try {
             convertedDate = formatter.parse(date);
             return true;
@@ -105,12 +106,11 @@ public class Utils {
         ((NewMeetingActivity) context).finish();
     }
 
-    public static void requestFocus(View view, Context context) {
+    private static void requestFocus(View view, Context context) {
         if (view.requestFocus()) {
             ((NewMeetingActivity) context).getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
-
 
     public static boolean validateSubject(String mSubject, Context context, EditText view) {
         if (mSubject.trim().isEmpty()) {
@@ -137,6 +137,53 @@ public class Utils {
             return false;
         } else {
             ((NewMeetingActivity) context).lDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    public static boolean validateParticipants(String mParticipants, Context context, EditText view) {
+        if (mParticipants.trim().isEmpty()) {
+            ((NewMeetingActivity) context).lPartcipants.setError("Ce champ est requis!");
+            requestFocus(view, context);
+            return false;
+        } else if (!isValidEmail(mParticipants)) {
+            ((NewMeetingActivity) context).lPartcipants.setError("Ce champ doit être au format email (monemail@mail.com,monemail2@mail.com)!");
+            requestFocus(view, context);
+            return false;
+        } else {
+            ((NewMeetingActivity) context).lPartcipants.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    public static boolean validateTime(String mTime, Context context, EditText view, String mDateString, String mDate, String placeSelected) throws ParseException {
+        Date time = null;
+
+        if (mDateString != null) {
+            time = sdf.parse(mDateString);
+        }
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        Date now = calendar.getTime();
+
+        if (mTime.trim().isEmpty()) {
+            ((NewMeetingActivity) context).lTime.setError("Ce champ est requis!");
+            return false;
+        } else if (mDate.trim().isEmpty()) {
+            ((NewMeetingActivity) context).lDate.setError("Ce champ est requis!");
+            return false;
+        } else if (time.before(now)) {
+            ((NewMeetingActivity) context).lTime.setError("Vous ne pouvez pas organiser de réunion avant l'heure actuelle!");
+            return false;
+        } else if (!mTime.matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
+            ((NewMeetingActivity) context).lTime.setError("Ce champ doit être au format Heure (13:00)!");
+            requestFocus(view, context);
+            return false;
+        } else if (isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected)) {
+            ((NewMeetingActivity) context).lTime.setError("Une réunion est déjà prévu dans la même salle dans un intervalle de 45mn!");
+            requestFocus(view, context);
+            return false;
+        } else {
+            ((NewMeetingActivity) context).lTime.setErrorEnabled(false);
             return true;
         }
     }

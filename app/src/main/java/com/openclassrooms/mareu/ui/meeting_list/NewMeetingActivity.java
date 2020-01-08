@@ -26,22 +26,19 @@ import com.openclassrooms.mareu.service.MeetingApiService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.addNewMeeting;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.clr;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.isNotValidTime;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.isValidEmail;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.requestFocus;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateDate;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateParticipants;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateSubject;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateTime;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 
 public class NewMeetingActivity extends AppCompatActivity {
@@ -116,7 +113,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateTime() || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants()) {
+                    if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected) || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants(mParticipants.getText().toString(), NewMeetingActivity.this, mParticipants)) {
                         Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
@@ -130,54 +127,6 @@ public class NewMeetingActivity extends AppCompatActivity {
             }
         });
     }
-
-    private boolean validateParticipants() {
-        if (mParticipants.getText().toString().trim().isEmpty()) {
-            lPartcipants.setError("Ce champ est requis!");
-            requestFocus(mParticipants, NewMeetingActivity.this);
-            return false;
-        } else if (!isValidEmail(mParticipants.getText().toString())) {
-            lPartcipants.setError("Ce champ doit être au format email (monemail@mail.com,monemail2@mail.com)!");
-            requestFocus(mParticipants, NewMeetingActivity.this);
-            return false;
-        } else {
-            lPartcipants.setErrorEnabled(false);
-            return true;
-        }
-    }
-
-    private boolean validateTime() throws ParseException {
-        Date time = null;
-        if (mDateString != null) {
-            time = sdf.parse(mDateString);
-        }
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        //getTime() returns the current date in default time zone
-        Date now = calendar.getTime();
-
-        if (mTime.getText().toString().trim().isEmpty()) {
-            lTime.setError("Ce champ est requis!");
-            return false;
-        } else if (mDate.getText().toString().trim().isEmpty()) {
-            lDate.setError("Ce champ est requis!");
-            return false;
-        } else if (time.before(now)) {
-            lTime.setError("Vous ne pouvez pas organiser de réunion avant l'heure actuelle!");
-            return false;
-        } else if (!mTime.getText().toString().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
-            lTime.setError("Ce champ doit être au format Heure (13:00)!");
-            requestFocus(mTime, NewMeetingActivity.this);
-            return false;
-        } else if (isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected)) {
-            lTime.setError("Une réunion est déjà prévu dans la même salle dans un intervalle de 45mn!");
-            requestFocus(mTime, NewMeetingActivity.this);
-            return false;
-        } else {
-            lTime.setErrorEnabled(false);
-            return true;
-        }
-    }
-
 
     private void initTime() {
         mTime = findViewById(R.id.time_input);
@@ -244,13 +193,13 @@ public class NewMeetingActivity extends AppCompatActivity {
                     break;
                 case R.id.time_input:
                     try {
-                        validateTime();
+                        validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     break;
                 case R.id.participants_input:
-                    validateParticipants();
+                    validateParticipants(mParticipants.getText().toString(), NewMeetingActivity.this, mParticipants);
                     break;
             }
         }
