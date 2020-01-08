@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,23 +22,27 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
-import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.utils.Utils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.getRandomColor;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.addNewMeeting;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.clr;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.isNotValidTime;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.isValidEmail;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.requestFocus;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateSubject;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 
 public class NewMeetingActivity extends AppCompatActivity {
 
@@ -49,12 +52,9 @@ public class NewMeetingActivity extends AppCompatActivity {
     EditText mTime;
     Spinner mPlaceList;
     EditText mParticipants;
-    TextInputLayout lSubject, lPartcipants, lDate, lTime;
+    public TextInputLayout lSubject, lPartcipants, lDate, lTime;
     EditText mSubject;
     Button mButton;
-
-    DateFormat formatter = null;
-    Date convertedDate = null;
 
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String placeSelected;
@@ -95,7 +95,6 @@ public class NewMeetingActivity extends AppCompatActivity {
         mDate.addTextChangedListener(new ValidationTextWatcher(mDate));
         mTime.addTextChangedListener(new ValidationTextWatcher(mTime));
         mParticipants.addTextChangedListener(new ValidationTextWatcher(mParticipants));
-
     }
 
     private void initPlaceListener() {
@@ -107,7 +106,6 @@ public class NewMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
     }
@@ -118,11 +116,11 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if (!validateSubject() || !validateDate() || !validateDate() || !validateTime() || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants()) {
+                    if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate() || !validateDate() || !validateTime() || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants()) {
                         Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } else {
-                        addNewMeeting();
+                        addNewMeeting(mApiService.getMeetings().size(), mDateString, mPlaceList.getSelectedItem().toString(), mSubject.getText().toString(), mParticipants.getText().toString(), NewMeetingActivity.this);
                         Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
@@ -133,51 +131,19 @@ public class NewMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validateSubject() {
-        if (mSubject.getText().toString().trim().isEmpty()) {
-            lSubject.setError("Ce champ est requis!");
-            requestFocus(mSubject);
-            return false;
-        } else if (mSubject.getText().toString().length() < 1) {
-            lSubject.setError("Ce champ doit êter supérieur à 1 caractères!");
-            requestFocus(mSubject);
-            return false;
-        } else {
-            lSubject.setErrorEnabled(false);
-            return true;
-        }
-    }
-
     private boolean validateParticipants() {
         if (mParticipants.getText().toString().trim().isEmpty()) {
             lPartcipants.setError("Ce champ est requis!");
-            requestFocus(mParticipants);
+            requestFocus(mParticipants, NewMeetingActivity.this);
             return false;
-        } else if (!isValidEmail()) {
+        } else if (!isValidEmail(mParticipants.getText().toString())) {
             lPartcipants.setError("Ce champ doit être au format email (monemail@mail.com,monemail2@mail.com)!");
-            requestFocus(mParticipants);
+            requestFocus(mParticipants, NewMeetingActivity.this);
             return false;
         } else {
             lPartcipants.setErrorEnabled(false);
             return true;
         }
-    }
-
-    private boolean isValidEmail() {
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        Pattern pattern = Pattern.compile(regex);
-        StringTokenizer email = new StringTokenizer(mParticipants.getText().toString(), ",");
-        boolean isValidEmail = false;
-        while (email.hasMoreElements()) {
-            Matcher matcher = pattern.matcher(email.nextToken());
-            if (!matcher.matches()) {
-                isValidEmail = false;
-                break;
-            } else {
-                isValidEmail = true;
-            }
-        }
-        return isValidEmail;
     }
 
     private boolean validateTime() throws ParseException {
@@ -200,11 +166,11 @@ public class NewMeetingActivity extends AppCompatActivity {
             return false;
         } else if (!mTime.getText().toString().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$")) {
             lTime.setError("Ce champ doit être au format Heure (13:00)!");
-            requestFocus(mTime);
+            requestFocus(mTime, NewMeetingActivity.this);
             return false;
         } else if (isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected)) {
             lTime.setError("Une réunion est déjà prévu dans la même salle dans un intervalle de 45mn!");
-            requestFocus(mTime);
+            requestFocus(mTime, NewMeetingActivity.this);
             return false;
         } else {
             lTime.setErrorEnabled(false);
@@ -212,14 +178,13 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
     }
 
-
     private boolean validateDate() {
         if (mDate.getText().toString().trim().isEmpty()) {
             lDate.setError("Ce champ est requis");
             return false;
         } else if (!Utils.isValideDate(mDate.getText().toString())) {
             lDate.setError("Ce champ doit être au format date!");
-            requestFocus(mDate);
+            requestFocus(mDate, NewMeetingActivity.this);
             return false;
         } else {
             lDate.setErrorEnabled(false);
@@ -227,30 +192,6 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
     }
 
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private void addNewMeeting() {
-        int mSize = mApiService.getMeetings().size();
-        int id = mSize + 1;
-        int avatar = getRandomColor();
-        formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-        try {
-            convertedDate = sdf.parse(mDateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String subject = mSubject.getText().toString();
-        Date date = convertedDate;
-        String place = mPlaceList.getSelectedItem().toString();
-        String participants = mParticipants.getText().toString();
-        Meeting meeting = new Meeting(id, avatar, date, place, subject, participants);
-        mApiService.addMeeting(meeting);
-        finish();
-    }
 
     private void initTime() {
         mTime = findViewById(R.id.time_input);
@@ -258,9 +199,6 @@ public class NewMeetingActivity extends AppCompatActivity {
         mTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar clr = Calendar.getInstance();
-                int hours = clr.get(Calendar.HOUR_OF_DAY);
-                final int minutes = clr.get(Calendar.MINUTE);
                 //time picker dialog
                 timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -280,10 +218,6 @@ public class NewMeetingActivity extends AppCompatActivity {
         mDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar clr = Calendar.getInstance();
-                int day = clr.get(Calendar.DAY_OF_MONTH);
-                int month = clr.get(Calendar.MONTH);
-                int year = clr.get(Calendar.YEAR);
                 // date picker dialog
                 datePicker = new DatePickerDialog(NewMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -300,9 +234,11 @@ public class NewMeetingActivity extends AppCompatActivity {
 
     private class ValidationTextWatcher implements TextWatcher {
         private View view;
+
         private ValidationTextWatcher(View view) {
             this.view = view;
         }
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -315,7 +251,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         public void afterTextChanged(Editable s) {
             switch (view.getId()) {
                 case R.id.name_input:
-                    validateSubject();
+                    validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject);
                     break;
                 case R.id.date_input:
                     validateDate();
