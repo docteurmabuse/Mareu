@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,6 +56,11 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         toolbar.setTitle(getTitle());
         initMeetingsView();
         initRecyclerView();
+        OrientationEventListener mListener = new OrientationEventListener(this) {
+            public void onOrientationChanged(int orientation) {
+                System.out.println(orientation);
+            }
+        };
     }
 
     @Override

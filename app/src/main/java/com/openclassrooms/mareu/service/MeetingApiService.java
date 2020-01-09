@@ -16,6 +16,13 @@ public interface MeetingApiService {
      */
     List<Meeting> getMeetings();
 
+
+    /**
+     * Reset a meeting List
+     */
+
+    List<Meeting> resetMeetings();
+
     /**
      * Add a meeting
      *
@@ -31,5 +38,6 @@ public interface MeetingApiService {
     void deleteMeeting(Meeting meeting);
 
     List<Meeting> getFilteredMeetings(Date fDate, List<Filters.Places> fPlaces);
+
 }
 

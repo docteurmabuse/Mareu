@@ -24,9 +24,6 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.addNewMeeting;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.clr;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
@@ -55,8 +52,6 @@ public class NewMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String placeSelected;
     private String mDateString;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
-
     public NewMeetingActivity() {
     }
 
@@ -158,6 +153,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                     }
                 }, year, month, day);
                 datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
+
                 datePicker.show();
             }
         });

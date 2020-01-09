@@ -51,7 +51,7 @@ public class FilterListFragment extends DialogFragment {
 
     private static final String TAG = "filter_dialog";
     private Toolbar toolbar;
-    TextView dateText;
+    private TextView dateText;
 
 
     public static void display(FragmentManager fragmentMananger) {
