@@ -54,29 +54,33 @@ public class Utils {
 
     public static boolean isNotValidTime(List<Meeting> meetings, String mDateString, String placeSelected) {
         boolean validTime = false;
-        for (Meeting meeting : meetings) {
-            Date date2 = null;
-            try {
-                date2 = sdf.parse(mDateString);
-            } catch (ParseException e) {
-                validTime = false;
-                e.printStackTrace();
-                break;
-            }
-            Date date1 = meeting.getmDate();
-            String mPlace = meeting.getmPlace();
-            assert date2 != null;
-            long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
-            if (mPlace.equals(placeSelected)) {
-                if (differenceinMn >= 45) {
-                    validTime = true;
-                } else {
+        if (meetings.size() > 0) {
+            for (Meeting meeting : meetings) {
+                Date date2 = null;
+                try {
+                    date2 = sdf.parse(mDateString);
+                } catch (ParseException e) {
                     validTime = false;
+                    e.printStackTrace();
                     break;
                 }
-            } else {
-                validTime = true;
+                Date date1 = meeting.getmDate();
+                String mPlace = meeting.getmPlace();
+                assert date2 != null;
+                long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
+                if (mPlace.equals(placeSelected)) {
+                    if (differenceinMn >= 45) {
+                        validTime = true;
+                    } else {
+                        validTime = false;
+                        break;
+                    }
+                } else {
+                    validTime = true;
+                }
             }
+        } else {
+            validTime = true;
         }
         return !validTime;
     }
