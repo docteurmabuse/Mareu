@@ -3,7 +3,6 @@ package com.openclassrooms.mareu;
 
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Meeting;
-import com.openclassrooms.mareu.service.FakeMeetingGenerator;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.filters.Filters.Places;
 
@@ -18,6 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static com.openclassrooms.mareu.service.FakeMeetingGenerator.FAKE_MEETINGS;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,6 +29,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
     private MeetingApiService service;
+    private List<Meeting> meetings;
 
     private static Date currentDate = new Date(System.currentTimeMillis());
     private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
@@ -42,22 +43,28 @@ public class MeetingServiceTest {
     @Test
     public void getMeetingsWithSuccess() {
         List<Meeting> meetings = service.getMeetings();
-        List<Meeting> dummyMeetingsExpected = FakeMeetingGenerator.FAKE_MEETINGS;
+        List<Meeting> dummyMeetingsExpected = FAKE_MEETINGS;
         assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(dummyMeetingsExpected.toArray()));
     }
 
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting(7, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com");
-        service.addMeeting(meeting);
-        assertEquals(7, service.getMeetings().size());
+        Meeting meetingToAdd = FAKE_MEETINGS.get(0);
+        service.addMeeting(meetingToAdd);
+        assertEquals(1, service.getMeetings().size());
     }
 
     @Test
     public void deleteMeetingWithSuccess() {
-        Meeting meetingToDelete = service.getMeetings().get(0);
+        Meeting meetingToDelete = FAKE_MEETINGS.get(0);
+        service.getMeetings().clear();
+        service.getMeetings().add(meetingToDelete);
+        assertEquals(1, service.getMeetings().size());
         service.deleteMeeting(meetingToDelete);
         assertFalse(service.getMeetings().contains(meetingToDelete));
+        assertEquals(0, service.getMeetings().size());
+
+
     }
 
     @Test
@@ -92,7 +99,6 @@ public class MeetingServiceTest {
                 new Meeting(6, 0xFF5E338F, currentDate, "Yoshi", "Réunion F", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
         );
         assertArrayEquals(meetingsEmptyPlaces.toArray(), fMeetingExpectedDateNoPlaces.toArray());
-
     }
 
 }

@@ -12,16 +12,18 @@ import java.util.Locale;
 public class DummyMeetingApiService implements MeetingApiService {
     public List<Meeting> meetings = new ArrayList<>();
 
+
+    @Override
+    public List<Meeting> getMeetings() {
+        return meetings;
+    }
+
     @Override
     public List<Meeting> resetMeetings() {
         meetings = new ArrayList<>();
         return meetings;
     }
 
-    @Override
-    public List<Meeting> getMeetings() {
-        return meetings;
-    }
 
     /**
      * add a {@Link Meeting} to the meeting list
