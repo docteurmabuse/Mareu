@@ -54,13 +54,40 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
+        if (mApiService.getMeetings().size() < 1) {
+            mRecyclerView.setVisibility(View.GONE);
+            resetFiltersBtn.setVisibility(View.GONE);
+            emptyData.setVisibility(View.VISIBLE);
+            noMeeting.setVisibility(View.VISIBLE);
+
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyData.setVisibility(View.GONE);
+            noMeeting.setVisibility(View.GONE);
+            resetFiltersBtn.setVisibility(View.GONE);
+        }
+
         initMeetingsView();
         initRecyclerView();
-        OrientationEventListener mListener = new OrientationEventListener(this) {
+
+        OrientationEventListener mOrientationListener = new OrientationEventListener(
+                getApplicationContext()) {
+            @Override
             public void onOrientationChanged(int orientation) {
-                System.out.println(orientation);
+                if (orientation == 0 || orientation == 180) {
+                    mApiService.resetMeetings();
+                    initRecyclerView();
+                } else if (orientation == 90 || orientation == 270) {
+                    mApiService.resetMeetings();
+                    initRecyclerView();
+                }
             }
         };
+
+        if (mOrientationListener.canDetectOrientation()) {
+            mOrientationListener.enable();
+        }
+
     }
 
     @Override
@@ -75,18 +102,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         assert mRecyclerView != null;
         mRecyclerView.setItemAnimator(null);
         mRecyclerView.setAdapter(mAdapter);
-        if (mApiService.getMeetings().size() < 1) {
-            mRecyclerView.setVisibility(View.GONE);
-            emptyData.setVisibility(View.VISIBLE);
-            noMeeting.setVisibility(View.VISIBLE);
-            resetFiltersBtn.setVisibility(View.VISIBLE);
-
-        } else {
-            mRecyclerView.setVisibility(View.VISIBLE);
-            emptyData.setVisibility(View.GONE);
-            noMeeting.setVisibility(View.GONE);
-            resetFiltersBtn.setVisibility(View.GONE);
-        }
     }
 
     private void initMeetingsView() {

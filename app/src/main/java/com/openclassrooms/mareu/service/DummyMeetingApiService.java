@@ -9,10 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.openclassrooms.mareu.service.FakeMeetingGenerator.generateMeetings;
-
 public class DummyMeetingApiService implements MeetingApiService {
-    public List<Meeting> meetings = generateMeetings();
+    public List<Meeting> meetings = new ArrayList<>();
 
     @Override
     public List<Meeting> resetMeetings() {
