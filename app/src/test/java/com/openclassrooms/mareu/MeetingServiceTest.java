@@ -29,8 +29,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
     private MeetingApiService service;
-    private List<Meeting> meetings;
-
     private static Date currentDate = new Date(System.currentTimeMillis());
     private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
 
@@ -43,6 +41,10 @@ public class MeetingServiceTest {
     @Test
     public void getMeetingsWithSuccess() {
         List<Meeting> meetings = service.getMeetings();
+        //List should be empty at start
+        assertEquals(0, service.getMeetings().size());
+        //add Dummy to the meeting lisr
+        service.getMeetings().addAll(FAKE_MEETINGS);
         List<Meeting> dummyMeetingsExpected = FAKE_MEETINGS;
         assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(dummyMeetingsExpected.toArray()));
     }
@@ -69,6 +71,11 @@ public class MeetingServiceTest {
 
     @Test
     public void getFilteredMeetingsWithSuccess() {
+        List<Meeting> meetings = service.getMeetings();
+        //List should be empty at start
+        assertEquals(0, service.getMeetings().size());
+        //add Dummy to the meeting lisr
+        service.getMeetings().addAll(FAKE_MEETINGS);
         List<Places> placesSelected = Arrays.asList(
                 new Places(9, "Wario"),
                 new Places(1, "Mario")
