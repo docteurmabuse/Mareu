@@ -15,6 +15,8 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.di.DI;
+import com.openclassrooms.mareu.service.MeetingApiService;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -53,13 +55,15 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class MeetingsListTest {
 
-    private static int ITEMS_COUNT = 6;
+    private static int ITEMS_COUNT = 0;
+    private MeetingApiService service;
 
     @Rule
     public ActivityTestRule<MeetingsActivity> mActivityTestRule = new ActivityTestRule<>(MeetingsActivity.class);
 
     @Before
     public void setUp() {
+        service = DI.getNewInstanceApiService();
     }
 
     private static Matcher<View> childAtPosition(
@@ -83,7 +87,6 @@ public class MeetingsListTest {
 
     public static Matcher<View> hasTextInputLayoutHintText(final String expectedErrorText) {
         return new TypeSafeMatcher<View>() {
-
             @Override
             public boolean matchesSafely(View view) {
                 if (!(view instanceof TextInputLayout)) {
@@ -150,7 +153,7 @@ public class MeetingsListTest {
         // Confirm the selected date for today.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected date is correct and is displayed in the Ui.
-        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month) + '/' + year),
+        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month + 1) + '/' + year),
                 isDisplayed())));
         // Show the time picker by typing twice on time input text
         onView(withId(R.id.time_input)).perform(click());
@@ -194,27 +197,93 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfDeleteMeetingIsWorking() {
-        // Given : We remove the element at position 2
+        //add a meeting meeting
+        // Given :  We add one element
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
+        // When : We perform click on add meeting button
+        onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
+        ViewInteraction textInputEditText = onView(
+                allOf(withId(R.id.name_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.subject),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText.perform(replaceText("Réunion G"), closeSoftKeyboard());
+
+        ViewInteraction appCompatSpinner = onView(
+                allOf(withId(R.id.place_spinner), withContentDescription("Lieu"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        1),
+                                1),
+                        isDisplayed()));
+        appCompatSpinner.perform(click());
+
+        DataInteraction appCompatTextView = onData(anything())
+                .inAdapterView(allOf(withId(R.id.select_dialog_listview),
+                        childAtPosition(
+                                withId(R.id.contentPanel),
+                                0)))
+                .atPosition(4);
+        appCompatTextView.perform(click());
+
+        // Show the date picker by typing twice on date  input text
+        onView(withId(R.id.date_input)).perform(click());
+        onView(withId(R.id.date_input)).perform(click());
+        // Sets a date on the date picker widget
+        // onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day+1));
+        // Confirm the selected date for today.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month + 1) + '/' + year),
+                isDisplayed())));
+        // Show the time picker by typing twice on time input text
+        onView(withId(R.id.time_input)).perform(click());
+        onView(withId(R.id.time_input)).perform(click());
+        // Sets a time on the time picker widget
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hours + 1, minutes));
+        // Confirm the selected time.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected time is correct and is displayed in the Ui.
+        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hours + 1, minutes)),
+                isDisplayed())));
+        ViewInteraction textInputEditText4 = onView(
+                allOf(withId(R.id.participants_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText4.perform(replaceText("laurent@free.fr,Roger@orange.fr"), closeSoftKeyboard());
+        ViewInteraction textInputEditText5 = onView(
+                allOf(withId(R.id.participants_input), withText("Laurent@free.fr,Roger@orange.fr"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        onView(withId(R.id.form_btn)).perform(click());
+
+        // Given : We remove the element we just add
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(1));
         // When perform a click on a delete icon
         ViewInteraction appCompatImageButton = onView(
                 allOf(withId(R.id.item_list_meeting_delete_button), withContentDescription("Delete Meeting Button"),
                         childAtPosition(
                                 allOf(withId(R.id.constraint),
                                         childAtPosition(
-                                                allOf(withId(R.id.item_list_meeting_avatar),
-                                                        childAtPosition(
-                                                                allOf(withId(R.id.meetings_recylerview),
-                                                                        childAtPosition(
-                                                                                withId(R.id.frameLayout),
-                                                                                1)),
-                                                                1)),
+                                                withId(R.id.item_list_meeting_avatar),
                                                 0)),
                                 2),
                         isDisplayed()));
         appCompatImageButton.perform(click());
-        //Then then number of element is 5
-        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT - 1));
+        //Then then number of element is 0
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
     }
 
     @Test
