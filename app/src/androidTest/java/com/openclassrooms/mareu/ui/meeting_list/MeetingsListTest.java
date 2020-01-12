@@ -41,6 +41,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.openclassrooms.mareu.service.FakeMeetingGenerator.FAKE_MEETINGS;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
@@ -198,6 +199,7 @@ public class MeetingsListTest {
     @Test
     public void checkIfDeleteMeetingIsWorking() {
         //add a meeting meeting
+
         // Given :  We add one element
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         // When : We perform click on add meeting button
@@ -322,6 +324,7 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfFiltersAreWorking() {
+        service.addMeeting(FAKE_MEETINGS.get(0));
         // Given :  We want to know if there is a meeting in 3 days
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         //Click on filter menu

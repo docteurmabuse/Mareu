@@ -11,7 +11,6 @@ import java.util.Locale;
 public class DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> meetings = new ArrayList<>();
 
-
     @Override
     public List<Meeting> getMeetings() {
         return meetings;
