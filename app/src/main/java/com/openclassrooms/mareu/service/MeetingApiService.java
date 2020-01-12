@@ -21,7 +21,7 @@ public interface MeetingApiService {
      * Reset a meeting List
      */
 
-    List<Meeting> resetMeetings();
+    void resetMeetings();
 
     /**
      * Add a meeting

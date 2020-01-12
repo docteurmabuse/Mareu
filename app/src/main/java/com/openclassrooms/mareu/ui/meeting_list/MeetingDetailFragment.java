@@ -34,8 +34,6 @@ public class MeetingDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private Meeting meeting;
-    private Integer mId;
-    private Integer mAvatar;
     private String mDate;
     private String mTime;
     private String mPlace;
@@ -56,10 +54,13 @@ public class MeetingDetailFragment extends Fragment {
         if (meeting != null) {
             getMeeting();
         }
+        assert getArguments() != null;
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
+            /*
+             Load the dummy content specified by the fragment
+             arguments. In a real-world scenario, use a Loader
+             to load content from a content provider.
+            */
             meeting = (Meeting) this.getArguments().getSerializable(ARG_ITEM_ID);
             getMeeting();
             setMeetingTitle();
@@ -68,6 +69,7 @@ public class MeetingDetailFragment extends Fragment {
 
     private void setMeetingTitle() {
         Activity activity = this.getActivity();
+        assert activity != null;
         CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
             appBarLayout.setBackgroundColor(meeting.getmAvatar());
@@ -76,12 +78,12 @@ public class MeetingDetailFragment extends Fragment {
     }
 
     private void getMeeting() {
-        mId = meeting.getmId();
-        mAvatar = meeting.getmAvatar();
+        Integer mId = meeting.getmId();
+        Integer mAvatar = meeting.getmAvatar();
         Date date = meeting.getmDate();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         SimpleDateFormat tf = new SimpleDateFormat("HH:ss", Locale.FRANCE);
-        mTime = tf.format(date).replace(":","h");
+        mTime = tf.format(date).replace(":", "h");
         mDate = df.format(date);
         mPlace = meeting.getmPlace();
         mSubject = meeting.getmSubject();
@@ -92,15 +94,12 @@ public class MeetingDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
-
-        // Show the dummy content as text in a TextView.
         if (meeting != null) {
             ((TextView) rootView.findViewById(R.id.place_detail)).setText(mPlace);
             ((TextView) rootView.findViewById(R.id.date_detail)).setText(mDate);
             ((TextView) rootView.findViewById(R.id.time_detail)).setText(mTime);
             ((TextView) rootView.findViewById(R.id.participants_detail)).setText(mParticipants);
         }
-
         return rootView;
     }
 }

@@ -18,9 +18,7 @@ import java.util.List;
 public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.ViewHolder> {
 
     private final List<Filters.Places> mValues;
-    // public static  List<Filters.Places> placeSelected ;
     private final FilterListFragment.OnPlaceFragmentInteractionListener mListener;
-    public Filters.Places places;
     private boolean isSelected;
 
 
@@ -50,13 +48,12 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
                     // fragment is attached to one) that an item has been selected.
                     if (holder.fCheckView.isChecked()) {
                         addPlace(mValues.get(position));
-                        isSelected=true;
+                        isSelected = true;
                     } else {
                         removePlace(mValues.get(position));
-                        isSelected=false;
+                        isSelected = false;
                     }
                 }
-
             }
 
         });
@@ -65,19 +62,15 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
             public void onClick(View v) {
                 // Notify the active callbacks interface (the activity, if the
                 // fragment is attached to one) that an item has been selected.
-                //holder.fCheckView.setChecked(true);
-
                 if (isSelected) {
                     holder.fCheckView.setChecked(false);
                     removePlace(mValues.get(position));
-                    isSelected=false;
+                    isSelected = false;
                 } else {
                     holder.fCheckView.setChecked(true);
                     addPlace(mValues.get(position));
-                    isSelected=true;
+                    isSelected = true;
                 }
-                //   mListener.onPlaceFragmentInteraction(mValues.get(position), true);
-
             }
         });
     }

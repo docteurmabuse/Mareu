@@ -24,7 +24,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class MeetingAdapter
         extends RecyclerView.Adapter<MeetingListViewHolder> {
@@ -79,13 +78,13 @@ public class MeetingAdapter
         SimpleDateFormat tf = new SimpleDateFormat("HH:ss");
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String formattedDate = "";
-        String formattedTime ="";
+        String formattedTime = "";
         if (date != null) {
             formattedDate = df.format(date);
             formattedTime = tf.format(date);
 
         }
-        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + formattedTime.replace(":","h") + " - " + mMeetings.get(position).getmPlace();
+        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + formattedTime.replace(":", "h") + " - " + mMeetings.get(position).getmPlace();
         String Subtitle = meeting.getmParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
         drawable.setColor(meeting.getmAvatar());

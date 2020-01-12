@@ -52,6 +52,7 @@ public class NewMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String placeSelected;
     private String mDateString;
+
     public NewMeetingActivity() {
     }
 

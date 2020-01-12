@@ -25,9 +25,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -42,6 +39,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 import static com.openclassrooms.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
@@ -52,26 +54,12 @@ import static org.hamcrest.Matchers.is;
 public class MeetingsListTest {
 
     private static int ITEMS_COUNT = 6;
-    private int day;
-    private int month;
-    private int year;
-    private int hour;
-    private int minutes;
-
 
     @Rule
     public ActivityTestRule<MeetingsActivity> mActivityTestRule = new ActivityTestRule<>(MeetingsActivity.class);
 
     @Before
     public void setUp() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-        //getTime() returns the current date in default time zone
-        day = calendar.get(Calendar.DATE);
-        //Note: +1 the month for current month
-        month = calendar.get(Calendar.MONTH) + 1;
-        year = calendar.get(Calendar.YEAR);
-        hour = calendar.get(Calendar.HOUR_OF_DAY);
-        minutes = calendar.get(Calendar.MINUTE);
     }
 
     private static Matcher<View> childAtPosition(
@@ -168,11 +156,11 @@ public class MeetingsListTest {
         onView(withId(R.id.time_input)).perform(click());
         onView(withId(R.id.time_input)).perform(click());
         // Sets a time on the time picker widget
-        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hour + 1, minutes));
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hours + 1, minutes));
         // Confirm the selected time.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected time is correct and is displayed in the Ui.
-        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hour + 1, minutes)),
+        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hours + 1, minutes)),
                 isDisplayed())));
         ViewInteraction textInputEditText4 = onView(
                 allOf(withId(R.id.participants_input),

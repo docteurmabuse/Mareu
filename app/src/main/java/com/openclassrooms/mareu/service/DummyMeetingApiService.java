@@ -1,5 +1,4 @@
 package com.openclassrooms.mareu.service;
-
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class DummyMeetingApiService implements MeetingApiService {
-    public List<Meeting> meetings = new ArrayList<>();
+    private List<Meeting> meetings = new ArrayList<>();
 
 
     @Override
@@ -19,11 +18,9 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meeting> resetMeetings() {
+    public void resetMeetings() {
         meetings = new ArrayList<>();
-        return meetings;
     }
-
 
     /**
      * add a {@Link Meeting} to the meeting list
@@ -55,11 +52,10 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
         if (fPlaces.size() > 0 && fDate == null) {
             for (Meeting meeting : getMeetings()) {
-                for (Filters.Places places : fPlaces) {
+                for (Filters.Places places : fPlaces)
                     if (meeting.getmPlace().contains(places.getpName())) {
                         fMeetings.add(meeting);
                     }
-                }
             }
         } else if (fPlaces.size() > 0) {
             for (Meeting meeting : getMeetings()) {

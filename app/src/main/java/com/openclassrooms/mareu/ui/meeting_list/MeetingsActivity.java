@@ -70,11 +70,9 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                 }
             }
         };
-
         if (mOrientationListener.canDetectOrientation()) {
             mOrientationListener.enable();
         }
-
     }
 
     @Override

@@ -4,7 +4,11 @@ import com.openclassrooms.mareu.service.DummyMeetingApiService;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
 public class DI {
-    private static MeetingApiService service = new DummyMeetingApiService();
+    private static MeetingApiService service;
+
+    static {
+        service = new DummyMeetingApiService();
+    }
 
     /**
      * Get a new instance on ]{@Link MeetingApiService}

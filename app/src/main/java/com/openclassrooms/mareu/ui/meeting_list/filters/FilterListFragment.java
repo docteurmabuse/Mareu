@@ -25,7 +25,6 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -35,6 +34,10 @@ import java.util.Objects;
 
 import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.PLACE_ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.Places;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.clr;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 
 /**
  * A fragment representing a list of Items.
@@ -162,15 +165,10 @@ public class FilterListFragment extends DialogFragment {
     }
 
     private void selectFilterDate(View v) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(v.getRootView().getContext(), R.style.DatePickerDialogTheme,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
                         DateFormat formatter;
                         Date convertedDate = null;
                         String fDate = String.format("%02d/%02d", day, month + 1) + '/' + year;
@@ -186,8 +184,8 @@ public class FilterListFragment extends DialogFragment {
                         mListener.onListFragmentInteraction(mDate);
 
                     }
-                }, year, month, dayOfMonth);
-        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+                }, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(clr.getTimeInMillis());
         datePickerDialog.show();
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
