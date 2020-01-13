@@ -123,7 +123,7 @@ public class MeetingsListTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("Réunion G"), closeSoftKeyboard());
+        textInputEditText.perform(replaceText("Réunion A"), closeSoftKeyboard());
 
         ViewInteraction appCompatSpinner = onView(
                 allOf(withId(R.id.place_spinner), withContentDescription("Lieu"),
@@ -285,6 +285,77 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfLaunchingDetailMeetingIsWorking() {
+        // Given :  We add one element
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
+        // When : We perform click on add meeting button
+        onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
+        ViewInteraction textInputEditText = onView(
+                allOf(withId(R.id.name_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.subject),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText.perform(replaceText("Réunion A"), closeSoftKeyboard());
+
+        //Select Luigi place
+        ViewInteraction appCompatSpinner = onView(
+                allOf(withId(R.id.place_spinner), withContentDescription("Lieu"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withClassName(is("android.widget.LinearLayout")),
+                                        1),
+                                1),
+                        isDisplayed()));
+        appCompatSpinner.perform(click());
+
+        DataInteraction appCompatTextView = onData(anything())
+                .inAdapterView(allOf(withId(R.id.select_dialog_listview),
+                        childAtPosition(
+                                withId(R.id.contentPanel),
+                                0)))
+                .atPosition(4);
+        appCompatTextView.perform(click());
+
+        // Show the date picker by typing twice on date  input text
+        onView(withId(R.id.date_input)).perform(click());
+        onView(withId(R.id.date_input)).perform(click());
+        // Sets a date on the date picker widget
+        // onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day+1));
+        // Confirm the selected date for today.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month + 1) + '/' + year),
+                isDisplayed())));
+        // Show the time picker by typing twice on time input text
+        onView(withId(R.id.time_input)).perform(click());
+        onView(withId(R.id.time_input)).perform(click());
+        // Sets a time on the time picker widget
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hours + 1, minutes));
+        // Confirm the selected time.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected time is correct and is displayed in the Ui.
+        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hours + 1, minutes)),
+                isDisplayed())));
+        ViewInteraction textInputEditText4 = onView(
+                allOf(withId(R.id.participants_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText4.perform(replaceText("laurent@free.fr,Roger@orange.fr"), closeSoftKeyboard());
+        ViewInteraction textInputEditText5 = onView(
+                allOf(withId(R.id.participants_input), withText("Laurent@free.fr,Roger@orange.fr"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        onView(withId(R.id.form_btn)).perform(click());
         ViewInteraction materialCardView = onView(
                 allOf(withId(R.id.item_list_meeting_avatar),
                         childAtPosition(
@@ -292,22 +363,22 @@ public class MeetingsListTest {
                                         childAtPosition(
                                                 withId(R.id.frameLayout),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialCardView.perform(click());
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.place_detail), withText("Mario"),
+                allOf(withId(R.id.place_detail), withText("Luigi"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.item_detail_container),
                                         0),
                                 0),
                         isDisplayed()));
-        textView.check(matches(withText("Mario")));
+        textView.check(matches(withText("Luigi")));
 
         ViewInteraction frameLayout = onView(
-                allOf(withId(R.id.toolbar_layout), withContentDescription("Réunion B"),
+                allOf(withId(R.id.toolbar_layout), withContentDescription("Réunion A"),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
