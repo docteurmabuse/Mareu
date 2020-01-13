@@ -2,6 +2,7 @@ package com.openclassrooms.mareu.ui.meeting_list;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -39,9 +40,7 @@ import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 
 public class NewMeetingActivity extends AppCompatActivity {
 
-    DatePickerDialog datePicker;
     EditText mDate;
-    TimePickerDialog timePicker;
     EditText mTime;
     Spinner mPlaceList;
     EditText mParticipants;
@@ -127,7 +126,7 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //time picker dialog
-                timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePicker = new TimePickerDialog(NewMeetingActivity.this, R.style.TimePickerDialogTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int hours, int minutes) {
                         mDateString = mDate.getText().toString() + " " + String.format(hours + ":" + minutes);
@@ -135,6 +134,10 @@ public class NewMeetingActivity extends AppCompatActivity {
                     }
                 }, hours, minutes, true);
                 timePicker.show();
+                timePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                timePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                timePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                timePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
             }
         });
     }
@@ -146,16 +149,19 @@ public class NewMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // date picker dialog
-                datePicker = new DatePickerDialog(NewMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePicker = new DatePickerDialog(NewMeetingActivity.this, R.style.DatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker dp, int year, int month, int day) {
                         mDateString = String.format("%02d/%02d", day, month + 1) + '/' + year;
                         mDate.setText(mDateString);
                     }
                 }, year, month, day);
-                datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
-
                 datePicker.show();
+                datePicker.getDatePicker().setMinDate(clr.getTimeInMillis());
+                datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+                datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
             }
         });
     }
