@@ -27,15 +27,16 @@ import java.util.regex.Pattern;
 public class Utils {
 
     public static final Calendar clr = Calendar.getInstance();
-    public static final int minutes = clr.get(Calendar.MINUTE);
+    public static int minutes = clr.get(Calendar.MINUTE);
     public static int hours = clr.get(Calendar.HOUR_OF_DAY);
     public static int day = clr.get(Calendar.DAY_OF_MONTH);
     public static int month = clr.get(Calendar.MONTH);
     public static int year = clr.get(Calendar.YEAR);
-    private static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
     private static Date convertedDate = null;
     private static MeetingApiService mApiService = DI.getMeetingApiService();
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
+    private static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+
 
     private static int getRandomColor() {
         Random rnd = new Random();

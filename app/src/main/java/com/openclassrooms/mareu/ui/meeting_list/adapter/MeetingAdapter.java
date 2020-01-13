@@ -74,8 +74,7 @@ public class MeetingAdapter
     public void onBindViewHolder(final MeetingListViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
         Date date = mMeetings.get(position).getmDate();
-
-        SimpleDateFormat tf = new SimpleDateFormat("HH:ss");
+        SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String formattedDate = "";
         String formattedTime = "";

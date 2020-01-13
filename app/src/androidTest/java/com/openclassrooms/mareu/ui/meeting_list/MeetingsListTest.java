@@ -15,8 +15,6 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
-import com.openclassrooms.mareu.di.DI;
-import com.openclassrooms.mareu.service.MeetingApiService;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -40,8 +38,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.openclassrooms.mareu.service.FakeMeetingGenerator.FAKE_MEETINGS;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
 import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
@@ -50,6 +48,7 @@ import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 import static com.openclassrooms.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @LargeTest
@@ -57,14 +56,12 @@ import static org.hamcrest.Matchers.is;
 public class MeetingsListTest {
 
     private static int ITEMS_COUNT = 0;
-    private MeetingApiService service;
 
     @Rule
     public ActivityTestRule<MeetingsActivity> mActivityTestRule = new ActivityTestRule<>(MeetingsActivity.class);
 
     @Before
     public void setUp() {
-        service = DI.getNewInstanceApiService();
     }
 
     private static Matcher<View> childAtPosition(
@@ -185,7 +182,7 @@ public class MeetingsListTest {
                         isDisplayed()));
         onView(withId(R.id.form_btn)).perform(click());
 
-        // Then : The number of Element is 7
+        // Then : The number of Element is 1
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT + 1));
     }
 
@@ -198,8 +195,6 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfDeleteMeetingIsWorking() {
-        //add a meeting meeting
-
         // Given :  We add one element
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
         // When : We perform click on add meeting button
@@ -212,7 +207,7 @@ public class MeetingsListTest {
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText.perform(replaceText("Réunion G"), closeSoftKeyboard());
+        textInputEditText.perform(replaceText("Réunion A"), closeSoftKeyboard());
 
         ViewInteraction appCompatSpinner = onView(
                 allOf(withId(R.id.place_spinner), withContentDescription("Lieu"),
@@ -324,29 +319,137 @@ public class MeetingsListTest {
 
     @Test
     public void checkIfFiltersAreWorking() {
-        service.addMeeting(FAKE_MEETINGS.get(0));
+        // We add 2 meetings to test filters
+        onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
+        ViewInteraction textInputEditText = onView(
+                allOf(withId(R.id.name_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.subject),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText.perform(replaceText("Réunion A"), closeSoftKeyboard());
+        //Confirm selected date is Daisy
+        onView(withId(R.id.place_spinner)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+        onView(withId(R.id.place_spinner)).check(matches(withSpinnerText(containsString("Daisy"))));
+        // Show the date picker by typing twice on date  input text
+        onView(withId(R.id.date_input)).perform(click());
+        onView(withId(R.id.date_input)).perform(click());
+        // Sets a date on the date picker widget
+        // onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day+1));
+        // Confirm the selected date for today.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month + 1) + '/' + year),
+                isDisplayed())));
+        // Show the time picker by typing twice on time input text
+        onView(withId(R.id.time_input)).perform(click());
+        onView(withId(R.id.time_input)).perform(click());
+        // Sets a time on the time picker widget
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hours + 1, minutes));
+        // Confirm the selected time.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected time is correct and is displayed in the Ui.
+        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hours + 1, minutes)),
+                isDisplayed())));
+        ViewInteraction textInputEditText4 = onView(
+                allOf(withId(R.id.participants_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText4.perform(replaceText("laurent@free.fr,Roger@orange.fr"), closeSoftKeyboard());
+        onView(
+                allOf(withId(R.id.participants_input), withText("Laurent@free.fr,Roger@orange.fr"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        onView(withId(R.id.form_btn)).perform(click());
+
+        //Add second meeting
+        onView(ViewMatchers.withId(R.id.fab_add_meeting)).perform(click());
+        onView(
+                allOf(withId(R.id.name_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.subject),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText.perform(replaceText("Réunion B"), closeSoftKeyboard());
+        //Confirm selected date is Yoshi
+        onView(withId(R.id.place_spinner)).perform(click());
+        onData(anything()).atPosition(9).perform(click());
+        onView(withId(R.id.place_spinner)).check(matches(withSpinnerText(containsString("Yoshi"))));
+
+        // Show the date picker by typing twice on date  input text
+        onView(withId(R.id.date_input)).perform(click());
+        onView(withId(R.id.date_input)).perform(click());
+        // Sets a date on the date picker widget
+        // onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day+1));
+        // Confirm the selected date for today.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected date is correct and is displayed in the Ui.
+        onView(withId(R.id.date_input)).check(matches(allOf(withText(String.format("%02d/%02d", day, month + 1) + '/' + year),
+                isDisplayed())));
+        // Show the time picker by typing twice on time input text
+        onView(withId(R.id.time_input)).perform(click());
+        onView(withId(R.id.time_input)).perform(click());
+        // Sets a time on the time picker widget
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(hours + 1, minutes));
+        // Confirm the selected time.
+        onView(withId(android.R.id.button1)).perform(click());
+        // Check if the selected time is correct and is displayed in the Ui.
+        onView(withId(R.id.time_input)).check(matches(allOf(withText(String.format("%02dh%02d", hours + 1, minutes)),
+                isDisplayed())));
+        onView(
+                allOf(withId(R.id.participants_input),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText4.perform(replaceText("laurent@free.fr,Roger@orange.fr"), closeSoftKeyboard());
+        onView(
+                allOf(withId(R.id.participants_input), withText("Laurent@free.fr,Roger@orange.fr"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.participants_layout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        onView(withId(R.id.form_btn)).perform(click());
+
         // Given :  We want to know if there is a meeting in 3 days
-        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT + 2));
         //Click on filter menu
         onView(withId(R.id.icon_filter_menu)).perform(click());
         //Click on Date Btn
         onView(withId(R.id.date_btn)).perform(click());
         // Sets a date in 3 days from now on the date picker widget
-        onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day + 3));
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month + 1, day + 3));
         // Confirm the selected date.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected date is correct and is displayed in the Ui.
-        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText(String.format("%02d/%02d", day + 3, month) + '/' + year),
+        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText(String.format("%02d/%02d", day + 3, month + 1) + '/' + year),
                 isDisplayed())));
         //Click on filter button
         onView(withId(R.id.finnish_btn)).perform(click());
         //Check if the meeting list is Empty
-        // Then : The number of Element is 7
+        // Then : The number of Element is 0
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(0));
         //Reset filters by clicking on Rest filter button
         onView(withId(R.id.reset_filer_btn)).perform(click());
-        // Then : The number of Element is 7
-        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
+        // Then : The number of Element is 0
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT + 2));
 
         // Given :  We want to know if there is a meeting today in the Mario room
         //Click on filter menu
@@ -354,11 +457,11 @@ public class MeetingsListTest {
         //Click on Date Btn
         onView(withId(R.id.date_btn)).perform(click());
         // Sets a date in 3 days from now on the date picker widget
-        onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month, day));
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month + 1, day));
         // Confirm the selected date.
         onView(withId(android.R.id.button1)).perform(click());
         // Check if the selected date is correct and is displayed in the Ui.
-        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText(String.format("%02d/%02d", day, month) + '/' + year),
+        onView(withId(R.id.filter_date_txt)).check(matches(allOf(withText(String.format("%02d/%02d", day, month + 1) + '/' + year),
                 isDisplayed())));
         //Click on Mario room filter
         ViewInteraction appCompatCheckBox = onView(
@@ -385,7 +488,7 @@ public class MeetingsListTest {
                                                         childAtPosition(
                                                                 withClassName(is("android.widget.LinearLayout")),
                                                                 3)),
-                                                0),
+                                                1),
                                         0),
                                 1),
                         isDisplayed()));
@@ -393,6 +496,6 @@ public class MeetingsListTest {
         //Click on filter button
         onView(withId(R.id.finnish_btn)).perform(click());
         // Then : The number of Element is 2
-        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(2));
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(1));
     }
 }

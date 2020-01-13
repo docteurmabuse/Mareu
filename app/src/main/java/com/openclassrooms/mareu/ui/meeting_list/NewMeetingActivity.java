@@ -129,9 +129,9 @@ public class NewMeetingActivity extends AppCompatActivity {
                 //time picker dialog
                 timePicker = new TimePickerDialog(NewMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void onTimeSet(TimePicker tp, int mHour, int mMinutes) {
-                        mDateString = mDate.getText().toString() + " " + String.format(mHour + ":" + mMinutes);
-                        mTime.setText(String.format("%02dh%02d", mHour, mMinutes));
+                    public void onTimeSet(TimePicker tp, int hours, int minutes) {
+                        mDateString = mDate.getText().toString() + " " + String.format(hours + ":" + minutes);
+                        mTime.setText(String.format("%02dh%02d", hours, minutes));
                     }
                 }, hours, minutes, true);
                 timePicker.show();
@@ -148,7 +148,7 @@ public class NewMeetingActivity extends AppCompatActivity {
                 // date picker dialog
                 datePicker = new DatePickerDialog(NewMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                    public void onDateSet(DatePicker dp, int year, int month, int day) {
                         mDateString = String.format("%02d/%02d", day, month + 1) + '/' + year;
                         mDate.setText(mDateString);
                     }
