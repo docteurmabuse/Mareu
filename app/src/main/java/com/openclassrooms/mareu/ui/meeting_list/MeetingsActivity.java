@@ -65,8 +65,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
                     // mApiService.resetMeetings();
                     //initRecyclerView();
                 } else if (orientation == 90 || orientation == 270) {
-                    //mApiService.resetMeetings();
-                    //initRecyclerView();
+                    mApiService.resetMeetings();
+                    initRecyclerView();
                 }
             }
         };

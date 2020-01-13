@@ -90,15 +90,11 @@ public class MeetingsListTest {
                 if (!(view instanceof TextInputLayout)) {
                     return false;
                 }
-
                 CharSequence error = ((TextInputLayout) view).getError();
-
                 if (error == null) {
                     return false;
                 }
-
                 String hint = error.toString();
-
                 return expectedErrorText.equals(hint);
             }
 
@@ -107,7 +103,6 @@ public class MeetingsListTest {
             }
         };
     }
-
 
     @Test
     public void checkIfAddingMeetingIsWorking() {

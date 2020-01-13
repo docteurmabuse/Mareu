@@ -69,7 +69,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         }
         initDate();
         initTime();
-        initBtn();
+        initFinnishBtn();
         initViews();
     }
 
@@ -101,7 +101,7 @@ public class NewMeetingActivity extends AppCompatActivity {
         });
     }
 
-    private void initBtn() {
+    private void initFinnishBtn() {
         mButton = findViewById(R.id.form_btn);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
