@@ -27,7 +27,6 @@ public class MeetingDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meeting_detail);
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

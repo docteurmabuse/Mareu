@@ -2,14 +2,15 @@ package com.openclassrooms.mareu.ui.meeting_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,22 +57,22 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         toolbar.setTitle(getTitle());
         initMeetingsView();
         initRecyclerView();
+    }
 
-        OrientationEventListener mOrientationListener = new OrientationEventListener(
-                getApplicationContext()) {
-            @Override
-            public void onOrientationChanged(int orientation) {
-                if (orientation == 0 || orientation == 180) {
-                    mApiService.resetMeetings();
-                    initRecyclerView();
-                } else if (orientation == 90 || orientation == 270) {
-                    mApiService.resetMeetings();
-                    initRecyclerView();
-                }
-            }
-        };
-        if (mOrientationListener.canDetectOrientation()) {
-            mOrientationListener.enable();
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Intent intent = new Intent(MeetingsActivity.this, MeetingsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this will always start your activity as a new task
+            startActivity(intent);
+            mApiService.resetMeetings();
+
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Intent intent = new Intent(MeetingsActivity.this, MeetingsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this will always start your activity as a new task
+            startActivity(intent);
+            mApiService.resetMeetings();
         }
     }
 

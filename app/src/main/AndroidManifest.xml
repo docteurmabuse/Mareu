@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.meeting_list.MeetingsActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/title_activity_meetings"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
