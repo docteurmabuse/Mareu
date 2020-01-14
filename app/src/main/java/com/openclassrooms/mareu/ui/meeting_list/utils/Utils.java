@@ -35,7 +35,7 @@ public class Utils {
     private static Date convertedDate = null;
     private static MeetingApiService mApiService = DI.getMeetingApiService();
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
-    private static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+    public static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
 
     private static int getRandomColor() {

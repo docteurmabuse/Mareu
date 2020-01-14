@@ -1,12 +1,13 @@
 package com.openclassrooms.mareu.service;
+
 import com.openclassrooms.mareu.model.Meeting;
 import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
+import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.formatter;
 
 public class DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> meetings = new ArrayList<>();
@@ -44,10 +45,9 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getFilteredMeetings(Date fDate, List<Filters.Places> fPlaces) {
         List<Meeting> fMeetings = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.FRANCE);
         String mDate1 = null;
         if (fDate != null) {
-            mDate1 = df.format(fDate);
+            mDate1 = formatter.format(fDate);
         }
         if (fPlaces.size() > 0 && fDate == null) {
             for (Meeting meeting : getMeetings()) {
@@ -58,16 +58,17 @@ public class DummyMeetingApiService implements MeetingApiService {
             }
         } else if (fPlaces.size() > 0) {
             for (Meeting meeting : getMeetings()) {
-                String mDate2 = df.format(meeting.getmDate());
+                String mDate2 = formatter.format(meeting.getmDate());
                 for (Filters.Places places : fPlaces) {
                     if (meeting.getmPlace().contains(places.getpName()) && mDate2.equals(mDate1)) {
                         fMeetings.add(meeting);
                     }
                 }
             }
-        } else if (fPlaces.size() < 1) {
+        } else {
+            // If fPlaces.size() = 0
             for (Meeting meeting : getMeetings()) {
-                String mDate2 = df.format(meeting.getmDate());
+                String mDate2 = formatter.format(meeting.getmDate());
                 if (mDate2.equals(mDate1)) {
                     fMeetings.add(meeting);
                 }

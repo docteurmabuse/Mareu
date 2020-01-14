@@ -18,15 +18,14 @@ public interface MeetingApiService {
 
 
     /**
-     * Reset a meeting List
+     * Reset meeting List
      */
-
     void resetMeetings();
 
     /**
      * Add a meeting
      *
-     * @param meeting
+     * @param  meeting
      */
     void addMeeting(Meeting meeting);
 
