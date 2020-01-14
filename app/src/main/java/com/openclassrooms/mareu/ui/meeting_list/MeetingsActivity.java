@@ -67,7 +67,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this will always start your activity as a new task
             startActivity(intent);
             mApiService.resetMeetings();
-
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Intent intent = new Intent(MeetingsActivity.this, MeetingsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this will always start your activity as a new task
