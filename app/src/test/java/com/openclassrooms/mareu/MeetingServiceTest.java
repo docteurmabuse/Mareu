@@ -108,4 +108,15 @@ public class MeetingServiceTest {
         assertArrayEquals(meetingsEmptyPlaces.toArray(), fMeetingExpectedDateNoPlaces.toArray());
     }
 
+    @Test
+    public void resetMeetingListWithSuccess() {
+        //Add fake meetings to the list
+        service.getMeetings().addAll(FAKE_MEETINGS);
+        //Meeting list size list should be 6
+        assertEquals(6, service.getMeetings().size());
+        //Reset meeting list
+        service.resetMeetings();
+        assertEquals(0, service.getMeetings().size());
+
+    }
 }
