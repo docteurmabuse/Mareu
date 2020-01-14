@@ -1,4 +1,4 @@
-package com.openclassrooms.mareu.ui.meeting_list.utils;
+package com.openclassrooms.mareu.utils;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -25,7 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
-
     public static final Calendar clr = Calendar.getInstance();
     public static int minutes = clr.get(Calendar.MINUTE);
     public static int hours = clr.get(Calendar.HOUR_OF_DAY);
@@ -36,7 +35,6 @@ public class Utils {
     private static MeetingApiService mApiService = DI.getMeetingApiService();
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.FRENCH);
     public static DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-
 
     private static int getRandomColor() {
         Random rnd = new Random();
@@ -65,8 +63,8 @@ public class Utils {
                     e.printStackTrace();
                     break;
                 }
-                Date date1 = meeting.getmDate();
-                String mPlace = meeting.getmPlace();
+                Date date1 = meeting.getDate();
+                String mPlace = meeting.getPlace();
                 assert date2 != null;
                 long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
                 if (mPlace.equals(placeSelected)) {

@@ -40,12 +40,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
 import static com.openclassrooms.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
+import static com.openclassrooms.mareu.utils.Utils.day;
+import static com.openclassrooms.mareu.utils.Utils.hours;
+import static com.openclassrooms.mareu.utils.Utils.minutes;
+import static com.openclassrooms.mareu.utils.Utils.month;
+import static com.openclassrooms.mareu.utils.Utils.year;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.containsString;

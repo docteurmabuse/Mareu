@@ -73,7 +73,7 @@ public class MeetingAdapter
     @Override
     public void onBindViewHolder(final MeetingListViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
-        Date date = mMeetings.get(position).getmDate();
+        Date date = mMeetings.get(position).getDate();
         SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String formattedDate = "";
@@ -83,10 +83,10 @@ public class MeetingAdapter
             formattedTime = tf.format(date);
 
         }
-        String Title = mMeetings.get(position).getmSubject() + " - " + formattedDate + " - " + formattedTime.replace(":", "h") + " - " + mMeetings.get(position).getmPlace();
-        String Subtitle = meeting.getmParticipants();
+        String Title = mMeetings.get(position).getSubject() + " - " + formattedDate + " - " + formattedTime.replace(":", "h") + " - " + mMeetings.get(position).getPlace();
+        String Subtitle = meeting.getParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
-        drawable.setColor(meeting.getmAvatar());
+        drawable.setColor(meeting.getAvatar());
         holder.mSubtitleView.setText(Subtitle);
         holder.mTitleView.setText(Title);
         holder.itemView.setTag(mMeetings.get(position));

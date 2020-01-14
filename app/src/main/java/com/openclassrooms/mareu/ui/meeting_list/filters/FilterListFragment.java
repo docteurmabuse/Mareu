@@ -34,10 +34,10 @@ import java.util.Objects;
 
 import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.PLACE_ITEMS;
 import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.Places;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.clr;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
+import static com.openclassrooms.mareu.utils.Utils.clr;
+import static com.openclassrooms.mareu.utils.Utils.day;
+import static com.openclassrooms.mareu.utils.Utils.month;
+import static com.openclassrooms.mareu.utils.Utils.year;
 
 /**
  * A fragment representing a list of Items.

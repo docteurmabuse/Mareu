@@ -25,18 +25,18 @@ import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.addNewMeeting;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.clr;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.day;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.hours;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.isNotValidTime;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.minutes;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.month;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateDate;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateParticipants;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateSubject;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.validateTime;
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.year;
+import static com.openclassrooms.mareu.utils.Utils.addNewMeeting;
+import static com.openclassrooms.mareu.utils.Utils.clr;
+import static com.openclassrooms.mareu.utils.Utils.day;
+import static com.openclassrooms.mareu.utils.Utils.hours;
+import static com.openclassrooms.mareu.utils.Utils.isNotValidTime;
+import static com.openclassrooms.mareu.utils.Utils.minutes;
+import static com.openclassrooms.mareu.utils.Utils.month;
+import static com.openclassrooms.mareu.utils.Utils.validateDate;
+import static com.openclassrooms.mareu.utils.Utils.validateParticipants;
+import static com.openclassrooms.mareu.utils.Utils.validateSubject;
+import static com.openclassrooms.mareu.utils.Utils.validateTime;
+import static com.openclassrooms.mareu.utils.Utils.year;
 
 public class NewMeetingActivity extends AppCompatActivity {
 

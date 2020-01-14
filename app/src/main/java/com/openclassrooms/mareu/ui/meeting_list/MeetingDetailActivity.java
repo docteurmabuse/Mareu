@@ -41,7 +41,7 @@ public class MeetingDetailActivity extends AppCompatActivity {
             meeting = (Meeting) getIntent().getSerializableExtra(MeetingDetailFragment.ARG_ITEM_ID);
             assert meeting != null;
             assert actionBar != null;
-            actionBar.setBackgroundDrawable(new ColorDrawable(meeting.getmAvatar()));
+            actionBar.setBackgroundDrawable(new ColorDrawable(meeting.getAvatar()));
             arguments.putSerializable(MeetingDetailFragment.ARG_ITEM_ID, meeting);
             MeetingDetailFragment fragment = new MeetingDetailFragment();
             fragment.setArguments(arguments);

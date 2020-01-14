@@ -72,22 +72,22 @@ public class MeetingDetailFragment extends Fragment {
         assert activity != null;
         CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
-            appBarLayout.setBackgroundColor(meeting.getmAvatar());
+            appBarLayout.setBackgroundColor(meeting.getAvatar());
             appBarLayout.setTitle(mSubject);
         }
     }
 
     private void getMeeting() {
-        Integer mId = meeting.getmId();
-        Integer mAvatar = meeting.getmAvatar();
-        Date date = meeting.getmDate();
+        Integer mId = meeting.getId();
+        Integer mAvatar = meeting.getAvatar();
+        Date date = meeting.getDate();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         SimpleDateFormat tf = new SimpleDateFormat("HH:ss", Locale.FRANCE);
         mTime = tf.format(date).replace(":", "h");
         mDate = df.format(date);
-        mPlace = meeting.getmPlace();
-        mSubject = meeting.getmSubject();
-        mParticipants = meeting.getmParticipants().replace(",", "\n");
+        mPlace = meeting.getPlace();
+        mSubject = meeting.getSubject();
+        mParticipants = meeting.getParticipants().replace(",", "\n");
     }
 
     @Override

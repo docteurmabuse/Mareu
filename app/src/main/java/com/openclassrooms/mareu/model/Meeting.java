@@ -9,90 +9,90 @@ public class Meeting implements Serializable {
     /**
      * Meeting Identifier
      */
-    private Integer mId;
+    private Integer id;
 
     /**
      * Meeting Place
      */
-    private Integer mAvatar;
+    private Integer avatar;
 
     /**
      * Meeting Date
      */
-    private Date mDate;
+    private Date date;
 
 
     /**
      * Meeting Place
      */
-    private String mPlace;
+    private String place;
 
     /**
      * Meeting Subject
      */
-    private String mSubject;
+    private String subject;
 
     /**
      * Meeting Partcipants List
      */
-    private String mParticipants;
+    private String participants;
 
 
-    public Meeting(Integer mId, Integer mAvatar, Date mDate, String mPlace, String mSubject, String mParticipants) {
-        this.mId = mId;
-        this.mAvatar = mAvatar;
-        this.mDate = mDate;
-        this.mPlace = mPlace;
-        this.mSubject = mSubject;
-        this.mParticipants = mParticipants;
+    public Meeting(Integer id, Integer avatar, Date date, String place, String subject, String participants) {
+        this.id = id;
+        this.avatar = avatar;
+        this.date = date;
+        this.place = place;
+        this.subject = subject;
+        this.participants = participants;
     }
 
-    public Integer getmId() {
-        return mId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setmId(Integer mId) {
-        this.mId = mId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getmAvatar() {
-        return mAvatar;
+    public Integer getAvatar() {
+        return avatar;
     }
 
-    public void setmAvatar(Integer mAvatar) {
-        this.mAvatar = mAvatar;
+    public void setAvatar(Integer avatar) {
+        this.avatar = avatar;
     }
 
-    public Date getmDate() {
-        return mDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setmDate(Date mDate) {
-        this.mDate = mDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public String getmPlace() {
-        return mPlace;
+    public String getPlace() {
+        return place;
     }
 
-    public void setmPlace(String mPlace) {
-        this.mPlace = mPlace;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
-    public String getmSubject() {
-        return mSubject;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setmSubject(String mSubject) {
-        this.mSubject = mSubject;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public String getmParticipants() {
-        return mParticipants;
+    public String getParticipants() {
+        return participants;
     }
 
-    public void setmParticipants(String mParticipants) {
-        this.mParticipants = mParticipants;
+    public void setParticipants(String participants) {
+        this.participants = participants;
     }
 
     @Override
@@ -100,11 +100,11 @@ public class Meeting implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Meeting)) return false;
         Meeting meeting = (Meeting) o;
-        return Objects.equals(mId, meeting.mId);
+        return Objects.equals(id, meeting.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId);
+        return Objects.hash(id);
     }
 }

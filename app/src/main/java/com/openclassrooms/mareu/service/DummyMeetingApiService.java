@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.openclassrooms.mareu.ui.meeting_list.utils.Utils.formatter;
+import static com.openclassrooms.mareu.utils.Utils.formatter;
 
 public class DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> meetings = new ArrayList<>();
@@ -52,15 +52,15 @@ public class DummyMeetingApiService implements MeetingApiService {
         if (fPlaces.size() > 0 && fDate == null) {
             for (Meeting meeting : getMeetings()) {
                 for (Filters.Places places : fPlaces)
-                    if (meeting.getmPlace().contains(places.getpName())) {
+                    if (meeting.getPlace().contains(places.getpName())) {
                         fMeetings.add(meeting);
                     }
             }
         } else if (fPlaces.size() > 0) {
             for (Meeting meeting : getMeetings()) {
-                String mDate2 = formatter.format(meeting.getmDate());
+                String mDate2 = formatter.format(meeting.getDate());
                 for (Filters.Places places : fPlaces) {
-                    if (meeting.getmPlace().contains(places.getpName()) && mDate2.equals(mDate1)) {
+                    if (meeting.getPlace().contains(places.getpName()) && mDate2.equals(mDate1)) {
                         fMeetings.add(meeting);
                     }
                 }
@@ -68,7 +68,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         } else {
             // If fPlaces.size() = 0
             for (Meeting meeting : getMeetings()) {
-                String mDate2 = formatter.format(meeting.getmDate());
+                String mDate2 = formatter.format(meeting.getDate());
                 if (mDate2.equals(mDate1)) {
                     fMeetings.add(meeting);
                 }

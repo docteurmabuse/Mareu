@@ -62,8 +62,8 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
             @Override
             public void onOrientationChanged(int orientation) {
                 if (orientation == 0 || orientation == 180) {
-                    // mApiService.resetMeetings();
-                    //initRecyclerView();
+                    mApiService.resetMeetings();
+                    initRecyclerView();
                 } else if (orientation == 90 || orientation == 270) {
                     mApiService.resetMeetings();
                     initRecyclerView();
@@ -92,7 +92,6 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
             mRecyclerView.setVisibility(View.GONE);
             emptyData.setVisibility(View.VISIBLE);
             noMeeting.setVisibility(View.VISIBLE);
-
         } else {
             emptyData.setVisibility(View.GONE);
             noMeeting.setVisibility(View.GONE);
