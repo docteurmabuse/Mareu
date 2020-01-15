@@ -52,7 +52,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         if (fPlaces.size() > 0 && fDate == null) {
             for (Meeting meeting : getMeetings()) {
                 for (Place place : fPlaces)
-                    if (meeting.getPlace().getName().contains(place.getName())) {
+                    if (meeting.getPlace().getId() == place.getId()) {
                         fMeetings.add(meeting);
                     }
             }
@@ -60,7 +60,7 @@ public class DummyMeetingApiService implements MeetingApiService {
             for (Meeting meeting : getMeetings()) {
                 String mDate2 = formatter.format(meeting.getDate());
                 for (Place place : fPlaces) {
-                    if (meeting.getPlace().getName().contains(place.getName()) && mDate2.equals(mDate1)) {
+                    if (meeting.getPlace().getId() == place.getId() && mDate2.equals(mDate1)) {
                         fMeetings.add(meeting);
                     }
                 }
