@@ -3,8 +3,8 @@ package com.openclassrooms.mareu;
 
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Meeting;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.service.MeetingApiService;
-import com.openclassrooms.mareu.ui.meeting_list.filters.Filters.Places;
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
@@ -76,19 +76,19 @@ public class MeetingServiceTest {
         assertEquals(0, service.getMeetings().size());
         //add Dummy to the meeting lisr
         service.getMeetings().addAll(FAKE_MEETINGS);
-        List<Places> placesSelected = Arrays.asList(
-                new Places(9, "Wario"),
-                new Places(1, "Mario")
+        List<Place> placeSelected = Arrays.asList(
+                new Place(9, "Wario"),
+                new Place(1, "Mario")
         );
 
-        List<Meeting> meetingsDatePlaces = service.getFilteredMeetings(tomorrow, placesSelected);
+        List<Meeting> meetingsDatePlaces = service.getFilteredMeetings(tomorrow, placeSelected);
         List<Meeting> fMeetingExpectedDatePlaces = Arrays.asList(
                 new Meeting(2, 0xFF5E755F, tomorrow, "Mario", "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
                 new Meeting(4, 0xFF5E155F, tomorrow, "Wario", "Réunion D", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
         );
         assertArrayEquals(meetingsDatePlaces.toArray(), fMeetingExpectedDatePlaces.toArray());
 
-        List<Meeting> meetingsEmptyDate = service.getFilteredMeetings(null, placesSelected);
+        List<Meeting> meetingsEmptyDate = service.getFilteredMeetings(null, placeSelected);
         List<Meeting> fMeetingExpectedNoDate = Arrays.asList(
                 new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
                 new Meeting(2, 0xFF5E755F, tomorrow, "Mario", "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
@@ -97,8 +97,8 @@ public class MeetingServiceTest {
         );
         assertArrayEquals(meetingsEmptyDate.toArray(), fMeetingExpectedNoDate.toArray());
 
-        List<Places> emptyPlacesSelected = new ArrayList<>();
-        List<Meeting> meetingsEmptyPlaces = service.getFilteredMeetings(currentDate, emptyPlacesSelected);
+        List<Place> emptyPlaceSelected = new ArrayList<>();
+        List<Meeting> meetingsEmptyPlaces = service.getFilteredMeetings(currentDate, emptyPlaceSelected);
         List<Meeting> fMeetingExpectedDateNoPlaces = Arrays.asList(
                 new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
                 new Meeting(3, 0xFF5E888F, currentDate, "Wario", "Réunion C", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),

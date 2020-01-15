@@ -10,19 +10,18 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
 import java.util.List;
 
 public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.ViewHolder> {
 
-    private final List<Filters.Places> mValues;
+    private final List<Place> mValues;
     private final FilterListFragment.OnPlaceFragmentInteractionListener mListener;
     private boolean isSelected;
 
-
-    public PlaceFilterAdapter(List<Filters.Places> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
+    public PlaceFilterAdapter(List<Place> mValues, FilterListFragment.OnPlaceFragmentInteractionListener mListener) {
         this.mValues = mValues;
         this.mListener = mListener;
     }
@@ -36,10 +35,10 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        final Filters.Places places = mValues.get(position);
+        final Place place = mValues.get(position);
 
-        holder.fPlaces = mValues.get(position);
-        holder.fPlaceText.setText(mValues.get(position).getpName());
+        holder.fPlace = mValues.get(position);
+        holder.fPlaceText.setText(mValues.get(position).getName());
         holder.fCheckView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,14 +74,13 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         });
     }
 
-    private void removePlace(Filters.Places places) {
-        mListener.onPlaceFragmentInteraction(places, false);
+    private void removePlace(Place place) {
+        mListener.onPlaceFragmentInteraction(place, false);
     }
 
-    private void addPlace(Filters.Places pPlaces) {
-        mListener.onPlaceFragmentInteraction(pPlaces, true);
+    private void addPlace(Place pPlace) {
+        mListener.onPlaceFragmentInteraction(pPlace, true);
     }
-
 
     @Override
     public int getItemCount() {
@@ -93,7 +91,7 @@ public class PlaceFilterAdapter extends RecyclerView.Adapter<PlaceFilterAdapter.
         View fView;
         TextView fPlaceText;
         AppCompatCheckBox fCheckView;
-        Filters.Places fPlaces;
+        Place fPlace;
 
         ViewHolder(View view) {
             super(view);

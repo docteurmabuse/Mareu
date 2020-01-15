@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 
 import java.text.DateFormat;
@@ -32,8 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.PLACE_ITEMS;
-import static com.openclassrooms.mareu.ui.meeting_list.filters.Filters.Places;
+import static com.openclassrooms.mareu.model.Place.PLACE_ITEMS;
 import static com.openclassrooms.mareu.utils.Utils.clr;
 import static com.openclassrooms.mareu.utils.Utils.day;
 import static com.openclassrooms.mareu.utils.Utils.month;
@@ -49,7 +49,7 @@ public class FilterListFragment extends DialogFragment {
 
     private OnListFragmentInteractionListener mListener;
     private OnPlaceFragmentInteractionListener mListener2;
-    private List<Filters.Places> sortedPlaces;
+    private List<Place> sortedPlaces;
     private OnFilterButtonClickListener mListener3;
 
     private static final String TAG = "filter_dialog";
@@ -67,10 +67,10 @@ public class FilterListFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
         sortedPlaces = PLACE_ITEMS;
-        Collections.sort(sortedPlaces, new Comparator<Places>() {
+        Collections.sort(sortedPlaces, new Comparator<Place>() {
             @Override
-            public int compare(Places o1, Places o2) {
-                return o1.getpName().compareToIgnoreCase(o2.getpName());
+            public int compare(Place o1, Place o2) {
+                return o1.getName().compareToIgnoreCase(o2.getName());
             }
         });
     }
@@ -210,7 +210,7 @@ public class FilterListFragment extends DialogFragment {
 
     public interface OnPlaceFragmentInteractionListener {
 
-        void onPlaceFragmentInteraction(Places fPlaces, Boolean isSelected);
+        void onPlaceFragmentInteraction(Place fPlace, Boolean isSelected);
     }
 
     public interface OnFilterButtonClickListener {

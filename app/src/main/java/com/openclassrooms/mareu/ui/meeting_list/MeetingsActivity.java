@@ -20,10 +20,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.adapter.MeetingAdapter;
 import com.openclassrooms.mareu.ui.meeting_list.filters.FilterListFragment;
-import com.openclassrooms.mareu.ui.meeting_list.filters.Filters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,7 +39,7 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     private MeetingAdapter mAdapter;
     private MeetingApiService mApiService;
     private boolean mTwoPane;
-    private List<Filters.Places> placeSelected;
+    private List<Place> placeSelected;
     private Date fDate;
     private TextView emptyData;
     private ImageView noMeeting;
@@ -151,14 +151,14 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
         fDate = mDate;
     }
 
-    public void onPlaceFragmentInteraction(Filters.Places places, Boolean isSelected) {
+    public void onPlaceFragmentInteraction(Place place, Boolean isSelected) {
         RecyclerView mRecyclerView = findViewById(R.id.meetings_recylerview);
         assert mRecyclerView != null;
 
         if (isSelected) {
-            placeSelected.add(places);
+            placeSelected.add(place);
         } else {
-            placeSelected.remove(places);
+            placeSelected.remove(place);
         }
     }
 
