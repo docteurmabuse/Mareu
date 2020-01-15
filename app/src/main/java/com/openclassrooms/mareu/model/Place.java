@@ -71,4 +71,10 @@ public class Place {
                 new Place(10, "Yoshi"),
         };
     }
+
+    @Override
+    @NonNull
+    public String toString() {
+        return getName();
+    }
 }
