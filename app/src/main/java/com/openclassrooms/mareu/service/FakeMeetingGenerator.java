@@ -13,12 +13,12 @@ public class FakeMeetingGenerator {
     private static Date tomorrow = new Date(System.currentTimeMillis() + 86400000);
 
     public static List<Meeting> FAKE_MEETINGS = Arrays.asList(
-            new Meeting(1, 0xFF5E855F, currentDate, "Mario", "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-            new Meeting(2, 0xFF5E755F, tomorrow, "Mario", "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-            new Meeting(3, 0xFF5E888F, currentDate, "Wario", "Réunion C", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-            new Meeting(4, 0xFF5E155F, tomorrow, "Wario", "Réunion D", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-            new Meeting(5, 0xFF5E668F, currentDate, "Birdo", "Réunion E", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
-            new Meeting(6, 0xFF5E338F, currentDate, "Yoshi", "Réunion F", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
+            new Meeting(1, 0xFF5E855F, currentDate, 6, "Réunion A", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+            new Meeting(2, 0xFF5E755F, tomorrow, 6, "Réunion B", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+            new Meeting(3, 0xFF5E888F, currentDate, 9, "Réunion C", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+            new Meeting(4, 0xFF5E155F, tomorrow, 9, "Réunion D", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+            new Meeting(5, 0xFF5E668F, currentDate, 1, "Réunion E", "laurent.tizzone@gmail.com,l.tizzone@gmail.com"),
+            new Meeting(6, 0xFF5E338F, currentDate, 10, "Réunion F", "laurent.tizzone@gmail.com,l.tizzone@gmail.com")
     );
 
     public FakeMeetingGenerator() throws ParseException {

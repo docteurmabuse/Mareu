@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.events.DeleteMeetingEvent;
 import com.openclassrooms.mareu.model.Meeting;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.ui.meeting_list.MeetingDetailActivity;
 import com.openclassrooms.mareu.ui.meeting_list.MeetingDetailFragment;
 import com.openclassrooms.mareu.ui.meeting_list.MeetingsActivity;
@@ -83,7 +84,9 @@ public class MeetingAdapter
             formattedTime = tf.format(date);
 
         }
-        String Title = mMeetings.get(position).getSubject() + " - " + formattedDate + " - " + formattedTime.replace(":", "h") + " - " + mMeetings.get(position).getPlace();
+        final Place meetingPlace = meeting.getPlace();
+        assert meetingPlace != null;
+        String Title = mMeetings.get(position).getSubject() + " - " + formattedDate + " - " + formattedTime.replace(":", "h") + " - " + meetingPlace.getName();
         String Subtitle = meeting.getParticipants();
         GradientDrawable drawable = (GradientDrawable) holder.mAvatarView.getDrawable();
         drawable.setColor(meeting.getAvatar());

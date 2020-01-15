@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.openclassrooms.mareu.di.DI;
 import com.openclassrooms.mareu.model.Meeting;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.service.MeetingApiService;
 import com.openclassrooms.mareu.ui.meeting_list.NewMeetingActivity;
 
@@ -64,7 +65,9 @@ public class Utils {
                     break;
                 }
                 Date date1 = meeting.getDate();
-                String mPlace = meeting.getPlace();
+                final Place meetingPlace = meeting.getPlace();
+                assert meetingPlace != null;
+                String mPlace = meetingPlace.getName();
                 assert date2 != null;
                 long differenceinMn = Math.abs((date2.getTime() - date1.getTime()) / 60000);
                 if (mPlace.equals(placeSelected)) {
@@ -101,7 +104,7 @@ public class Utils {
         return isValidEmail;
     }
 
-    public static void addNewMeeting(int mSize, String mDateString, String place, String subject, String participants, Context context) {
+    public static void addNewMeeting(int mSize, String mDateString, int placeId, String subject, String participants, Context context) {
         int id = mSize + 1;
         int avatar = getRandomColor();
         formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
@@ -111,7 +114,7 @@ public class Utils {
             e.printStackTrace();
         }
         Date date = convertedDate;
-        Meeting meeting = new Meeting(id, avatar, date, place, subject, participants);
+        Meeting meeting = new Meeting(id, avatar, date, placeId, subject, participants);
         mApiService.addMeeting(meeting);
         ((NewMeetingActivity) context).finish();
     }

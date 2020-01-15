@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
 import com.openclassrooms.mareu.di.DI;
+import com.openclassrooms.mareu.model.Place;
 import com.openclassrooms.mareu.service.MeetingApiService;
 
 import static com.openclassrooms.mareu.utils.Utils.addNewMeeting;
@@ -51,6 +53,8 @@ public class NewMeetingActivity extends AppCompatActivity {
     private MeetingApiService mApiService = DI.getMeetingApiService();
     private String placeSelected;
     private String mDateString;
+
+    private final Place[] allPlaces = Place.getAllPlaces();
 
     public NewMeetingActivity() {
     }
@@ -86,6 +90,15 @@ public class NewMeetingActivity extends AppCompatActivity {
         mDate.addTextChangedListener(new ValidationTextWatcher(mDate));
         mTime.addTextChangedListener(new ValidationTextWatcher(mTime));
         mParticipants.addTextChangedListener(new ValidationTextWatcher(mParticipants));
+        initSpinner();
+    }
+
+    private void initSpinner() {
+        final ArrayAdapter<Place> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allPlaces);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        if (mPlaceList != null) {
+            mPlaceList.setAdapter(adapter);
+        }
     }
 
     private void initPlaceListener() {
@@ -106,12 +119,15 @@ public class NewMeetingActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Place meetingPlace = null;
+                if (mPlaceList.getSelectedItem() instanceof Place) {
+                    meetingPlace = (Place) mPlaceList.getSelectedItem();
+                }
                 if (!validateSubject(mSubject.getText().toString(), NewMeetingActivity.this, mSubject) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateDate(mDate.getText().toString(), NewMeetingActivity.this, mDate) || !validateTime(mTime.getText().toString(), NewMeetingActivity.this, mTime, mDateString, mDate.getText().toString(), placeSelected) || isNotValidTime(mApiService.getMeetings(), mDateString, placeSelected) || !validateParticipants(mParticipants.getText().toString(), NewMeetingActivity.this, mParticipants)) {
                     Snackbar.make(v, "Veuillez remplir les champs en rouge correctement", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 } else {
-                    addNewMeeting(mApiService.getMeetings().size(), mDateString, mPlaceList.getSelectedItem().toString(), mSubject.getText().toString(), mParticipants.getText().toString(), NewMeetingActivity.this);
+                    addNewMeeting(mApiService.getMeetings().size(), mDateString, meetingPlace.getId(), mSubject.getText().toString(), mParticipants.getText().toString(), NewMeetingActivity.this);
                     Snackbar.make(v, "La réunion a bien été ajouter!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }

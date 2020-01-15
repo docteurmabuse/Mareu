@@ -26,6 +26,7 @@ import com.openclassrooms.mareu.ui.meeting_list.adapter.PlaceFilterAdapter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -33,7 +34,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import static com.openclassrooms.mareu.model.Place.PLACE_ITEMS;
 import static com.openclassrooms.mareu.utils.Utils.clr;
 import static com.openclassrooms.mareu.utils.Utils.day;
 import static com.openclassrooms.mareu.utils.Utils.month;
@@ -51,6 +51,7 @@ public class FilterListFragment extends DialogFragment {
     private OnPlaceFragmentInteractionListener mListener2;
     private List<Place> sortedPlaces;
     private OnFilterButtonClickListener mListener3;
+    private Place[] allPlaces = Place.getAllPlaces();
 
     private static final String TAG = "filter_dialog";
     private Toolbar toolbar;
@@ -66,7 +67,7 @@ public class FilterListFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_NoActionBar_Fullscreen);
-        sortedPlaces = PLACE_ITEMS;
+        sortedPlaces = Arrays.asList(allPlaces);
         Collections.sort(sortedPlaces, new Comparator<Place>() {
             @Override
             public int compare(Place o1, Place o2) {

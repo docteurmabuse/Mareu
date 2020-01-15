@@ -1,5 +1,7 @@
 package com.openclassrooms.mareu.model;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -25,7 +27,7 @@ public class Meeting implements Serializable {
     /**
      * Meeting Place
      */
-    private String place;
+    private int placeId;
 
     /**
      * Meeting Subject
@@ -38,11 +40,11 @@ public class Meeting implements Serializable {
     private String participants;
 
 
-    public Meeting(Integer id, Integer avatar, Date date, String place, String subject, String participants) {
+    public Meeting(Integer id, Integer avatar, Date date, int placeId, String subject, String participants) {
         this.id = id;
         this.avatar = avatar;
         this.date = date;
-        this.place = place;
+        this.placeId = placeId;
         this.subject = subject;
         this.participants = participants;
     }
@@ -71,12 +73,13 @@ public class Meeting implements Serializable {
         this.date = date;
     }
 
-    public String getPlace() {
-        return place;
+    @Nullable
+    public Place getPlace() {
+        return Place.getPlaceById(placeId);
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setPlaceId(int placeId) {
+        this.placeId = placeId;
     }
 
     public String getSubject() {

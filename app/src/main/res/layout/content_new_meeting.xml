@@ -52,7 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/place_input"
-                android:entries="@array/labels_place_array"
                 android:pointerIcon="arrow"
                 android:prompt="@string/place_input"
                 android:spinnerMode="dialog"

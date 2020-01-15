@@ -85,7 +85,7 @@ public class MeetingDetailFragment extends Fragment {
         SimpleDateFormat tf = new SimpleDateFormat("HH:ss", Locale.FRANCE);
         mTime = tf.format(date).replace(":", "h");
         mDate = df.format(date);
-        mPlace = meeting.getPlace();
+        mPlace = meeting.getPlace().getName();
         mSubject = meeting.getSubject();
         mParticipants = meeting.getParticipants().replace(",", "\n");
     }
