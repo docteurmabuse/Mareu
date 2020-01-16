@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static com.openclassrooms.mareu.model.Place.FAKE_PLACES;
+import static com.openclassrooms.mareu.model.Place.getAllPlaces;
 import static com.openclassrooms.mareu.service.FakeMeetingGenerator.FAKE_MEETINGS;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -75,11 +75,12 @@ public class MeetingServiceTest {
         List<Meeting> meetings = service.getMeetings();
         //List should be empty at start
         assertEquals(0, service.getMeetings().size());
-        //add Dummy to the meeting lisr
+        //add Dummy to the meeting list
+        Place[] places = getAllPlaces();
         service.getMeetings().addAll(FAKE_MEETINGS);
         List<Place> placeSelected = Arrays.asList(
-                FAKE_PLACES.get(8),
-                FAKE_PLACES.get(5)
+                places[8],
+                places[5]
         );
 
         List<Meeting> meetingsDatePlaces = service.getFilteredMeetings(tomorrow, placeSelected);
@@ -118,6 +119,6 @@ public class MeetingServiceTest {
         //Reset meeting list
         service.resetMeetings();
         assertEquals(0, service.getMeetings().size());
-
     }
+
 }
