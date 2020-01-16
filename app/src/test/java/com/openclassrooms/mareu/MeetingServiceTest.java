@@ -66,8 +66,6 @@ public class MeetingServiceTest {
         service.deleteMeeting(meetingToDelete);
         assertFalse(service.getMeetings().contains(meetingToDelete));
         assertEquals(0, service.getMeetings().size());
-
-
     }
 
     @Test
