@@ -75,7 +75,7 @@ public class MeetingServiceTest {
         List<Meeting> meetings = service.getMeetings();
         //List should be empty at start
         assertEquals(0, service.getMeetings().size());
-        //add Dummy to the meeting lisr
+        //add Dummy to the meeting list
         service.getMeetings().addAll(FAKE_MEETINGS);
         List<Place> placeSelected = Arrays.asList(
                 FAKE_PLACES.get(8),

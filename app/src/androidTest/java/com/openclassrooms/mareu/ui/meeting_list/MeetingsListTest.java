@@ -8,6 +8,7 @@ import android.widget.TimePicker;
 
 import androidx.test.espresso.DataInteraction;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
@@ -19,7 +20,6 @@ import com.openclassrooms.mareu.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -351,17 +351,9 @@ public class MeetingsListTest {
                                 0),
                         isDisplayed()));
         onView(withId(R.id.form_btn)).perform(click());
-        ViewInteraction materialCardView = onView(
-                allOf(withId(R.id.item_list_meeting_avatar),
-                        childAtPosition(
-                                allOf(withId(R.id.meetings_recylerview),
-                                        childAtPosition(
-                                                withId(R.id.frameLayout),
-                                                1)),
-                                0),
-                        isDisplayed()));
-        materialCardView.perform(click());
-
+        //click on new created item in the recyclerview
+        onView(ViewMatchers.withId(R.id.meetings_recylerview)).perform((RecyclerViewActions.actionOnItemAtPosition(0,
+                click())));
         ViewInteraction textView = onView(
                 allOf(withId(R.id.place_detail), withText("Luigi"),
                         childAtPosition(
@@ -371,16 +363,6 @@ public class MeetingsListTest {
                                 0),
                         isDisplayed()));
         textView.check(matches(withText("Luigi")));
-
-        ViewInteraction frameLayout = onView(
-                allOf(withId(R.id.toolbar_layout), withContentDescription("Réunion A"),
-                        childAtPosition(
-                                childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        0),
-                                0),
-                        isDisplayed()));
-        frameLayout.check(matches(isDisplayed()));
     }
 
     @Test
