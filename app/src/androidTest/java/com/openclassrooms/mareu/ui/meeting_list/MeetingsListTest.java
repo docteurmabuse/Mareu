@@ -16,6 +16,7 @@ import androidx.test.runner.AndroidJUnit4;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.openclassrooms.mareu.R;
+import com.openclassrooms.mareu.utils.DeleteViewAction;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -263,17 +264,8 @@ public class MeetingsListTest {
 
         // Given : We remove the element we just add
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(1));
-        // When perform a click on a delete icon
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button), withContentDescription("Delete Meeting Button"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraint),
-                                        childAtPosition(
-                                                withId(R.id.item_list_meeting_avatar),
-                                                0)),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        onView(ViewMatchers.withId(R.id.meetings_recylerview))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, new DeleteViewAction()));
         //Then then number of element is 0
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
     }
@@ -352,8 +344,20 @@ public class MeetingsListTest {
                         isDisplayed()));
         onView(withId(R.id.form_btn)).perform(click());
         //click on new created item in the recyclerview
-        onView(ViewMatchers.withId(R.id.meetings_recylerview)).perform((RecyclerViewActions.actionOnItemAtPosition(0,
-                click())));
+       /* onView(ViewMatchers.withId(R.id.meetings_recylerview))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));*/
+        ViewInteraction materialCardView = onView(
+                allOf(withId(R.id.item_list_meeting_avatar),
+                        childAtPosition(
+                                allOf(withId(R.id.meetings_recylerview),
+                                        childAtPosition(
+                                                withId(R.id.frameLayout),
+                                                1)),
+                                0),
+                        isDisplayed()));
+        materialCardView.perform(click());
+        /*onView(withId(R.id.place_detail))
+                .check(matches(withText("Luigi")));*/
         ViewInteraction textView = onView(
                 allOf(withId(R.id.place_detail), withText("Luigi"),
                         childAtPosition(
