@@ -52,7 +52,6 @@ public class FilterListFragment extends DialogFragment {
     private List<Place> sortedPlaces;
     private OnFilterButtonClickListener mListener3;
     private Place[] allPlaces = Place.getAllPlaces();
-
     private static final String TAG = "filter_dialog";
     private Toolbar toolbar;
     private TextView dateText;
@@ -88,7 +87,6 @@ public class FilterListFragment extends DialogFragment {
         RecyclerView placeRecyclerView2 = view.findViewById(R.id.recycler_1);
         placeRecyclerView2.setLayoutManager(new LinearLayoutManager(context));
         placeRecyclerView2.setAdapter(new PlaceFilterAdapter(sortedPlaces, mListener2));
-
         MaterialButton bDateFilter = view.findViewById(R.id.date_btn);
         dateText = view.findViewById(R.id.filter_date_txt);
         bDateFilter.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +103,8 @@ public class FilterListFragment extends DialogFragment {
                 dismiss();
             }
         });
+        toolbar.setTitle("Filtres");
+        toolbar.setTitleTextColor(Color.WHITE);
         return view;
     }
 
@@ -118,8 +118,6 @@ public class FilterListFragment extends DialogFragment {
                 dismiss();
             }
         });
-        toolbar.setTitle("Filtres");
-        toolbar.setTitleTextColor(Color.WHITE);
     }
 
     @Override

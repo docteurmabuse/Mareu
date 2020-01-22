@@ -475,6 +475,8 @@ public class MeetingsListTest {
         //Click on filter menu
         onView(withId(R.id.icon_filter_menu)).perform(click());
         //Click on Date Btn
+        /*onView(ViewMatchers.withId(R.id.relative_date))
+                .perform(clickChildView(R.id.date_btn));*/
         onView(withId(R.id.date_btn)).perform(click());
         // Sets a date in 3 days from now on the date picker widget
         onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month + 1, day + 3));
