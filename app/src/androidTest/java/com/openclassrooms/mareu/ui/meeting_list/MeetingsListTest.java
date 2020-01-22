@@ -346,17 +346,9 @@ public class MeetingsListTest {
                         isDisplayed()));
         onView(withId(R.id.form_btn)).perform(click());
         //click on new created item in the recyclerview
-        onView(withId(R.id.meetings_recylerview)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.place_detail), withText("Luigi"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.item_detail_container),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Luigi")));
+        onView(ViewMatchers.withId(R.id.meetings_recylerview))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.place_detail)).check(matches(withText("Luigi")));
     }
 
     @Test
