@@ -211,6 +211,12 @@ public class MeetingsActivity extends AppCompatActivity implements FilterListFra
     @Subscribe
     public void DeleteMeetingEvent(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.meeting);
+        if (mTwoPane) {
+            (findViewById(R.id.place_detail)).setVisibility(View.GONE);
+            (findViewById(R.id.date_detail)).setVisibility(View.GONE);
+            (findViewById(R.id.time_detail)).setVisibility(View.GONE);
+            (findViewById(R.id.participants_detail)).setVisibility(View.GONE);
+        }
         initRecyclerView();
     }
 }
