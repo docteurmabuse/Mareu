@@ -36,6 +36,13 @@ public interface MeetingApiService {
      */
     void deleteMeeting(Meeting meeting);
 
+
+    /**
+     * Filter list of meetings
+     *
+     * @param fDate
+     * @param fPlaces
+     */
     List<Meeting> getFilteredMeetings(Date fDate, List<Place> fPlaces);
 
 }
