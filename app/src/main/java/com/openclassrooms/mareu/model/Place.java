@@ -11,6 +11,11 @@ import java.util.List;
  * <p>
  */
 public class Place {
+    private final Integer id;
+
+    @NonNull
+    private final String name;
+
     /**
      * An array of Meetings Place List items.
      */
@@ -27,33 +32,27 @@ public class Place {
             new Place(10, "Yoshi")
     );
 
-    private final Integer id;
-
-    @NonNull
-    private final String name;
 
     private Place(Integer id, @NonNull String name) {
         this.id = id;
         this.name = name;
     }
 
-
     public Integer getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    @NonNull
-    public static Place getPlaceById(int id) {
+    static Place getPlaceById(int id) {
         for (Place place : getAllPlaces()) {
             if (place.id == id)
                 return place;
         }
         return null;
+    }
+
+    @NonNull
+    public String getName() {
+        return name;
     }
 
     @NonNull

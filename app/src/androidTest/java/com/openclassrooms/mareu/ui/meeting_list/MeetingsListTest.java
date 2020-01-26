@@ -40,6 +40,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.openclassrooms.mareu.utils.RecyclerViewItemCountAssertion.clickChildView;
 import static com.openclassrooms.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static com.openclassrooms.mareu.utils.Utils.day;
 import static com.openclassrooms.mareu.utils.Utils.hours;
@@ -264,16 +265,9 @@ public class MeetingsListTest {
         // Given : We remove the element we just add
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(1));
         // When perform a click on a delete icon
-        ViewInteraction appCompatImageButton = onView(
-                allOf(withId(R.id.item_list_meeting_delete_button), withContentDescription("Delete Meeting Button"),
-                        childAtPosition(
-                                allOf(withId(R.id.constraint),
-                                        childAtPosition(
-                                                withId(R.id.item_list_meeting_avatar),
-                                                0)),
-                                2),
-                        isDisplayed()));
-        appCompatImageButton.perform(click());
+        onView(ViewMatchers.withId(R.id.meetings_recylerview))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, clickChildView(R.id.item_list_meeting_delete_button)));
+
         //Then then number of element is 0
         onView(ViewMatchers.withId(R.id.meetings_recylerview)).check(withItemCount(ITEMS_COUNT));
     }
@@ -352,17 +346,9 @@ public class MeetingsListTest {
                         isDisplayed()));
         onView(withId(R.id.form_btn)).perform(click());
         //click on new created item in the recyclerview
-        onView(ViewMatchers.withId(R.id.meetings_recylerview)).perform((RecyclerViewActions.actionOnItemAtPosition(0,
-                click())));
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.place_detail), withText("Luigi"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.item_detail_container),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Luigi")));
+        onView(ViewMatchers.withId(R.id.meetings_recylerview))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.place_detail)).check(matches(withText("Luigi")));
     }
 
     @Test
@@ -481,6 +467,8 @@ public class MeetingsListTest {
         //Click on filter menu
         onView(withId(R.id.icon_filter_menu)).perform(click());
         //Click on Date Btn
+        /*onView(ViewMatchers.withId(R.id.relative_date))
+                .perform(clickChildView(R.id.date_btn));*/
         onView(withId(R.id.date_btn)).perform(click());
         // Sets a date in 3 days from now on the date picker widget
         onView(isAssignableFrom(DatePicker.class)).perform(setDate(year, month + 1, day + 3));
